@@ -29,7 +29,7 @@ namespace 过雨烟云
             //从数据库获取数据
             DataTable dataTable = new DataTable();
 
-             string FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
+            string FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
             string[] sqlCommand = new[] { "SELECT * FROM commpanyinfo" };
             Query query = new Query(FileDir, DB.DbType.Sqlite);
             query.Execute(sqlCommand);
