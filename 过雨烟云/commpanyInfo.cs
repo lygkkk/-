@@ -40,7 +40,7 @@ namespace 过雨烟云
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
                 dataGridView1.Rows[i].HeaderCell.Value = (i + 1).ToString();
-                dataGridView1.RowHeadersWidth = 50;
+                dataGridView1.RowHeadersWidth = 60;
                 for (int j = 1; j < dataTable.Columns.Count; j++)
                 {
                     dataGridView1.Rows[i].Cells[j - 1].Value = dataTable.Rows[i][j];

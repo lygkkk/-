@@ -13,8 +13,16 @@ namespace 过雨烟云
 {
     public partial class AddCustomerInfo : Form
     {
-        public AddCustomerInfo()
+
+        private commpanyInfo _commpanyInfo = null;
+
+        public commpanyInfo CommpanyInfo { get => _commpanyInfo; set => _commpanyInfo = value; }
+
+
+
+        public AddCustomerInfo(commpanyInfo commpanyInfo)
         {
+            CommpanyInfo = commpanyInfo;
             InitializeComponent();
         }
 
@@ -53,6 +61,14 @@ namespace 过雨烟云
             textBox4.Text = "";
             textBox5.Text = "";
             textBox6.Text = "";
+
+            int dgvRowIndex = CommpanyInfo.dgv.RowCount - 1;
+            CommpanyInfo.dgv.Rows.Add();
+            CommpanyInfo.dgv.Rows[dgvRowIndex].HeaderCell.Value = dgvRowIndex + 1;
+            for (int i = 0; i < str.Length; i++)
+            {
+                CommpanyInfo.dgv.Rows[dgvRowIndex].Cells[i].Value = str[i];
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)

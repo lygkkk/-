@@ -78,6 +78,12 @@
     <Compile Include="CommpanyInfoModify.Designer.cs">
       <DependentUpon>CommpanyInfoModify.cs</DependentUpon>
     </Compile>
+    <Compile Include="CommpanyInfoQuery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CommpanyInfoQuery.Designer.cs">
+      <DependentUpon>CommpanyInfoQuery.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBCnn.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -111,6 +117,12 @@
     <Compile Include="StepPrompt.Designer.cs">
       <DependentUpon>StepPrompt.cs</DependentUpon>
     </Compile>
+    <Compile Include="UC_commpanyInfoQuery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UC_commpanyInfoQuery.Designer.cs">
+      <DependentUpon>UC_commpanyInfoQuery.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddCustomerInfo.resx">
       <DependentUpon>AddCustomerInfo.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CommpanyInfoModify.resx">
       <DependentUpon>CommpanyInfoModify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommpanyInfoQuery.resx">
+      <DependentUpon>CommpanyInfoQuery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -147,6 +162,9 @@
     </Compile>
     <EmbeddedResource Include="StepPrompt.resx">
       <DependentUpon>StepPrompt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UC_commpanyInfoQuery.resx">
+      <DependentUpon>UC_commpanyInfoQuery.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -37,7 +37,7 @@ namespace 过雨烟云
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            toolStrip1.Visible = false;
         }
 
         private void 基础信息ToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -64,16 +64,14 @@ namespace 过雨烟云
             {
                 this.ActiveMdiChild.Visible = false;
             }
-
-            CommpanyInfo.dgv.ReadOnly = true;
             CommpanyInfo.Show();
-
-            
-
+            toolStrip1.Visible = true;
         }
 
         private void 发票录入ToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
+
+            //============================================================
             if (InVoiceInfo == null || InVoiceInfo.IsDisposed == true)
             {
                 InVoiceInfo = new InVoiceInfo();
@@ -100,7 +98,7 @@ namespace 过雨烟云
 
             if (ActiveMdiChild.Text == "单位信息")
             {
-                AddCustomerInfo addCustomerInfo = new AddCustomerInfo();
+                AddCustomerInfo addCustomerInfo = new AddCustomerInfo(CommpanyInfo);
                 addCustomerInfo.ShowDialog();
             }
 
@@ -152,6 +150,11 @@ namespace 过雨烟云
             }
         }
 
+        private void tsbtn_query_Click(object sender, EventArgs e)
+        {
+           CommpanyInfoQuery commpanyInfoQuery = new CommpanyInfoQuery(CommpanyInfo);
+            commpanyInfoQuery.ShowDialog();
 
+        }
     }
 }
