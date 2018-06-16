@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "过雨烟云", "过雨烟云\过雨烟云.csproj", "{760D084C-7163-43DE-8494-D3339CA58275}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{760D084C-7163-43DE-8494-D3339CA58275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{760D084C-7163-43DE-8494-D3339CA58275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{760D084C-7163-43DE-8494-D3339CA58275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{760D084C-7163-43DE-8494-D3339CA58275}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C524E0BC-C458-4508-B902-6C32D1390772}
+	EndGlobalSection
+EndGlobal
