@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "过雨烟云", "过雨烟云\过雨烟云.csproj", "{760D084C-7163-43DE-8494-D3339CA58275}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Invoice", "FormInvoice\Invoice.csproj", "{5120984E-851D-4226-A0CB-910E159359D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{760D084C-7163-43DE-8494-D3339CA58275}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{760D084C-7163-43DE-8494-D3339CA58275}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{760D084C-7163-43DE-8494-D3339CA58275}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5120984E-851D-4226-A0CB-910E159359D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5120984E-851D-4226-A0CB-910E159359D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5120984E-851D-4226-A0CB-910E159359D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5120984E-851D-4226-A0CB-910E159359D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

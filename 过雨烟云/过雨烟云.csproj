@@ -173,5 +173,11 @@
   <ItemGroup>
     <Folder Include="Resources\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FormInvoice\Invoice.csproj">
+      <Project>{5120984e-851d-4226-a0cb-910e159359d6}</Project>
+      <Name>Invoice</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

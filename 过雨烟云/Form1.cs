@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using DB;
 using commpanyInfo = 过雨烟云.commpanyInfo;
+using Invoice;
 
 namespace 过雨烟云
 {
@@ -71,21 +72,25 @@ namespace 过雨烟云
         private void 发票录入ToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
 
+            Invoice.Form1 invoiceform1 = new Invoice.Form1();
+
+            invoiceform1.Form.Text = "sjb";
+            invoiceform1.Form.Show();
             //============================================================
-            if (InVoiceInfo == null || InVoiceInfo.IsDisposed == true)
-            {
-                InVoiceInfo = new InVoiceInfo();
-            }
+            //if (InVoiceInfo == null || InVoiceInfo.IsDisposed == true)
+            //{
+            //    InVoiceInfo = new InVoiceInfo();
+            //}
 
-            InVoiceInfo.MdiParent = this;
-            InVoiceInfo.Dock = DockStyle.Fill;
-            if (ActiveMdiChild != null)
-            {
-                this.ActiveMdiChild.Visible = false;
-            }
+            //InVoiceInfo.MdiParent = this;
+            //InVoiceInfo.Dock = DockStyle.Fill;
+            //if (ActiveMdiChild != null)
+            //{
+            //    this.ActiveMdiChild.Visible = false;
+            //}
 
-            InVoiceInfo.FormBorderStyle = FormBorderStyle.None;
-            InVoiceInfo.Show();
+            //InVoiceInfo.FormBorderStyle = FormBorderStyle.None;
+            //InVoiceInfo.Show();
 
         }
 
