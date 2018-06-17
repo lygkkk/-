@@ -108,6 +108,7 @@ namespace 过雨烟云
         //窗体启动初始化datagridview
         private void Form_InVoiceEntry_Load(object sender, EventArgs e)
         {
+            //MessageBox.Show(panel1.Contains(tb_invoicecode).ToString());
             DataGridViewColumn dgvcolumn = new DataGridViewColumn();
             dataGridView1.ColumnCount = 8;
             dataGridView1.Columns[0].Width = 183;
@@ -115,9 +116,13 @@ namespace 过雨烟云
             dataGridView1.Columns[0].Name = "货物或应税劳务、服务名称";
             dataGridView1.Columns[1].Name = "规格型号";
             dataGridView1.Columns[1].Width = 100;
+            dataGridView1.Columns[1].ReadOnly = true;
+
             //dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; //单元格文本居中
             dataGridView1.Columns[2].Name = "单位";
             dataGridView1.Columns[2].Width = 80;
+            dataGridView1.Columns[2].ReadOnly = true;
+
             dataGridView1.Columns[3].Name = "数量";
             dataGridView1.Columns[3].Width = 90;
             dataGridView1.Columns[4].Name = "单价(含税)";
@@ -129,6 +134,7 @@ namespace 过雨烟云
             dataGridView1.Columns[7].Name = "税额";
             dataGridView1.Columns[7].Width = 80;
             panel1.Left = (this.Width - panel1.Width) / 2;
+            panel1.Size = new Size(1200,768);
         }
 
         //保存数据

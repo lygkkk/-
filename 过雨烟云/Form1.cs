@@ -19,10 +19,12 @@ namespace 过雨烟云
         private commpanyInfo _commpany= null;
         private InVoiceInfo _inVoiceInfo = null;
         private CommpanyInfoModify _commpanyInfoModify = null;
+        private Form_InVoiceEntry _formInVoiceEntry = null;
 
         public commpanyInfo CommpanyInfo { get => _commpany; set => _commpany = value; }
         public InVoiceInfo InVoiceInfo { get => _inVoiceInfo; set => _inVoiceInfo = value; }
         public CommpanyInfoModify CommpanyInfoModify { get => _commpanyInfoModify; set => _commpanyInfoModify = value; }
+        public Form_InVoiceEntry FormInVoiceEntry { get => _formInVoiceEntry; set => _formInVoiceEntry = value; }
 
         public Form1()
         {
@@ -31,8 +33,8 @@ namespace 过雨烟云
 
         private void 发票录入ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form_InVoiceEntry inVoiceEntry = new Form_InVoiceEntry();
-            inVoiceEntry.ShowDialog();
+            //Form_InVoiceEntry inVoiceEntry = new Form_InVoiceEntry();
+            //inVoiceEntry.ShowDialog();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -73,30 +75,60 @@ namespace 过雨烟云
             Form formInvoice = new Form();
             formInvoice.Text = "发票信息";
             formInvoice.Name = "InvioceInfo";
-
-            DataGridView dataGridView = new DataGridView();
-            dataGridView.Dock = DockStyle.Fill;
-
-            formInvoice.Controls.Add(dataGridView);
             formInvoice.MdiParent = this;
             formInvoice.Dock = DockStyle.Fill;
             formInvoice.FormBorderStyle = FormBorderStyle.None;
-            
+
+
+
+            DataGridView dataGridView = new DataGridView();
+            DataGridViewColumn[] dgvColumn = new DataGridViewColumn[2];
+
+
+            //DataGridViewComboBoxColumn dgvComboBoxColumn = new DataGridViewComboBoxColumn{HeaderText = "combobox", CellTemplate = new DataGridViewTextBoxCell()};
+
+            //DataGridViewTextBoxColumn acCode = new DataGridViewTextBoxColumn();
+            //acCode.Name = "acCode";
+            //acCode.DataPropertyName = "acCode";
+            //acCode.HeaderText = "A/C Code";
+
+
+
+
+            //DataGridViewTextBoxColumn dgvTextBoxColumn = new DataGridViewTextBoxColumn();
+            //dgvTextBoxColumn.HeaderText = "cp";
+            //dgvColumn[0] = new DataGridViewColumn();
+            dgvColumn[0] = new DataGridViewComboBoxColumn { HeaderText = "cp" };
+
+
+            //dgvColumn[1] = new DataGridViewTextBoxColumn {HeaderText = "sl"};
+            dgvColumn[1] = new DataGridViewTextBoxColumn{HeaderText = "sl"};
+            //dgvColumn[1] = dgvComboBoxColumn;
+
+
+            dataGridView.Dock = DockStyle.Fill;
+            dataGridView.Columns.AddRange(dgvColumn);
+            //dataGridView.Columns.Add(acCode);
+
+            formInvoice.Controls.Add(dataGridView);
+
+
 
             //从数据库获取数据
-            DataTable dataTable = new DataTable();
+            //DataTable dataTable = new DataTable();
 
-            string FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
-            string[] sqlCommand = new[] { "SELECT id, a.invoicecode AS '发票代码', a.invoicenumber AS '发票号码', a.date AS '日期', " +
-                                          "b.commpanyname AS '单位名称', b.taxnumber AS '纳税人税号', b.address AS '地址电话'," +
-                                          "b.bank AS '开户行及帐号', a.productname AS '货物名称', a.unitprice AS '单价', a.money AS '金额'，" +
-                                          "a.taxrate AS '税率', a.taxamount AS '税额', a.  FROM invoiceinfo" };
-            Query query = new Query(FileDir, DB.DbType.Sqlite);
-            query.Execute(sqlCommand);
-            dataTable = query.DataTable;
+            //string FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
+            //string[] sqlCommand = new[] { "SELECT id, a.invoicecode AS '发票代码', a.invoicenumber AS '发票号码', a.date AS '日期', " +
+            //                              "b.commpanyname AS '单位名称', b.taxnumber AS '纳税人税号', b.address AS '地址电话'," +
+            //                              "b.bank AS '开户行及帐号', a.unitprice AS '单价', a.money AS '金额'，" +
+            //                              "a.taxrate AS '税率', a.taxamount AS '税额', a.  FROM invoiceinfo" };
+            //Query query = new Query(FileDir, DB.DbType.Sqlite);
+            //query.Execute(sqlCommand);
+            //dataTable = query.DataTable;
 
 
             formInvoice.Show();
+            toolStrip1.Visible = true;
             //============================================================
             //if (InVoiceInfo == null || InVoiceInfo.IsDisposed == true)
             //{
@@ -117,18 +149,23 @@ namespace 过雨烟云
 
         private void tsbtn_add_Click(object sender, EventArgs e)
         {
-            if (ActiveMdiChild == null)
-            {
-                return;
-            }
+            if (ActiveMdiChild == null) return;
 
-            if (ActiveMdiChild.Text == "单位信息")
+            switch (ActiveMdiChild.Text)
             {
-                AddCustomerInfo addCustomerInfo = new AddCustomerInfo(CommpanyInfo);
-                addCustomerInfo.ShowDialog();
-            }
+                case "单位信息":
+                    AddCustomerInfo addCustomerInfo = new AddCustomerInfo(CommpanyInfo);
+                    addCustomerInfo.ShowDialog();
+                    break;
+                case "发票信息":
+                    FormInVoiceEntry = new Form_InVoiceEntry();
+                    
+                    
 
-            
+                    FormInVoiceEntry.WindowState = FormWindowState.Maximized;
+                    FormInVoiceEntry.ShowDialog();
+                    break;
+            }
         }
 
 
