@@ -69,174 +69,174 @@
             // tb_buyersname
             // 
             this.tb_buyersname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_buyersname.Location = new System.Drawing.Point(281, 170);
+            this.tb_buyersname.Location = new System.Drawing.Point(386, 214);
             this.tb_buyersname.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_buyersname.Name = "tb_buyersname";
-            this.tb_buyersname.Size = new System.Drawing.Size(478, 21);
+            this.tb_buyersname.Size = new System.Drawing.Size(357, 21);
             this.tb_buyersname.TabIndex = 1;
             this.tb_buyersname.TextChanged += new System.EventHandler(this.tb_buyersname_TextChanged);
             // 
             // tb_buyerstaxnumber
             // 
             this.tb_buyerstaxnumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_buyerstaxnumber.Location = new System.Drawing.Point(281, 198);
+            this.tb_buyerstaxnumber.Location = new System.Drawing.Point(386, 238);
             this.tb_buyerstaxnumber.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_buyerstaxnumber.Name = "tb_buyerstaxnumber";
-            this.tb_buyerstaxnumber.Size = new System.Drawing.Size(478, 21);
+            this.tb_buyerstaxnumber.Size = new System.Drawing.Size(357, 21);
             this.tb_buyerstaxnumber.TabIndex = 2;
             // 
             // tb_buyersaddress
             // 
             this.tb_buyersaddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_buyersaddress.Location = new System.Drawing.Point(281, 226);
+            this.tb_buyersaddress.Location = new System.Drawing.Point(386, 261);
             this.tb_buyersaddress.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_buyersaddress.Name = "tb_buyersaddress";
-            this.tb_buyersaddress.Size = new System.Drawing.Size(478, 21);
+            this.tb_buyersaddress.Size = new System.Drawing.Size(357, 21);
             this.tb_buyersaddress.TabIndex = 3;
             // 
             // tb_buyersbank
             // 
             this.tb_buyersbank.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_buyersbank.Location = new System.Drawing.Point(281, 256);
+            this.tb_buyersbank.Location = new System.Drawing.Point(386, 284);
             this.tb_buyersbank.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_buyersbank.Name = "tb_buyersbank";
-            this.tb_buyersbank.Size = new System.Drawing.Size(478, 21);
+            this.tb_buyersbank.Size = new System.Drawing.Size(357, 21);
             this.tb_buyersbank.TabIndex = 4;
             // 
             // tb_invoicenumber
             // 
             this.tb_invoicenumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_invoicenumber.Location = new System.Drawing.Point(964, 62);
+            this.tb_invoicenumber.Location = new System.Drawing.Point(895, 130);
             this.tb_invoicenumber.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_invoicenumber.Name = "tb_invoicenumber";
-            this.tb_invoicenumber.Size = new System.Drawing.Size(305, 21);
+            this.tb_invoicenumber.Size = new System.Drawing.Size(244, 21);
             this.tb_invoicenumber.TabIndex = 6;
             // 
             // textBox47
             // 
             this.textBox47.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox47.Location = new System.Drawing.Point(855, 491);
+            this.textBox47.Location = new System.Drawing.Point(809, 472);
             this.textBox47.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox47.Name = "textBox47";
-            this.textBox47.Size = new System.Drawing.Size(171, 21);
+            this.textBox47.Size = new System.Drawing.Size(132, 21);
             this.textBox47.TabIndex = 47;
             // 
             // textBox48
             // 
             this.textBox48.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox48.Location = new System.Drawing.Point(1079, 491);
+            this.textBox48.Location = new System.Drawing.Point(977, 472);
             this.textBox48.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox48.Name = "textBox48";
-            this.textBox48.Size = new System.Drawing.Size(173, 21);
+            this.textBox48.Size = new System.Drawing.Size(135, 21);
             this.textBox48.TabIndex = 48;
             // 
             // tb_moneyupper
             // 
             this.tb_moneyupper.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_moneyupper.Location = new System.Drawing.Point(459, 526);
+            this.tb_moneyupper.Location = new System.Drawing.Point(515, 501);
             this.tb_moneyupper.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_moneyupper.Name = "tb_moneyupper";
-            this.tb_moneyupper.Size = new System.Drawing.Size(485, 21);
+            this.tb_moneyupper.Size = new System.Drawing.Size(360, 21);
             this.tb_moneyupper.TabIndex = 49;
             // 
             // tb_moneylow
             // 
             this.tb_moneylow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_moneylow.Location = new System.Drawing.Point(1000, 526);
+            this.tb_moneylow.Location = new System.Drawing.Point(922, 501);
             this.tb_moneylow.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_moneylow.Name = "tb_moneylow";
-            this.tb_moneylow.Size = new System.Drawing.Size(253, 21);
+            this.tb_moneylow.Size = new System.Drawing.Size(190, 21);
             this.tb_moneylow.TabIndex = 50;
             // 
             // tb_sellersbank
             // 
             this.tb_sellersbank.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_sellersbank.Location = new System.Drawing.Point(292, 640);
+            this.tb_sellersbank.Location = new System.Drawing.Point(386, 590);
             this.tb_sellersbank.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_sellersbank.Name = "tb_sellersbank";
-            this.tb_sellersbank.Size = new System.Drawing.Size(469, 21);
+            this.tb_sellersbank.Size = new System.Drawing.Size(357, 21);
             this.tb_sellersbank.TabIndex = 54;
             // 
             // tb_sellersaddress
             // 
             this.tb_sellersaddress.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_sellersaddress.Location = new System.Drawing.Point(292, 614);
+            this.tb_sellersaddress.Location = new System.Drawing.Point(386, 569);
             this.tb_sellersaddress.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_sellersaddress.Name = "tb_sellersaddress";
-            this.tb_sellersaddress.Size = new System.Drawing.Size(469, 21);
+            this.tb_sellersaddress.Size = new System.Drawing.Size(357, 21);
             this.tb_sellersaddress.TabIndex = 53;
             // 
             // tb_sellerstaxnumber
             // 
             this.tb_sellerstaxnumber.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_sellerstaxnumber.Location = new System.Drawing.Point(292, 588);
+            this.tb_sellerstaxnumber.Location = new System.Drawing.Point(386, 548);
             this.tb_sellerstaxnumber.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_sellerstaxnumber.Name = "tb_sellerstaxnumber";
-            this.tb_sellerstaxnumber.Size = new System.Drawing.Size(469, 21);
+            this.tb_sellerstaxnumber.Size = new System.Drawing.Size(357, 21);
             this.tb_sellerstaxnumber.TabIndex = 52;
             // 
             // tb_sellersname
             // 
             this.tb_sellersname.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_sellersname.Location = new System.Drawing.Point(292, 561);
+            this.tb_sellersname.Location = new System.Drawing.Point(386, 527);
             this.tb_sellersname.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_sellersname.Name = "tb_sellersname";
-            this.tb_sellersname.Size = new System.Drawing.Size(469, 21);
+            this.tb_sellersname.Size = new System.Drawing.Size(357, 21);
             this.tb_sellersname.TabIndex = 51;
             this.tb_sellersname.TextChanged += new System.EventHandler(this.tb_sellersname_TextChanged);
             // 
             // tb_payee
             // 
             this.tb_payee.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_payee.Location = new System.Drawing.Point(200, 676);
+            this.tb_payee.Location = new System.Drawing.Point(318, 617);
             this.tb_payee.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_payee.Name = "tb_payee";
-            this.tb_payee.Size = new System.Drawing.Size(223, 21);
+            this.tb_payee.Size = new System.Drawing.Size(172, 21);
             this.tb_payee.TabIndex = 55;
             // 
             // tb_check
             // 
             this.tb_check.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_check.Location = new System.Drawing.Point(501, 676);
+            this.tb_check.Location = new System.Drawing.Point(552, 617);
             this.tb_check.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_check.Name = "tb_check";
-            this.tb_check.Size = new System.Drawing.Size(191, 21);
+            this.tb_check.Size = new System.Drawing.Size(140, 21);
             this.tb_check.TabIndex = 56;
             // 
             // tb_drawer
             // 
             this.tb_drawer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_drawer.Location = new System.Drawing.Point(752, 676);
+            this.tb_drawer.Location = new System.Drawing.Point(739, 617);
             this.tb_drawer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_drawer.Name = "tb_drawer";
-            this.tb_drawer.Size = new System.Drawing.Size(171, 21);
+            this.tb_drawer.Size = new System.Drawing.Size(136, 21);
             this.tb_drawer.TabIndex = 57;
             // 
             // tb_invoicecode
             // 
             this.tb_invoicecode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_invoicecode.Location = new System.Drawing.Point(104, 62);
+            this.tb_invoicecode.Location = new System.Drawing.Point(255, 130);
             this.tb_invoicecode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_invoicecode.Name = "tb_invoicecode";
-            this.tb_invoicecode.Size = new System.Drawing.Size(361, 21);
+            this.tb_invoicecode.Size = new System.Drawing.Size(273, 21);
             this.tb_invoicecode.TabIndex = 58;
             // 
             // tb_comment
             // 
             this.tb_comment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tb_comment.Location = new System.Drawing.Point(797, 561);
+            this.tb_comment.Location = new System.Drawing.Point(767, 529);
             this.tb_comment.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_comment.Multiline = true;
             this.tb_comment.Name = "tb_comment";
-            this.tb_comment.Size = new System.Drawing.Size(454, 106);
+            this.tb_comment.Size = new System.Drawing.Size(345, 80);
             this.tb_comment.TabIndex = 59;
             // 
             // dtp_date
             // 
-            this.dtp_date.Location = new System.Drawing.Point(1055, 126);
+            this.dtp_date.Location = new System.Drawing.Point(964, 178);
             this.dtp_date.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtp_date.Name = "dtp_date";
-            this.dtp_date.Size = new System.Drawing.Size(213, 21);
+            this.dtp_date.Size = new System.Drawing.Size(175, 21);
             this.dtp_date.TabIndex = 60;
             // 
             // dataGridView1
@@ -253,11 +253,11 @@
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveBorder;
-            this.dataGridView1.Location = new System.Drawing.Point(115, 285);
+            this.dataGridView1.Location = new System.Drawing.Point(255, 307);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 27;
-            this.dataGridView1.Size = new System.Drawing.Size(1139, 206);
+            this.dataGridView1.Size = new System.Drawing.Size(857, 161);
             this.dataGridView1.TabIndex = 65;
             // 
             // toolStrip1
@@ -357,10 +357,11 @@
             this.panel1.Controls.Add(this.tb_sellersaddress);
             this.panel1.Controls.Add(this.tb_sellersbank);
             this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(51, 49);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 45);
             this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1383, 751);
+            this.panel1.Size = new System.Drawing.Size(1432, 751);
             this.panel1.TabIndex = 68;
             // 
             // pictureBox1
@@ -370,7 +371,7 @@
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(1363, 751);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 66;
             this.pictureBox1.TabStop = false;
             // 
