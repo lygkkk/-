@@ -114,33 +114,39 @@ namespace 过雨烟云
             dataGridView1.Columns[0].Width = 183;
             dataGridView1.ColumnHeadersVisible = true;
             dataGridView1.Columns[0].Name = "货物或应税劳务、服务名称";
-            dataGridView1.Columns[1].Name = "规格型号";
+            dataGridView1.Columns[1].Name = "数量";
             dataGridView1.Columns[1].Width = 100;
-            dataGridView1.Columns[1].ReadOnly = true;
+
 
             //dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; //单元格文本居中
-            dataGridView1.Columns[2].Name = "单位";
+            dataGridView1.Columns[2].Name = "单价(含税)";
             dataGridView1.Columns[2].Width = 80;
-            dataGridView1.Columns[2].ReadOnly = true;
 
-            dataGridView1.Columns[3].Name = "数量";
+
+            dataGridView1.Columns[3].Name = "金额(含税)";
             dataGridView1.Columns[3].Width = 90;
-            dataGridView1.Columns[4].Name = "单价(含税)";
+            dataGridView1.Columns[4].Name = "税率";
             dataGridView1.Columns[4].Width = 100;
-            dataGridView1.Columns[5].Name = "金额(含税)";
+            dataGridView1.Columns[5].Name = "税额";
             dataGridView1.Columns[5].Width = 100;
-            dataGridView1.Columns[6].Name = "税率";
+            dataGridView1.Columns[6].Name = "回款";
             dataGridView1.Columns[6].Width = 80;
-            dataGridView1.Columns[7].Name = "税额";
+            dataGridView1.Columns[7].Name = "发票状态";
             dataGridView1.Columns[7].Width = 80;
+
+            dataGridView1.AllowUserToAddRows = false;
+
             panel1.Left = (this.Width - panel1.Width) / 2;
             panel1.Size = new Size(1200,768);
+            this.AutoScroll = true;
         }
 
         //保存数据
         private void tsbtn_submit_Click(object sender, EventArgs e)
         {
-
+            string[,] str = new string[dataGridView1.RowCount,21];
+            str[0, 0] = tb_invoicecode.Text;
+            str[0, 1] = tb_invoicenumber.Text;
         }
 
         private void Form_InVoiceEntry_Resize(object sender, EventArgs e)
@@ -165,6 +171,18 @@ namespace 过雨烟云
         private void tsbtn_exit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Add();
+            DataGridViewComboBoxCell cell = new DataGridViewComboBoxCell();
+            cell.Items.Add("正常");
+            cell.Items.Add("作废");
+            cell.Items.Add("红字");
+            dataGridView1.Rows[dataGridView1.RowCount - 1].Cells[7] = cell;
+            //dataGridView1.Rows[dataGridView1.RowCount].Height = 12;
+            
         }
     }
 }
