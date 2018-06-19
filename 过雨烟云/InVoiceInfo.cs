@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace 过雨烟云
 {
-    public partial class InVoiceInfo : Form
+    public partial class InvoiceInfo : Form
     {
 
         internal DataGridView dgv
@@ -21,7 +21,7 @@ namespace 过雨烟云
 
         }
 
-        public InVoiceInfo()
+        public InvoiceInfo()
         {
             InitializeComponent();
         }

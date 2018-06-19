@@ -264,5 +264,10 @@ namespace 过雨烟云
             //dataGridView1.Rows[dataGridView1.RowCount].Height = 12;
             
         }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 }

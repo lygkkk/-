@@ -1,6 +1,6 @@
 ﻿namespace 过雨烟云
 {
-    partial class InVoiceInfo
+    partial class InvoiceInfo
     {
         /// <summary>
         /// Required designer variable.
@@ -54,9 +54,10 @@
             this.productName});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 27;
-            this.dataGridView1.Size = new System.Drawing.Size(1095, 455);
+            this.dataGridView1.Size = new System.Drawing.Size(821, 364);
             this.dataGridView1.TabIndex = 0;
             // 
             // invoiceCode
@@ -99,13 +100,14 @@
             this.productName.HeaderText = "产品名称";
             this.productName.Name = "productName";
             // 
-            // InVoiceInfo
+            // InvoiceInfo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1095, 455);
+            this.ClientSize = new System.Drawing.Size(821, 364);
             this.Controls.Add(this.dataGridView1);
-            this.Name = "InVoiceInfo";
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Name = "InvoiceInfo";
             this.Text = "InVoiceInfo";
             this.Load += new System.EventHandler(this.InVoiceInfo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
