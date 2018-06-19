@@ -17,6 +17,9 @@ namespace 过雨烟云
             InitializeComponent();
         }
 
+        private void InVoiceQuery_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

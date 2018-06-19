@@ -20,11 +20,14 @@ namespace 过雨烟云
         private InVoiceInfo _inVoiceInfo = null;
         private CommpanyInfoModify _commpanyInfoModify = null;
         private Form_InVoiceEntry _formInVoiceEntry = null;
+        private Form _formInvoice = null;
 
         public commpanyInfo CommpanyInfo { get => _commpany; set => _commpany = value; }
         public InVoiceInfo InVoiceInfo { get => _inVoiceInfo; set => _inVoiceInfo = value; }
         public CommpanyInfoModify CommpanyInfoModify { get => _commpanyInfoModify; set => _commpanyInfoModify = value; }
         public Form_InVoiceEntry FormInVoiceEntry { get => _formInVoiceEntry; set => _formInVoiceEntry = value; }
+        public Form FormInvoice { get => _formInvoice; set => _formInvoice = value; }
+
 
         public Form1()
         {
@@ -42,110 +45,156 @@ namespace 过雨烟云
             toolStrip1.Visible = false;
         }
 
+        #region 单位基础信息
         private void 基础信息ToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             if (CommpanyInfo == null || CommpanyInfo.IsDisposed == true)
             {
                 CommpanyInfo = new commpanyInfo();
-                ToolStripStatusLabel tsslLabel = new ToolStripStatusLabel
+                Action initLabel = () => InitToolStripLabel("tssl_commpanyInfo", "单位信息");
+                initLabel();
+
+                CommpanyInfo.MdiParent = this;
+                CommpanyInfo.FormBorderStyle = FormBorderStyle.None;
+                CommpanyInfo.Dock = DockStyle.Fill;
+
+                if (ActiveMdiChild != null)
                 {
-                    Name = "ss_commpanyInfo",
-                    Size = new Size(35, 20),
-                    Text = "单位信息"
+                    this.ActiveMdiChild.Visible = false;
+                }
+                CommpanyInfo.Show();
+                toolStrip1.Visible = true;
+                if (statusStrip1.Items.Count > 1)
+                {
+                    for (int i = 0; i < statusStrip1.Items.Count - 1; i++)
+                    {
+                        statusStrip1.Items[i].BackColor = DefaultBackColor;
+                    }
+                }
 
-                };
-                statusStrip1.Items.AddRange(new ToolStripItem[]{
-                    tsslLabel
-                });
+                return;
             }
-            CommpanyInfo.MdiParent = this;
-            CommpanyInfo.FormBorderStyle = FormBorderStyle.None;
-            CommpanyInfo.Dock = DockStyle.Fill;
 
-            if (ActiveMdiChild != null)
+            if (CommpanyInfo != null)
             {
-                this.ActiveMdiChild.Visible = false;
+                Action setBackColor = () => SetStatusStripBackColor("tssl_commpanyInfo", "commpanyInfo");
+                setBackColor();
+                return;
             }
-            CommpanyInfo.Show();
-            toolStrip1.Visible = true;
         }
+
+        #endregion
+
+        #region 发票信息
 
         private void 发票录入ToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Form formInvoice = new Form();
-            formInvoice.Text = "发票信息";
-            formInvoice.Name = "InvioceInfo";
-            formInvoice.MdiParent = this;
-            formInvoice.Dock = DockStyle.Fill;
-            formInvoice.FormBorderStyle = FormBorderStyle.None;
+            if (InVoiceInfo == null || InVoiceInfo.IsDisposed == true)
+            {
+                InVoiceInfo = new InVoiceInfo();
+                InVoiceInfo.Text = "发票信息";
+                InVoiceInfo.Name = "InvoiceInfo";
+                InVoiceInfo.MdiParent = this;
+                InVoiceInfo.Dock = DockStyle.Fill;
+                InVoiceInfo.FormBorderStyle = FormBorderStyle.None;
+
+                Action initLabel = () => InitToolStripLabel("tssl_InvoiceInfo", "发票信息");
+                initLabel();
+
+
+                if (statusStrip1.Items.Count > 1)
+                {
+                    for (int i = 0; i < statusStrip1.Items.Count - 1; i++)
+                    {
+                        statusStrip1.Items[i].BackColor = DefaultBackColor;
+                    }
+                }
+
+                //DataGridView dataGridView = new DataGridView();
+                //DataGridViewColumn[] dgvColumn = new DataGridViewColumn[2];
+
+
+                //DataGridViewComboBoxColumn dgvComboBoxColumn = new DataGridViewComboBoxColumn{HeaderText = "combobox", CellTemplate = new DataGridViewTextBoxCell()};
+
+                //DataGridViewTextBoxColumn acCode = new DataGridViewTextBoxColumn();
+                //acCode.Name = "acCode";
+                //acCode.DataPropertyName = "acCode";
+                //acCode.HeaderText = "A/C Code";
 
 
 
-            DataGridView dataGridView = new DataGridView();
-            DataGridViewColumn[] dgvColumn = new DataGridViewColumn[2];
+
+                //DataGridViewTextBoxColumn dgvTextBoxColumn = new DataGridViewTextBoxColumn();
+                //dgvTextBoxColumn.HeaderText = "cp";
+                //dgvColumn[0] = new DataGridViewColumn();
+                //dgvColumn[0] = new DataGridViewComboBoxColumn { HeaderText = "cp" };
 
 
-            //DataGridViewComboBoxColumn dgvComboBoxColumn = new DataGridViewComboBoxColumn{HeaderText = "combobox", CellTemplate = new DataGridViewTextBoxCell()};
-
-            //DataGridViewTextBoxColumn acCode = new DataGridViewTextBoxColumn();
-            //acCode.Name = "acCode";
-            //acCode.DataPropertyName = "acCode";
-            //acCode.HeaderText = "A/C Code";
+                //dgvColumn[1] = new DataGridViewTextBoxColumn {HeaderText = "sl"};
+                //dgvColumn[1] = new DataGridViewTextBoxColumn { HeaderText = "sl" };
+                //dgvColumn[1] = dgvComboBoxColumn;
 
 
+                //dataGridView.Dock = DockStyle.Fill;
+                //dataGridView.Columns.AddRange(dgvColumn);
+                //dataGridView.Columns.Add(acCode);
 
-
-            //DataGridViewTextBoxColumn dgvTextBoxColumn = new DataGridViewTextBoxColumn();
-            //dgvTextBoxColumn.HeaderText = "cp";
-            //dgvColumn[0] = new DataGridViewColumn();
-            dgvColumn[0] = new DataGridViewComboBoxColumn { HeaderText = "cp" };
-
-
-            //dgvColumn[1] = new DataGridViewTextBoxColumn {HeaderText = "sl"};
-            dgvColumn[1] = new DataGridViewTextBoxColumn{HeaderText = "sl"};
-            //dgvColumn[1] = dgvComboBoxColumn;
-
-
-            dataGridView.Dock = DockStyle.Fill;
-            dataGridView.Columns.AddRange(dgvColumn);
-            //dataGridView.Columns.Add(acCode);
-
-            formInvoice.Controls.Add(dataGridView);
+                //FormInvoice.Controls.Add(dataGridView);
 
 
 
-            //从数据库获取数据
-            //DataTable dataTable = new DataTable();
+                //从数据库获取数据
+                //DataTable dataTable = new DataTable();
 
-            //string FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
-            //string[] sqlCommand = new[] { "SELECT id, a.invoicecode AS '发票代码', a.invoicenumber AS '发票号码', a.date AS '日期', " +
-            //                              "b.commpanyname AS '单位名称', b.taxnumber AS '纳税人税号', b.address AS '地址电话'," +
-            //                              "b.bank AS '开户行及帐号', a.unitprice AS '单价', a.money AS '金额'，" +
-            //                              "a.taxrate AS '税率', a.taxamount AS '税额', a.  FROM invoiceinfo" };
-            //Query query = new Query(FileDir, DB.DbType.Sqlite);
-            //query.Execute(sqlCommand);
-            //dataTable = query.DataTable;
+                //string FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
+                //string[] sqlCommand = new[] { "SELECT id, a.invoicecode AS '发票代码', a.invoicenumber AS '发票号码', a.date AS '日期', " +
+                //                              "b.commpanyname AS '单位名称', b.taxnumber AS '纳税人税号', b.address AS '地址电话'," +
+                //                              "b.bank AS '开户行及帐号', a.unitprice AS '单价', a.money AS '金额'，" +
+                //                              "a.taxrate AS '税率', a.taxamount AS '税额', a.  FROM invoiceinfo" };
+                //Query query = new Query(FileDir, DB.DbType.Sqlite);
+                //query.Execute(sqlCommand);
+                //dataTable = query.DataTable;
 
 
-            formInvoice.Show();
-            toolStrip1.Visible = true;
-            //============================================================
-            //if (InVoiceInfo == null || InVoiceInfo.IsDisposed == true)
-            //{
-            //    InVoiceInfo = new InVoiceInfo();
-            //}
+                InVoiceInfo.Show();
+                toolStrip1.Visible = true;
+                //============================================================
+                //if (InVoiceInfo == null || InVoiceInfo.IsDisposed == true)
+                //{
+                //    InVoiceInfo = new InVoiceInfo();
+                //}
 
-            //InVoiceInfo.MdiParent = this;
-            //InVoiceInfo.Dock = DockStyle.Fill;
-            //if (ActiveMdiChild != null)
-            //{
-            //    this.ActiveMdiChild.Visible = false;
-            //}
+                //InVoiceInfo.MdiParent = this;
+                //InVoiceInfo.Dock = DockStyle.Fill;
+                //if (ActiveMdiChild != null)
+                //{
+                //    this.ActiveMdiChild.Visible = false;
+                //}
 
-            //InVoiceInfo.FormBorderStyle = FormBorderStyle.None;
-            //InVoiceInfo.Show();
+                //InVoiceInfo.FormBorderStyle = FormBorderStyle.None;
+                //InVoiceInfo.Show();
+                return;
+            }
+
+            if (FormInvoice != null)
+            {
+                Action setBackColor = () => SetStatusStripBackColor("tssl_InvoiceInfo", "InvoiceInfo");
+                setBackColor();
+                return;
+            }
+
 
         }
+
+        #endregion
+
+        #region 新增
+
+        /// <summary>
+        /// 新增数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void tsbtn_add_Click(object sender, EventArgs e)
         {
@@ -155,24 +204,33 @@ namespace 过雨烟云
             {
                 case "单位信息":
                     AddCustomerInfo addCustomerInfo = new AddCustomerInfo(CommpanyInfo);
+                    addCustomerInfo.StartPosition = FormStartPosition.CenterScreen;
                     addCustomerInfo.ShowDialog();
                     break;
                 case "发票信息":
                     FormInVoiceEntry = new Form_InVoiceEntry();
-                    
-                    
 
+
+                    FormInVoiceEntry.StartPosition = FormStartPosition.CenterScreen;
                     FormInVoiceEntry.WindowState = FormWindowState.Maximized;
                     FormInVoiceEntry.ShowDialog();
                     break;
             }
         }
 
+        #endregion
 
+        #region 修改数据
+
+        /// <summary>
+        /// 修改数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void tsbtn_modify_Click(object sender, EventArgs e)
         {
-            if(ActiveMdiChild == null) return;
+            if (ActiveMdiChild == null) return;
 
             int dgvIndex = 0;
             int dgvColumnCount = 0;
@@ -191,14 +249,14 @@ namespace 过雨烟云
                     {
                         str[i] = CommpanyInfo.dgv.Rows[dgvIndex].Cells[i - 1].Value.ToString();
                     }
-                    if(CommpanyInfoModify == null || CommpanyInfoModify.IsDisposed == true) CommpanyInfoModify = new CommpanyInfoModify(CommpanyInfo);
+                    if (CommpanyInfoModify == null || CommpanyInfoModify.IsDisposed == true) CommpanyInfoModify = new CommpanyInfoModify(CommpanyInfo);
                     CommpanyInfoModify.TextBoxAssignment(str);
                     CommpanyInfoModify.ShowDialog();
 
                     break;
-                case "InVoiceInfo":
+                case "InvoiceInfo":
                     dgvIndex = InVoiceInfo.dgv.CurrentRow.Index;
-                    dgvColumnCount = CommpanyInfo.dgv.ColumnCount;
+                    dgvColumnCount = InVoiceInfo.dgv.ColumnCount;
 
                     str = new string[dgvColumnCount + 1];
                     str[0] = (dgvIndex + 1).ToString();
@@ -213,11 +271,112 @@ namespace 过雨烟云
             }
         }
 
+        #endregion
+
+        #region 数据查找
+
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tsbtn_query_Click(object sender, EventArgs e)
         {
-           CommpanyInfoQuery commpanyInfoQuery = new CommpanyInfoQuery(CommpanyInfo);
+            CommpanyInfoQuery commpanyInfoQuery = new CommpanyInfoQuery(CommpanyInfo);
             commpanyInfoQuery.ShowDialog();
-
         }
+
+        #endregion
+
+        #region 显示子窗体信息
+
+        /// <summary>
+        /// 显示子窗体信息
+        /// </summary>
+        /// <param name="send"></param>
+        /// <param name="e"></param>
+        private void DisplayBaseInfo(object send, EventArgs e)
+        {
+            ToolStripLabel tmpLabel = (ToolStripLabel)send;
+            string labelName = tmpLabel.Name;
+            string formName = tmpLabel.Name.Substring(5);
+            Action tmpAction = () => SetStatusStripBackColor(labelName, formName);
+            tmpAction();
+        }
+
+        #endregion
+
+        #region 修改StatusStripLable背景颜色
+
+        /// <summary>
+        /// 修改StatusStripLable背景颜色
+        /// </summary>
+        /// <param name="itemName">控件名称</param>
+        /// <param name="mdiChildName">子窗体名称</param>
+        private void SetStatusStripBackColor(string itemName, string mdiChildName)
+        {
+            foreach (ToolStripLabel item in statusStrip1.Items)
+            {
+                if (item.Name == itemName)
+                {
+                    item.BackColor = Color.White;
+                }
+                else
+                {
+                    item.BackColor = DefaultBackColor;
+                }
+            }
+
+            foreach (Control control in this.MdiChildren)
+            {
+                if (control.Name == mdiChildName)
+                {
+                    control.Visible = true;
+                }
+                else
+                {
+                    control.Visible = false;
+                }
+            }
+        }
+
+        #endregion
+
+        #region 初始化ToolStripLabel
+
+        private void InitToolStripLabel(string name, string text)
+        {
+            ToolStripStatusLabel tsslLabel = new ToolStripStatusLabel
+            {
+                Name = name,
+                Size = new Size(35, 20),
+                Text = text,
+                BackColor = Color.White,
+                BorderSides = ToolStripStatusLabelBorderSides.Left,
+                BorderStyle = Border3DStyle.Sunken
+            };
+            statusStrip1.Items.AddRange(new ToolStripItem[]{
+                tsslLabel
+            });
+
+            statusStrip1.Items[name].Click += new EventHandler(DisplayBaseInfo);
+        }
+
+        #endregion
+
+        #region 关闭子窗体
+
+        private void tsbtn_close_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild == null) return;
+            statusStrip1.Items.Remove(statusStrip1.Items["tssl_" + ActiveMdiChild.Name]);
+            ActiveMdiChild.Dispose();
+            int itemCount = statusStrip1.Items.Count;
+            if (itemCount > 0) statusStrip1.Items[itemCount - 1].Select();
+        }
+
+        #endregion
+
+
     }
 }

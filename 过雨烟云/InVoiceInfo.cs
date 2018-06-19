@@ -16,8 +16,8 @@ namespace 过雨烟云
 
         internal DataGridView dgv
         {
-            get { return dgv; }
-            set { dgv = value; }
+            get { return dataGridView1; }
+            set { dataGridView1 = value; }
 
         }
 

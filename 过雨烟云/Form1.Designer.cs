@@ -124,6 +124,7 @@
             this.tsbtn_close.Name = "tsbtn_close";
             this.tsbtn_close.Size = new System.Drawing.Size(63, 24);
             this.tsbtn_close.Text = "关闭";
+            this.tsbtn_close.Click += new System.EventHandler(this.tsbtn_close_Click);
             // 
             // statusStrip1
             // 
