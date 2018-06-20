@@ -28,31 +28,31 @@ namespace 过雨烟云
 
         private void commpanyInfo_load(object sender, EventArgs e)
         {
-            CommpanyInfoBLL commpanyInfoBll = new CommpanyInfoBLL();
-            dataGridView1.AutoGenerateColumns = false;
-            dataGridView1.DataSource = commpanyInfoBll.GetAllCommpanyInfos();
+            //CommpanyInfoBLL commpanyInfoBll = new CommpanyInfoBLL();
+            ////dataGridView1.AutoGenerateColumns = false;
+            //dataGridView1.DataSource = commpanyInfoBll.GetAllCommpanyInfos();
 
             //从数据库获取数据
-            //DataTable dataTable = new DataTable();
+            DataTable dataTable = new DataTable();
 
-            //string FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
-            //string[] sqlCommand = new[] { "SELECT * FROM commpanyinfo" };
-            //Query query = new Query(FileDir, DB.DbType.Sqlite);
-            //query.Execute(sqlCommand);
-            //dataTable = query.DataTable;
+            string FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
+            string[] sqlCommand = new[] { "SELECT * FROM commpanyinfo" };
+            Query query = new Query(FileDir, DB.DbType.Sqlite);
+            query.Execute(sqlCommand);
+            dataTable = query.DataTable;
 
 
-            //dataGridView1.Rows.Add(dataTable.Rows.Count);
-            //for (int i = 0; i < dataTable.Rows.Count; i++)
-            //{
-            //    dataGridView1.Rows[i].HeaderCell.Value = (i + 1).ToString();
-            //    dataGridView1.RowHeadersWidth = 60;
-            //    for (int j = 1; j < dataTable.Columns.Count; j++)
-            //    {
-            //        dataGridView1.Rows[i].Cells[j - 1].Value = dataTable.Rows[i][j];
-            //    } 
-            //}
-            //dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.Rows.Add(dataTable.Rows.Count);
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                dataGridView1.Rows[i].HeaderCell.Value = (i + 1).ToString();
+                dataGridView1.RowHeadersWidth = 60;
+                for (int j = 1; j < dataTable.Columns.Count; j++)
+                {
+                    dataGridView1.Rows[i].Cells[j - 1].Value = dataTable.Rows[i][j];
+                }
+            }
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
     }
 }

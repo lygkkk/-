@@ -52,7 +52,6 @@
     <Compile Include="InvoiceInfoDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqliteConn.cs" />
-    <Compile Include="SqliteHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">

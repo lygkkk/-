@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace 过雨烟云
 {
-    public delegate void CommpanyInfo(string commpanyName, string taxNumber, string address, string bank );
+    public delegate void CommpanyInfo(string id,string commpanyName, string taxNumber, string address, string bank );
     public partial class StepPrompt : Form
     {
         CommpanyInfo _commpanyInfor;
@@ -34,6 +34,7 @@ namespace 过雨烟云
                 listViewItem.SubItems.Add(dataTable.Rows[i][1].ToString());
                 listViewItem.SubItems.Add(dataTable.Rows[i][2].ToString());
                 listViewItem.SubItems.Add(dataTable.Rows[i][3].ToString());
+                listViewItem.SubItems.Add(dataTable.Rows[i][4].ToString());
             }
         }
 
@@ -49,7 +50,7 @@ namespace 过雨烟云
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             _commpanyInfor(listView1.SelectedItems[0].Text, listView1.SelectedItems[0].SubItems[1].Text, 
-                            listView1.SelectedItems[0].SubItems[2].Text, listView1.SelectedItems[0].SubItems[3].Text);
+                            listView1.SelectedItems[0].SubItems[2].Text, listView1.SelectedItems[0].SubItems[3].Text, listView1.SelectedItems[0].SubItems[4].Text);
             this.Dispose();
         }
 

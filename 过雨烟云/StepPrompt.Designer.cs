@@ -33,11 +33,13 @@
             this.taxNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.address = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.bank = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.id,
             this.commpanyName,
             this.taxNumber,
             this.address,
@@ -46,8 +48,9 @@
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
             this.listView1.Location = new System.Drawing.Point(0, 0);
+            this.listView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(500, 490);
+            this.listView1.Size = new System.Drawing.Size(375, 393);
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -55,38 +58,47 @@
             // 
             // commpanyName
             // 
+            this.commpanyName.DisplayIndex = 0;
             this.commpanyName.Text = "单位名称";
             this.commpanyName.Width = 150;
             // 
             // taxNumber
             // 
+            this.taxNumber.DisplayIndex = 1;
             this.taxNumber.Text = "税号";
             this.taxNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.taxNumber.Width = 100;
             // 
             // address
             // 
+            this.address.DisplayIndex = 2;
             this.address.Text = "地址、电话";
             this.address.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.address.Width = 100;
             // 
             // bank
             // 
+            this.bank.DisplayIndex = 3;
             this.bank.Text = "银行卡号";
             this.bank.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.bank.Width = 100;
             // 
+            // id
+            // 
+            this.id.DisplayIndex = 4;
+            // 
             // StepPrompt
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 500);
+            this.ClientSize = new System.Drawing.Size(375, 400);
             this.Controls.Add(this.listView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(500, 500);
+            this.MaximumSize = new System.Drawing.Size(375, 400);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(500, 500);
+            this.MinimumSize = new System.Drawing.Size(375, 400);
             this.Name = "StepPrompt";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "StepPrompt";
@@ -101,5 +113,6 @@
         private System.Windows.Forms.ColumnHeader taxNumber;
         private System.Windows.Forms.ColumnHeader address;
         private System.Windows.Forms.ColumnHeader bank;
+        private System.Windows.Forms.ColumnHeader id;
     }
 }

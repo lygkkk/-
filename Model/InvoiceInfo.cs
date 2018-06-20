@@ -10,10 +10,13 @@ namespace Model
         private DateTime _date;
         private int _buyersid;
         private string _productname;
+        private int _productnumber;
         private string _unitprice;
         private string _money;
         private string _taxrate;
         private string _taxamount;
+        private string _totalamount;
+        private string _totaltaxamount;
         private string _moneyupper;
         private string _moneylow;
         private int _sellersid;
@@ -43,5 +46,8 @@ namespace Model
         public string Drawer { get => _drawer; set => _drawer = value; }
         public string Invoicestate { get => _invoicestate; set => _invoicestate = value; }
         public string Returnmoney { get => _returnmoney; set => _returnmoney = value; }
+        public int Productnumber { get => _productnumber; set => _productnumber = value; }
+        public string Totalamount { get => _totalamount; set => _totalamount = value; }
+        public string Totaltaxamount { get => _totaltaxamount; set => _totaltaxamount = value; }
     }
 }

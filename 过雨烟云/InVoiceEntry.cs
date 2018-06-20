@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DB;
+using Model;
+using BLL;
 
 namespace 过雨烟云
 {
@@ -50,11 +52,12 @@ namespace 过雨烟云
         }
 
         //判断购买方或销售方 把公司信息自动填充到单元格
-        private void CommpanyInfo(string commpanyName,string taxNumber, string address, string bank)
+        private void CommpanyInfo(string id, string commpanyName,string taxNumber, string address, string bank)
         {
             if (ActiveControl.Name == "tb_buyersname")
             {
                 this.tb_buyersname.TextChanged -= tb_buyersname_TextChanged;
+                buyersId.Text = id;
                 tb_buyersname.Text = commpanyName;
                 tb_buyerstaxnumber.Text = taxNumber;
                 tb_buyersaddress.Text = address;
@@ -64,6 +67,7 @@ namespace 过雨烟云
             else
             {
                 this.tb_sellersname.TextChanged -= tb_sellersname_TextChanged;
+                sellersId.Text = id;
                 tb_sellersname.Text = commpanyName;
                 tb_sellerstaxnumber.Text = taxNumber;
                 tb_sellersaddress.Text = address;
@@ -87,7 +91,7 @@ namespace 过雨烟云
             DataTable dataTable = new DataTable();
             
             FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
-            string[] sqlCommand = new[] { "SELECT commpanyname, taxnumber, address, bank FROM commpanyinfo WHERE commpanyname LIKE '%" + keyWord + "%'" };
+            string[] sqlCommand = new[] { "SELECT id,commpanyname, taxnumber, address, bank FROM commpanyinfo WHERE commpanyname LIKE '%" + keyWord + "%'" };
             Query query = new Query(FileDir, DB.DbType.Sqlite);
             query.Execute(sqlCommand);
             dataTable = query.DataTable;
@@ -138,9 +142,40 @@ namespace 过雨烟云
         //保存数据
         private void tsbtn_submit_Click(object sender, EventArgs e)
         {
-            string[,] str = new string[dataGridView1.RowCount,13];
+
+            Model.InvoiceInfo invoiceInfo = new Model.InvoiceInfo();
             int rowCount = dataGridView1.RowCount;
             int columnCount = dataGridView1.ColumnCount;
+
+            for (int i = 0; i < rowCount; i++)
+            {
+                invoiceInfo.Invoicecode = tb_invoicecode.Text;
+                invoiceInfo.Invoicenumber = tb_invoicenumber.Text;
+                invoiceInfo.Date = Convert.ToDateTime(dtp_date.Text);
+                invoiceInfo.Buyersid = Convert.ToInt32(buyersId.Text);
+                invoiceInfo.Productname = dataGridView1.Rows[i].Cells[0].Value.ToString();
+                invoiceInfo.Productnumber =  Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value);
+                invoiceInfo.Unitprice = dataGridView1.Rows[i].Cells[4].Value.ToString();
+                invoiceInfo.Money = dataGridView1.Rows[i].Cells[5].Value.ToString();
+                invoiceInfo.Taxrate = dataGridView1.Rows[i].Cells[6].Value.ToString();
+                invoiceInfo.Taxamount = dataGridView1.Rows[i].Cells[7].Value.ToString();
+                invoiceInfo.Totalamount = tb_totalamount.Text;
+                invoiceInfo.Totaltaxamount = tb_totaltaxamount.Text;
+                invoiceInfo.Moneyupper = tb_moneyupper.Text;
+                invoiceInfo.Moneylow = tb_moneylow.Text;
+                invoiceInfo.Sellersid = Convert.ToInt32(sellersId.Text);
+                invoiceInfo.Comment = tb_comment.Text;
+                invoiceInfo.Payee = tb_payee.Text;
+                invoiceInfo.Check = tb_check.Text;
+                invoiceInfo.Drawer = tb_drawer.Text;
+            }
+            
+
+
+
+            string[,] str = new string[dataGridView1.RowCount,13];
+            //int rowCount = dataGridView1.RowCount;
+            //int columnCount = dataGridView1.ColumnCount;
             if (rowCount == 0 ) return;
             //获取数据
             for (int i = 0; i < rowCount; i++)
