@@ -7,7 +7,7 @@ namespace Model
         private int _id;
         private string _invoicecode;
         private string _invoicenumber;
-        private DateTime _date;
+        private string _date;
         private int _buyersid;
         private string _productname;
         private int _productnumber;
@@ -26,11 +26,12 @@ namespace Model
         private string _drawer;
         private string _invoicestate;
         private string _returnmoney;
+        private string _flag;
 
         public int Id { get => _id; set => _id = value; }
         public string Invoicecode { get => _invoicecode; set => _invoicecode = value; }
         public string Invoicenumber { get => _invoicenumber; set => _invoicenumber = value; }
-        public DateTime Date { get => _date; set => _date = value; }
+        public string Date { get => _date; set => _date = value; }
         public int Buyersid { get => _buyersid; set => _buyersid = value; }
         public string Productname { get => _productname; set => _productname = value; }
         public string Unitprice { get => _unitprice; set => _unitprice = value; }
@@ -49,5 +50,6 @@ namespace Model
         public int Productnumber { get => _productnumber; set => _productnumber = value; }
         public string Totalamount { get => _totalamount; set => _totalamount = value; }
         public string Totaltaxamount { get => _totaltaxamount; set => _totaltaxamount = value; }
+        public string Flag { get => _flag; set => _flag = value; }
     }
 }

@@ -143,22 +143,27 @@ namespace 过雨烟云
         private void tsbtn_submit_Click(object sender, EventArgs e)
         {
 
-            Model.InvoiceInfo invoiceInfo = new Model.InvoiceInfo();
+            if (CheckIsEmpty() == false) return;
+            
             int rowCount = dataGridView1.RowCount;
             int columnCount = dataGridView1.ColumnCount;
-
+            List<Model.InvoiceInfo> list = new List<Model.InvoiceInfo>();
             for (int i = 0; i < rowCount; i++)
             {
+                Model.InvoiceInfo invoiceInfo = new Model.InvoiceInfo();
+                
                 invoiceInfo.Invoicecode = tb_invoicecode.Text;
                 invoiceInfo.Invoicenumber = tb_invoicenumber.Text;
-                invoiceInfo.Date = Convert.ToDateTime(dtp_date.Text);
+                invoiceInfo.Date = dtp_date.Text;
                 invoiceInfo.Buyersid = Convert.ToInt32(buyersId.Text);
+
                 invoiceInfo.Productname = dataGridView1.Rows[i].Cells[0].Value.ToString();
                 invoiceInfo.Productnumber =  Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value);
                 invoiceInfo.Unitprice = dataGridView1.Rows[i].Cells[4].Value.ToString();
                 invoiceInfo.Money = dataGridView1.Rows[i].Cells[5].Value.ToString();
                 invoiceInfo.Taxrate = dataGridView1.Rows[i].Cells[6].Value.ToString();
                 invoiceInfo.Taxamount = dataGridView1.Rows[i].Cells[7].Value.ToString();
+
                 invoiceInfo.Totalamount = tb_totalamount.Text;
                 invoiceInfo.Totaltaxamount = tb_totaltaxamount.Text;
                 invoiceInfo.Moneyupper = tb_moneyupper.Text;
@@ -168,94 +173,79 @@ namespace 过雨烟云
                 invoiceInfo.Payee = tb_payee.Text;
                 invoiceInfo.Check = tb_check.Text;
                 invoiceInfo.Drawer = tb_drawer.Text;
+                invoiceInfo.Invoicestate = cbb_invoiceStatus.Text;
+                invoiceInfo.Returnmoney = tb_returnMoney.Text;
+                invoiceInfo.Flag = "0";  //删除标记 0 没有删除 1 已经删除
+                list.Add(invoiceInfo);
             }
             
+            InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
+            MessageBox.Show(invoiceInfoBll.SaveInvoiceInfo(ActiveForm.Text, list)) ;
 
-
-
-            string[,] str = new string[dataGridView1.RowCount,13];
-            //int rowCount = dataGridView1.RowCount;
-            //int columnCount = dataGridView1.ColumnCount;
-            if (rowCount == 0 ) return;
-            //获取数据
-            for (int i = 0; i < rowCount; i++)
+            tb_buyersname.TextChanged -= new EventHandler(tb_buyersname_TextChanged);
+            tb_sellersname.TextChanged -= new EventHandler(tb_sellersname_TextChanged);
+            foreach (Control tb in panel1.Controls)
             {
-                for (int j = 0; j < 13; j++)
-                {
-                    if (string.IsNullOrEmpty(tb_invoicecode.Text.Trim()))
-                    {
-                        MessageBox.Show("发票编号不得为空！");
-                        tb_invoicecode.Focus();
-                        return;
-                    }
-                    else
-                    {
-                        str[i, j] = tb_invoicecode.Text;
-                    }
-
-                    if (string.IsNullOrEmpty(tb_invoicenumber.Text.Trim()))
-                    {
-                        MessageBox.Show("发票号码不得为空！");
-                        tb_invoicenumber.Focus();
-                        return;
-                    }
-                    else
-                    {
-                        str[i, j] = tb_invoicenumber.Text;
-                    }
-
-                    str[i, j] = dtp_date.Text;
-
-                    if (string.IsNullOrEmpty(tb_buyerstaxnumber.Text.Trim()))
-                    {
-                        MessageBox.Show("购买方不得为空不得为空！");
-                        tb_buyerstaxnumber.Focus();
-                        return;
-                    }
-                    else
-                    {
-                        str[i, j] = tb_buyerstaxnumber.Text;
-                    }
-
-
-                    str[i, j] = tb_moneyupper.Text;
-                    str[i, j] = tb_moneylow.Text;
-
-
-                    if (string.IsNullOrEmpty(tb_sellerstaxnumber.Text.Trim()))
-                    {
-                        MessageBox.Show("销售方不得为空！");
-                        tb_sellerstaxnumber.Focus();
-                        return;
-                    }
-                    else
-                    {
-                        str[i, j] = tb_sellerstaxnumber.Text;
-                    }
-                   
-                    str[i, j] = tb_comment.Text;
-                    str[i, j] = tb_payee.Text;
-                    str[i, j] = tb_check.Text;
-                    str[i, j] = tb_drawer.Text;
-
-                    if (string.IsNullOrEmpty(cbb_invoiceStatus.Text.Trim()))
-                    {
-                        MessageBox.Show("发票状态不得为空！");
-                        cbb_invoiceStatus.Focus();
-                        return;
-                    }
-                    else
-                    {
-                        str[i, j] = cbb_invoiceStatus.Text;
-                    }
-                    str[i, j] = cbb_invoiceStatus.Text;
-                    str[i, j] = tb_returnMoney.Text;
-                }
+                if (tb.GetType().ToString().Contains("TextBox")) tb.Text = "";
             }
 
-            MessageBox.Show("新增完毕！");
+            while (dataGridView1.Rows.Count != 0)
+            {
+                dataGridView1.Rows.RemoveAt(0);
+            }
 
+            tb_buyersname.TextChanged += new EventHandler(tb_buyersname_TextChanged);
+            tb_sellersname.TextChanged += new EventHandler(tb_sellersname_TextChanged);
+        }
 
+        /// <summary>
+        /// 检查是否有必填项为空
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckIsEmpty()
+        {
+            if (string.IsNullOrEmpty(tb_invoicecode.Text.Trim()))
+            {
+                MessageBox.Show("发票编号不得为空！");
+                tb_invoicecode.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(tb_invoicecode.Text.Trim()))
+            {
+                MessageBox.Show("发票号码不得为空！");
+                tb_invoicenumber.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(tb_buyersname.Text.Trim()))
+            {
+                MessageBox.Show("购货方不得为空！");
+                tb_buyersname.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(tb_sellersname.Text.Trim()))
+            {
+                MessageBox.Show("销售方不得为空！");
+                tb_sellersname.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(cbb_invoiceStatus.Text.Trim()))
+            {
+                MessageBox.Show("发票状态不得为空！");
+                cbb_invoiceStatus.Focus();
+                return false;
+            }
+
+            if (dataGridView1.RowCount == 0)
+            {
+                MessageBox.Show("产品明细不得为空！");
+                return false;
+            }
+
+            return true;
         }
 
         private void Form_InVoiceEntry_Resize(object sender, EventArgs e)

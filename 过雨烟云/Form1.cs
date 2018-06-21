@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using DB;
+using Model;
+using BLL;
+
 using commpanyInfo = 过雨烟云.commpanyInfo;
 
 namespace 过雨烟云
@@ -109,19 +112,8 @@ namespace 过雨烟云
                     }
                 }
 
-
-                //从数据库获取数据
-                //DataTable dataTable = new DataTable();
-
-                //string FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
-                //string[] sqlCommand = new[] { "SELECT id, a.invoicecode AS '发票代码', a.invoicenumber AS '发票号码', a.date AS '日期', " +
-                //                              "b.commpanyname AS '单位名称', b.taxnumber AS '纳税人税号', b.address AS '地址电话'," +
-                //                              "b.bank AS '开户行及帐号', a.unitprice AS '单价', a.money AS '金额'，" +
-                //                              "a.taxrate AS '税率', a.taxamount AS '税额', a.  FROM invoiceinfo" };
-                //Query query = new Query(FileDir, DB.DbType.Sqlite);
-                //query.Execute(sqlCommand);
-                //dataTable = query.DataTable;
-
+                InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
+                InvoiceInfo.dgv.DataSource = invoiceInfoBll.GetAllInvoiceInfos();
 
                 InvoiceInfo.Show();
                 toolStrip1.Visible = true;
@@ -163,6 +155,7 @@ namespace 过雨烟云
                     FormInVoiceEntry = new Form_InVoiceEntry();
                     FormInVoiceEntry.StartPosition = FormStartPosition.CenterScreen;
                     FormInVoiceEntry.WindowState = FormWindowState.Maximized;
+                    FormInVoiceEntry.Text = "发票新增";
                     FormInVoiceEntry.ShowDialog();
                     break;
             }
