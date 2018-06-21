@@ -113,8 +113,11 @@ namespace 过雨烟云
                 }
 
                 InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
+                InvoiceInfo.dgv.AutoGenerateColumns = false;
+                InvoiceInfo.dgv.AllowUserToAddRows = false;
+                
                 InvoiceInfo.dgv.DataSource = invoiceInfoBll.GetAllInvoiceInfos();
-
+                
                 InvoiceInfo.Show();
                 toolStrip1.Visible = true;
                 return;

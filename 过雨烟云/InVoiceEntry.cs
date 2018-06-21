@@ -139,26 +139,28 @@ namespace 过雨烟云
             this.AutoScroll = true;
         }
 
+        #region 插入或修改数据
+
         //保存数据
         private void tsbtn_submit_Click(object sender, EventArgs e)
         {
 
             if (CheckIsEmpty() == false) return;
-            
+
             int rowCount = dataGridView1.RowCount;
             int columnCount = dataGridView1.ColumnCount;
             List<Model.InvoiceInfo> list = new List<Model.InvoiceInfo>();
             for (int i = 0; i < rowCount; i++)
             {
                 Model.InvoiceInfo invoiceInfo = new Model.InvoiceInfo();
-                
+
                 invoiceInfo.Invoicecode = tb_invoicecode.Text;
                 invoiceInfo.Invoicenumber = tb_invoicenumber.Text;
                 invoiceInfo.Date = dtp_date.Text;
                 invoiceInfo.Buyersid = Convert.ToInt32(buyersId.Text);
 
                 invoiceInfo.Productname = dataGridView1.Rows[i].Cells[0].Value.ToString();
-                invoiceInfo.Productnumber =  Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value);
+                invoiceInfo.Productnumber = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value);
                 invoiceInfo.Unitprice = dataGridView1.Rows[i].Cells[4].Value.ToString();
                 invoiceInfo.Money = dataGridView1.Rows[i].Cells[5].Value.ToString();
                 invoiceInfo.Taxrate = dataGridView1.Rows[i].Cells[6].Value.ToString();
@@ -178,9 +180,9 @@ namespace 过雨烟云
                 invoiceInfo.Flag = "0";  //删除标记 0 没有删除 1 已经删除
                 list.Add(invoiceInfo);
             }
-            
+
             InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
-            MessageBox.Show(invoiceInfoBll.SaveInvoiceInfo(ActiveForm.Text, list)) ;
+            MessageBox.Show(invoiceInfoBll.SaveInvoiceInfo(ActiveForm.Text, list));
 
             tb_buyersname.TextChanged -= new EventHandler(tb_buyersname_TextChanged);
             tb_sellersname.TextChanged -= new EventHandler(tb_sellersname_TextChanged);
@@ -198,10 +200,15 @@ namespace 过雨烟云
             tb_sellersname.TextChanged += new EventHandler(tb_sellersname_TextChanged);
         }
 
+        #endregion
+
+
+        #region 检查是否有必填项为空
+
         /// <summary>
         /// 检查是否有必填项为空
         /// </summary>
-        /// <returns></returns>
+        /// <returns>返回一个真或假</returns>
         private bool CheckIsEmpty()
         {
             if (string.IsNullOrEmpty(tb_invoicecode.Text.Trim()))
@@ -248,10 +255,15 @@ namespace 过雨烟云
             return true;
         }
 
+        #endregion
+
+
         private void Form_InVoiceEntry_Resize(object sender, EventArgs e)
         {
             panel1.Left = (this.Width - panel1.Width) / 2;
         }
+
+        #region 点击窗体右上角X提示
 
         // 窗体×掉提示
         private void Form_InVoiceEntry_FormClosing(object sender, FormClosingEventArgs e)
@@ -266,11 +278,18 @@ namespace 过雨烟云
             }
         }
 
+        #endregion
+
+        #region 按钮点击关闭窗体
+
         //窗体关闭
         private void tsbtn_exit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+        #endregion
+
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {

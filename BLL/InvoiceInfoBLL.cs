@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Runtime.Remoting.Messaging;
 using Model;
 using DAL;
@@ -15,10 +16,24 @@ namespace BLL
         /// 获取所有发票信息的唯一项 不包含删除的
         /// </summary>
         /// <returns>返回发票信息类实例的List</returns>
-        public List<InvoiceInfo> GetAllInvoiceInfos()
+        public DataTable GetAllInvoiceInfos()
         {
             return invoiceInfo.GetAllInvoiceInfos();
         }
+        #endregion
+
+
+        #region 双击发票信息某行 查看详细开票信息
+        /// <summary>
+        /// 双击发票信息某行 查看详细开票信息
+        /// </summary>
+        /// <param name="invoiceNumber">发票号码</param>
+        /// <returns>返回一个Datatable</returns>
+        public DataTable GetInvoiceNumberDetail(string invoiceNumber)
+        {
+            return invoiceInfo.GetInvoiceNumberDetail(invoiceNumber);
+        }
+
         #endregion
 
 

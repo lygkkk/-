@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BLL;
 
 namespace 过雨烟云
 {
@@ -28,50 +29,23 @@ namespace 过雨烟云
 
         private void InVoiceInfo_Load(object sender, EventArgs e)
         {
-            /*
+           
+        }
 
-            //从数据库获取数据
-            DataTable dataTable = new DataTable();
-
-            string FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
-            string[] sqlCommand = new[] { "SELECT * FROM commpanyinfo" };
-            Query query = new Query(FileDir, DB.DbType.Sqlite);
-            query.Execute(sqlCommand);
-            dataTable = query.DataTable;
-
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
+            Form_InVoiceEntry inVoiceEntry = new Form_InVoiceEntry();
+            DataTable dt = invoiceInfoBll.GetInvoiceNumberDetail(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[2].Value.ToString());
+            inVoiceEntry.ShowDialog();
 
 
-            DataGridViewTextBoxColumn acCode = new DataGridViewTextBoxColumn();
-            acCode.Name = "acCode";
-            acCode.DataPropertyName = "acCode";
-            acCode.HeaderText = "A/C Code";
-            dataGridView1.Columns.Add(acCode);
+            MessageBox.Show(dataGridView1.CurrentRow.Index.ToString());
+        }
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
-            //DataGridViewColumn[] dgvColumn = new DataGridViewColumn[{
-            //    "1",
-            //}];
-            //dataGridView1.Columns.AddRange(new DataGridViewTextBoxColumn[] {
-            //    "idColumn", titleColumn, subTitleColumn,
-            //    summaryColumn, contentColumn });
-
-            dataGridView1.Rows.Add(dataTable.Rows.Count);
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                dataGridView1.Rows[i].HeaderCell.Value = (i + 1).ToString();
-                dataGridView1.RowHeadersWidth = 50;
-                for (int j = 1; j < dataTable.Columns.Count; j++)
-                {
-                    dataGridView1.Rows[i].Cells[j - 1].Value = dataTable.Rows[i][j];
-                }
-            }
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-
-            this.FormBorderStyle = FormBorderStyle.None;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.BorderStyle = BorderStyle.None;
-            */
         }
     }
 }

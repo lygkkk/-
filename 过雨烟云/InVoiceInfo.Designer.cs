@@ -98,171 +98,203 @@
             this.returnmoney});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 27;
-            this.dataGridView1.Size = new System.Drawing.Size(1095, 455);
+            this.dataGridView1.Size = new System.Drawing.Size(821, 364);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // id
             // 
+            this.id.DataPropertyName = "id";
             this.id.HeaderText = "id";
             this.id.Name = "id";
             this.id.Visible = false;
             // 
             // invoicecode
             // 
+            this.invoicecode.DataPropertyName = "invoicecode";
             this.invoicecode.HeaderText = "发票编码";
             this.invoicecode.Name = "invoicecode";
             // 
             // invoicenumber
             // 
+            this.invoicenumber.DataPropertyName = "invoicenumber";
             this.invoicenumber.HeaderText = "发票号码";
             this.invoicenumber.Name = "invoicenumber";
             // 
             // date
             // 
+            this.date.DataPropertyName = "date";
             this.date.HeaderText = "开票日期";
             this.date.Name = "date";
             // 
             // buyersid
             // 
+            this.buyersid.DataPropertyName = "buyersid";
             this.buyersid.HeaderText = "购物方id";
             this.buyersid.Name = "buyersid";
             this.buyersid.Visible = false;
             // 
             // buyerscommpanyname
             // 
+            this.buyerscommpanyname.DataPropertyName = "commpanyname";
             this.buyerscommpanyname.HeaderText = "购货方名称";
             this.buyerscommpanyname.Name = "buyerscommpanyname";
             // 
             // buyerstaxnumber
             // 
+            this.buyerstaxnumber.DataPropertyName = "taxnumber";
             this.buyerstaxnumber.HeaderText = "购货方税号";
             this.buyerstaxnumber.Name = "buyerstaxnumber";
             // 
             // buyersaddress
             // 
+            this.buyersaddress.DataPropertyName = "address";
             this.buyersaddress.HeaderText = "购货方地址电话";
             this.buyersaddress.Name = "buyersaddress";
             // 
             // buyersbank
             // 
+            this.buyersbank.DataPropertyName = "bank";
             this.buyersbank.HeaderText = "购货方开户行及帐号";
             this.buyersbank.Name = "buyersbank";
             // 
             // productname
             // 
+            this.productname.DataPropertyName = "productname";
             this.productname.HeaderText = "产品名称";
             this.productname.Name = "productname";
             // 
             // productnumber
             // 
+            this.productnumber.DataPropertyName = "productnumber";
             this.productnumber.HeaderText = "数量";
             this.productnumber.Name = "productnumber";
             // 
             // unitprice
             // 
+            this.unitprice.DataPropertyName = "unitprice";
             this.unitprice.HeaderText = "单价";
             this.unitprice.Name = "unitprice";
             // 
             // money
             // 
+            this.money.DataPropertyName = "money";
             this.money.HeaderText = "金额";
             this.money.Name = "money";
             // 
             // taxrate
             // 
+            this.taxrate.DataPropertyName = "taxrate";
             this.taxrate.HeaderText = "税率";
             this.taxrate.Name = "taxrate";
             // 
             // taxamount
             // 
+            this.taxamount.DataPropertyName = "taxamount";
             this.taxamount.HeaderText = "税额";
             this.taxamount.Name = "taxamount";
             // 
             // totalamount
             // 
+            this.totalamount.DataPropertyName = "totalamount";
             this.totalamount.HeaderText = "合计金额";
             this.totalamount.Name = "totalamount";
             // 
             // totaltaxamount
             // 
+            this.totaltaxamount.DataPropertyName = "totaltaxamount";
             this.totaltaxamount.HeaderText = "合计税额";
             this.totaltaxamount.Name = "totaltaxamount";
             // 
             // moneyupper
             // 
+            this.moneyupper.DataPropertyName = "moneyupper";
             this.moneyupper.HeaderText = "金额大写";
             this.moneyupper.Name = "moneyupper";
             // 
             // moneylow
             // 
+            this.moneylow.DataPropertyName = "moneylow";
             this.moneylow.HeaderText = "金额小写";
             this.moneylow.Name = "moneylow";
             // 
             // sellersid
             // 
+            this.sellersid.DataPropertyName = "sellersid";
             this.sellersid.HeaderText = "销售方id";
             this.sellersid.Name = "sellersid";
             // 
             // sellerscommpanyname
             // 
+            this.sellerscommpanyname.DataPropertyName = "销售方名称";
             this.sellerscommpanyname.HeaderText = "销售方名称";
             this.sellerscommpanyname.Name = "sellerscommpanyname";
             // 
             // sellerstaxnumber
             // 
+            this.sellerstaxnumber.DataPropertyName = "销售方税号";
             this.sellerstaxnumber.HeaderText = "销售方税号";
             this.sellerstaxnumber.Name = "sellerstaxnumber";
             // 
             // sellersaddress
             // 
+            this.sellersaddress.DataPropertyName = "销售方地址及电话";
             this.sellersaddress.HeaderText = "销售方地址及电话";
             this.sellersaddress.Name = "sellersaddress";
             // 
             // sellersbank
             // 
+            this.sellersbank.DataPropertyName = "销售方开户行及帐号";
             this.sellersbank.HeaderText = "销售方开户行及行号";
             this.sellersbank.Name = "sellersbank";
             // 
             // comment
             // 
+            this.comment.DataPropertyName = "comment";
             this.comment.HeaderText = "备注";
             this.comment.Name = "comment";
             // 
             // payee
             // 
+            this.payee.DataPropertyName = "payee";
             this.payee.HeaderText = "收款人";
             this.payee.Name = "payee";
             // 
             // check
             // 
+            this.check.DataPropertyName = "check";
             this.check.HeaderText = "复核";
             this.check.Name = "check";
             // 
             // drawer
             // 
+            this.drawer.DataPropertyName = "drawer";
             this.drawer.HeaderText = "开票人";
             this.drawer.Name = "drawer";
             // 
             // invoicestate
             // 
+            this.invoicestate.DataPropertyName = "invoicestate";
             this.invoicestate.HeaderText = "发票状态";
             this.invoicestate.Name = "invoicestate";
             // 
             // returnmoney
             // 
+            this.returnmoney.DataPropertyName = "returnmoney";
             this.returnmoney.HeaderText = "回款";
             this.returnmoney.Name = "returnmoney";
             // 
             // InvoiceInfo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1095, 455);
+            this.ClientSize = new System.Drawing.Size(821, 364);
             this.Controls.Add(this.dataGridView1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "InvoiceInfo";
             this.Text = "InVoiceInfo";
             this.Load += new System.EventHandler(this.InVoiceInfo_Load);

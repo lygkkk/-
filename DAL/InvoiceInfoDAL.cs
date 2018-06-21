@@ -14,26 +14,52 @@ namespace DAL
         /// 获取所有发票信息的唯一项 不包含删除的
         /// </summary>
         /// <returns>返回发票信息类实例的List</returns>
-        public List<InvoiceInfo> GetAllInvoiceInfos()
+        public DataTable GetAllInvoiceInfos()
         {
-            string sql = "SELECT DISTINCT id, invoicecode, invoicenumber, date, buyersid, productname, productnumber, unitprice, money, taxrate, " +
-                         "taxamount, totalamount, totaltaxamount, moneyupper, moneylow, sellersid, comment, payee, \"check\", drawer, invoicestate, returnmoney " +
-                         "FROM invoiceinfo WHERE flag = '0'";
+            //string sql = "SELECT id, invoicecode, invoicenumber, date, buyersid, productname, productnumber, unitprice, money, taxrate, " +
+            //             "taxamount, totalamount, totaltaxamount, moneyupper, moneylow, sellersid, comment, payee, \"check\", drawer, invoicestate, returnmoney " +
+            //             "FROM invoiceinfo WHERE flag = '0' GROUP BY invoicenumber";
+
+            string sql = "SELECT a.id, a.invoicecode, a.invoicenumber, a.date, a.buyersid, b.commpanyname, b.taxnumber, b.address, b.bank, " +
+            "a.productname, a.productnumber, a.unitprice, a.money, a.taxrate, a.taxamount, a.totalamount, a.totaltaxamount, " +
+            "a.moneyupper, a.moneylow, a.sellersid, c.commpanyname AS 销售方名称, c.taxnumber AS 销售方税号, c.address AS 销售方地址及电话, " +
+                "c.bank AS 销售方开户行及帐号, a.comment, a.payee, a.\"check\", a.drawer, a.invoicestate, a.returnmoney FROM invoiceinfo AS a " +
+                "LEFT OUTER JOIN commpanyinfo AS b ON a.buyersid = b.id LEFT OUTER JOIN commpanyinfo AS c ON a.sellersid = c.id WHERE flag = '0' " +
+            "GROUP BY invoicenumber";
 
             DataTable dataTable = SqliteConn.ExecuteTable(sql);
-            List<InvoiceInfo> list = new List<InvoiceInfo>();
-            if (dataTable.Rows.Count > 0)
-            {
-                foreach (DataRow dr in dataTable.Rows)
-                {
-                    list.Add(RowToinvoiceInfo(dr)); ;
-                }
-            }
-            return list;
+            //List<InvoiceInfo> list = new List<InvoiceInfo>();
+            //if (dataTable.Rows.Count > 0)
+            //{
+            //    foreach (DataRow dr in dataTable.Rows)
+            //    {
+            //        list.Add(RowToinvoiceInfo(dr)); ;
+            //    }
+            //}
+            return dataTable;
         }
 
         #endregion
 
+        #region 双击发票信息某行 查看详细开票信息
+        /// <summary>
+        /// 双击发票信息某行 查看详细开票信息
+        /// </summary>
+        /// <param name="invoiceNumber">发票号码</param>
+        /// <returns>返回一个Datatable</returns>
+        public DataTable GetInvoiceNumberDetail(string invoiceNumber)
+        {
+            string sql = "SELECT a.id, a.invoicecode, a.invoicenumber, a.date, a.buyersid, b.commpanyname, b.taxnumber, b.address, b.bank, " +
+                         "a.productname, a.productnumber, a.unitprice, a.money, a.taxrate, a.taxamount, a.totalamount, a.totaltaxamount, " +
+                         "a.moneyupper, a.moneylow, a.sellersid, c.commpanyname AS 销售方名称, c.taxnumber AS 销售方税号, c.address AS 销售方地址及电话, " +
+                         "c.bank AS 销售方开户行及帐号, a.comment, a.payee, a.\"check\", a.drawer, a.invoicestate, a.returnmoney FROM invoiceinfo AS a " +
+                         "LEFT OUTER JOIN commpanyinfo AS b ON a.buyersid = b.id LEFT OUTER JOIN commpanyinfo AS c ON a.sellersid = c.id WHERE flag = '0' " +
+                         "AND invoicenumber = '" + invoiceNumber + "'";
+            DataTable dt = SqliteConn.ExecuteTable(sql);
+            return dt;
+        }
+
+        #endregion
 
 
         #region 新增或修改一条数据 语句配置
