@@ -140,7 +140,7 @@ namespace 过雨烟云
             panel1.Size = new Size(1200,768);
             this.AutoScroll = true;
 
-            tb_invoicecode.DataBindings.Add("Text", DataMoify.dt,"invoicecode", false, DataSourceUpdateMode.OnPropertyChanged);
+            tb_invoicecode.DataBindings.Add("Text", DataMoify.dt, "invicecode", false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         #region 点击按钮 插入或修改数据

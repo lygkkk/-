@@ -202,12 +202,18 @@ namespace 过雨烟云
 
                     break;
                 case "InvoiceInfo":
+                    
                     DataRow dr = DataMoify.dt.NewRow();
+                    DataRow dr1 = DataMoify.dt.NewRow();
                     DataMoify.InvoiceDataMoify();
-                    dr[0] = "1";
+                    dr["invicecode"] = "dadadada";
                     dr[1] = "lyg";
                     dr[2] = "lyg1";
+                    dr1[1] = "zj";
                     DataMoify.dt.Rows.Add(dr);
+                    DataMoify.dt.Rows.Add(dr1);
+
+
                     //DataGridViewRow dgvRow = InvoiceInfo.dgv.CurrentRow;
                     FormInVoiceEntry = new Form_InVoiceEntry();
                     FormInVoiceEntry.ShowDialog();
