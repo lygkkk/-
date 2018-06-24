@@ -181,6 +181,10 @@
       <Project>{f65ac62b-7da9-4f58-83fb-48b155631384}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DBS\DBS.csproj">
+      <Project>{3a8cb96f-4b6e-4bf1-97a1-f20cf80d7485}</Project>
+      <Name>DBS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{8c322826-2ca8-42d8-b0d3-a47f2e144506}</Project>
       <Name>Model</Name>

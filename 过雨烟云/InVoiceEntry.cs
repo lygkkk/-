@@ -10,17 +10,19 @@ using System.Windows.Forms;
 using DB;
 using Model;
 using BLL;
-
+using DBS;
 namespace 过雨烟云
 {
     public partial class Form_InVoiceEntry : Form
     {
         StepPrompt _stepPrompt = null;
+        
         private string keyWord;
         Bitmap bm;
         Point point;
         public Form_InVoiceEntry()
         {
+            
             InitializeComponent();
         }
 
@@ -137,9 +139,11 @@ namespace 过雨烟云
             panel1.Left = (this.Width - panel1.Width) / 2;
             panel1.Size = new Size(1200,768);
             this.AutoScroll = true;
+
+            tb_invoicecode.DataBindings.Add("Text", DataMoify.dt,"invoicecode", false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
-        #region 插入或修改数据
+        #region 点击按钮 插入或修改数据
 
         //保存数据
         private void tsbtn_submit_Click(object sender, EventArgs e)

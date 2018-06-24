@@ -11,6 +11,7 @@ using System.Configuration;
 using DB;
 using Model;
 using BLL;
+using DBS;
 
 using commpanyInfo = 过雨烟云.commpanyInfo;
 
@@ -201,18 +202,28 @@ namespace 过雨烟云
 
                     break;
                 case "InvoiceInfo":
-                    dgvIndex = InvoiceInfo.dgv.CurrentRow.Index;
-                    dgvColumnCount = InvoiceInfo.dgv.ColumnCount;
+                    DataRow dr = DataMoify.dt.NewRow();
+                    DataMoify.InvoiceDataMoify();
+                    dr[0] = "1";
+                    dr[1] = "lyg";
+                    dr[2] = "lyg1";
+                    DataMoify.dt.Rows.Add(dr);
+                    //DataGridViewRow dgvRow = InvoiceInfo.dgv.CurrentRow;
+                    FormInVoiceEntry = new Form_InVoiceEntry();
+                    FormInVoiceEntry.ShowDialog();
 
-                    str = new string[dgvColumnCount + 1];
-                    str[0] = (dgvIndex + 1).ToString();
-                    for (int i = 1; i < str.Length; i++)
-                    {
-                        str[i] = CommpanyInfo.dgv.Rows[dgvIndex].Cells[i - 1].Value.ToString();
-                    }
-                    if (CommpanyInfoModify == null || CommpanyInfoModify.IsDisposed == true) CommpanyInfoModify = new CommpanyInfoModify(CommpanyInfo);
-                    CommpanyInfoModify.TextBoxAssignment(str);
-                    CommpanyInfoModify.ShowDialog();
+                    // dgvIndex = InvoiceInfo.dgv.CurrentRow.Index;
+                    //dgvColumnCount = InvoiceInfo.dgv.ColumnCount;
+
+                    //str = new string[dgvColumnCount + 1];
+                    //str[0] = (dgvIndex + 1).ToString();
+                    //for (int i = 1; i < str.Length; i++)
+                    //{
+                    //    str[i] = CommpanyInfo.dgv.Rows[dgvIndex].Cells[i - 1].Value.ToString();
+                    //}
+                    //if (CommpanyInfoModify == null || CommpanyInfoModify.IsDisposed == true) CommpanyInfoModify = new CommpanyInfoModify(CommpanyInfo);
+                    //CommpanyInfoModify.TextBoxAssignment(str);
+                    //CommpanyInfoModify.ShowDialog();
                     break;
             }
         }
