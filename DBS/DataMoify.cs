@@ -29,7 +29,7 @@ namespace DBS
             dt.Columns.Add(new DataColumn("totalamount"));
             dt.Columns.Add(new DataColumn("totaltaxamount"));
             dt.Columns.Add(new DataColumn("moneyupper"));
-            dt.Columns.Add(new DataColumn("moneylower"));
+            dt.Columns.Add(new DataColumn("moneylow"));
             dt.Columns.Add(new DataColumn("sellersid"));
             dt.Columns.Add(new DataColumn("sellersname"));
             dt.Columns.Add(new DataColumn("sellerstaxnumber"));

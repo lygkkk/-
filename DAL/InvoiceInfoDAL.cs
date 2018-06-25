@@ -82,7 +82,7 @@ namespace DAL
 
         #endregion
 
-        #region 新增或修改一条数据 语句配置
+        #region 新增一条数据 语句配置
 
     public int AddInvoiceInfo(InvoiceInfo invoiceInfo)
         {
@@ -94,7 +94,7 @@ namespace DAL
 
         #endregion
 
-        #region 新增或修改多条数据 语句配置 
+        #region 新增多条数据 语句配置 
         public int AddInvoiceInfo(List<InvoiceInfo> list)
         {
             String sql = "INSERT INTO invoiceinfo VALUES(@id, @invoicecode, @invoicenumber, @date, @buyersid, @productname,@productnumber, @unitprice, @money, " +
@@ -112,7 +112,7 @@ namespace DAL
 
         #endregion
 
-        #region 新增或修改一条语句 参数配置
+        #region 新增一条语句 参数配置
 
         /// <summary>
         /// 新增或修改一条语句 参数配置
@@ -165,7 +165,7 @@ namespace DAL
 
         #endregion
 
-        #region 新增或修改多条语句 参数配置
+        #region 新增多条语句 参数配置
 
         /// <summary>
         /// 新增或修改多条语句 参数配置
@@ -214,6 +214,14 @@ namespace DAL
             return list;
         }
 
+        #endregion
+
+        #region 修改数据
+
+        //public int ModifyData()
+        //{
+        //    string sql = "UPDATE";
+        //}
         #endregion
 
         #region DataTable 行转发票信息类

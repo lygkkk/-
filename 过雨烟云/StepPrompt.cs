@@ -11,13 +11,16 @@ using System.Windows.Forms;
 namespace 过雨烟云
 {
     public delegate void CommpanyInfo(string id,string commpanyName, string taxNumber, string address, string bank );
+    public delegate void DisplayListView(object sender, EventArgs e );
     public partial class StepPrompt : Form
     {
         CommpanyInfo _commpanyInfor;
-        public StepPrompt(CommpanyInfo commpanyInfo)
+        DisplayListView _displayListView;
+
+        public StepPrompt(CommpanyInfo commpanyInfo, DisplayListView displayListView)
         {
             _commpanyInfor  = commpanyInfo;
-            
+            _displayListView = displayListView;
             InitializeComponent();
         }
 
@@ -51,8 +54,13 @@ namespace 过雨烟云
         {
             _commpanyInfor(listView1.SelectedItems[0].Text, listView1.SelectedItems[0].SubItems[1].Text, 
                             listView1.SelectedItems[0].SubItems[2].Text, listView1.SelectedItems[0].SubItems[3].Text, listView1.SelectedItems[0].SubItems[4].Text);
+
             this.Dispose();
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            _displayListView(sender, e);
+        }
     }
 }

@@ -47,51 +47,48 @@ namespace 过雨烟云
             //List<>
         }
 
-        private void tb_buyersname_TextChanged(object sender, EventArgs e)
-        {
-            keyWord = tb_buyersname.Text;
-            DisplayListView();
-        }
 
+        #region 逐步提示 判断购买方或销售方 把公司信息自动填充到单元格
         //判断购买方或销售方 把公司信息自动填充到单元格
-        private void CommpanyInfo(string id, string commpanyName,string taxNumber, string address, string bank)
+        private void CommpanyInfo(string id, string commpanyName, string taxNumber, string address, string bank)
         {
-            if (ActiveControl.Name == "tb_buyersname")
+            if (ActiveControl.Parent.Name == "tb_buyersname")
             {
-                this.tb_buyersname.TextChanged -= tb_buyersname_TextChanged;
                 buyersId.Text = id;
                 tb_buyersname.Text = commpanyName;
                 tb_buyerstaxnumber.Text = taxNumber;
                 tb_buyersaddress.Text = address;
                 tb_buyersbank.Text = bank;
-                this.tb_buyersname.TextChanged += tb_buyersname_TextChanged;
+                return;
             }
-            else
+            if (ActiveControl.Parent.Name == "tb_sellersname")
             {
-                this.tb_sellersname.TextChanged -= tb_sellersname_TextChanged;
                 sellersId.Text = id;
                 tb_sellersname.Text = commpanyName;
                 tb_sellerstaxnumber.Text = taxNumber;
                 tb_sellersaddress.Text = address;
                 tb_sellersbank.Text = bank;
-                this.tb_sellersname.TextChanged += tb_sellersname_TextChanged;
+                return;
             }
-
-            
         }
+        #endregion
 
-        private void tb_sellersname_TextChanged(object sender, EventArgs e)
-        {
-            keyWord = tb_sellersname.Text;
-            DisplayListView();
-        }
 
+        #region 显示逐步提示窗体
         //显示逐步提示
-        private void DisplayListView()
+        public void DisplayListView(object sender, EventArgs e)
         {
             //从数据库获取数据
             DataTable dataTable = new DataTable();
-            
+            TextBox tb = sender as TextBox;
+            if (tb != null)
+            {
+                keyWord = tb.Text;
+            }
+            else
+            {
+                keyWord = "";
+            } 
             FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
             string[] sqlCommand = new[] { "SELECT id,commpanyname, taxnumber, address, bank FROM commpanyinfo WHERE commpanyname LIKE '%" + keyWord + "%'" };
             Query query = new Query(FileDir, DB.DbType.Sqlite);
@@ -101,19 +98,25 @@ namespace 过雨烟云
             //实例化逐步提示窗体并赋值给listview
             if (_stepPrompt == null || _stepPrompt.IsDisposed == true)
             {
-                _stepPrompt = new StepPrompt(CommpanyInfo);
+                _stepPrompt = new StepPrompt(CommpanyInfo, DisplayListView);
             }
             _stepPrompt.ListViewItemsValue(dataTable);
             _stepPrompt.TopMost = true;
             Point p = new Point(tb_buyersname.Width, 0);
             _stepPrompt.Location = tb_buyersname.PointToScreen(p);
+            _stepPrompt.Location = tb_buyersname.PointToScreen(p);
             _stepPrompt.Show();
-            dataTable.Dispose();
+            dataTable = null;
         }
+        #endregion
+
 
         //窗体启动初始化datagridview
         private void Form_InVoiceEntry_Load(object sender, EventArgs e)
         {
+            CreateButton(tb_buyersname);
+            CreateButton(tb_sellersname);
+
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.AllowUserToAddRows = false;
 
@@ -123,35 +126,14 @@ namespace 过雨烟云
 
             if (this.Text == "发票修改")
             {
-                tb_sellersname.TextChanged -= new EventHandler(tb_sellersname_TextChanged);
-                tb_buyersname.TextChanged -= new EventHandler(tb_buyersname_TextChanged);
-
-                tb_invoicecode.DataBindings.Add("Text", DataMoify.dt, "invoicecode", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_invoicenumber.DataBindings.Add("Text", DataMoify.dt, "invoicenumber", false, DataSourceUpdateMode.OnPropertyChanged);
-                dtp_date.DataBindings.Add("Text", DataMoify.dt, "date", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_buyersname.DataBindings.Add("Text", DataMoify.dt, "buyersname", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_buyerstaxnumber.DataBindings.Add("Text", DataMoify.dt, "buyerstaxnumber", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_buyersaddress.DataBindings.Add("Text", DataMoify.dt, "buyersaddress", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_buyersbank.DataBindings.Add("Text", DataMoify.dt, "buyersbank", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_totalamount.DataBindings.Add("Text", DataMoify.dt, "totalamount", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_totaltaxamount.DataBindings.Add("Text", DataMoify.dt, "totaltaxamount", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_moneyupper.DataBindings.Add("Text", DataMoify.dt, "moneyupper", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_moneylow.DataBindings.Add("Text", DataMoify.dt, "moneylower", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_sellersname.DataBindings.Add("Text", DataMoify.dt, "sellersname", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_sellerstaxnumber.DataBindings.Add("Text", DataMoify.dt, "sellerstaxnumber", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_sellersaddress.DataBindings.Add("Text", DataMoify.dt, "sellersaddress", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_sellersbank.DataBindings.Add("Text", DataMoify.dt, "sellersbank", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_payee.DataBindings.Add("Text", DataMoify.dt, "payee", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_check.DataBindings.Add("Text", DataMoify.dt, "check", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_drawer.DataBindings.Add("Text", DataMoify.dt, "drawer", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_comment.DataBindings.Add("Text", DataMoify.dt, "comment", false, DataSourceUpdateMode.OnPropertyChanged);
-                tb_returnMoney.DataBindings.Add("Text", DataMoify.dt, "returnmoney", false, DataSourceUpdateMode.OnPropertyChanged);
-                cbb_invoiceStatus.DataBindings.Add("Text", DataMoify.dt, "invoicestatus", false, DataSourceUpdateMode.OnPropertyChanged);
-
+                foreach (Control ctl in panel1.Controls)
+                {
+                    if (ctl.GetType().Name == "TextBox" || ctl.GetType().Name == "DateTimePicker" || ctl.GetType().Name == "ComboBox")
+                    {
+                        ctl.DataBindings.Add("Text", DataMoify.dt, ctl.Name.Substring(ctl.Name.IndexOf("_") + 1), false, DataSourceUpdateMode.OnPropertyChanged);
+                    }  
+                }
                 dataGridView1.DataSource = DataMoify.dt;
-
-                tb_sellersname.TextChanged += new EventHandler(tb_sellersname_TextChanged);
-                tb_buyersname.TextChanged += new EventHandler(tb_buyersname_TextChanged);
                 tsbtn_submit.Text = "修改";
             }
         }
@@ -209,8 +191,7 @@ namespace 过雨烟云
                 InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
                 MessageBox.Show(invoiceInfoBll.SaveInvoiceInfo(ActiveForm.Text, list));
 
-                tb_buyersname.TextChanged -= new EventHandler(tb_buyersname_TextChanged);
-                tb_sellersname.TextChanged -= new EventHandler(tb_sellersname_TextChanged);
+
                 foreach (Control tb in panel1.Controls)
                 {
                     if (tb.GetType().ToString().Contains("TextBox")) tb.Text = "";
@@ -220,9 +201,6 @@ namespace 过雨烟云
                 {
                     dataGridView1.Rows.RemoveAt(0);
                 }
-
-                tb_buyersname.TextChanged += new EventHandler(tb_buyersname_TextChanged);
-                tb_sellersname.TextChanged += new EventHandler(tb_sellersname_TextChanged);
             }
 
 
@@ -288,6 +266,7 @@ namespace 过雨烟云
 
         private void Form_InVoiceEntry_Resize(object sender, EventArgs e)
         {
+            
             panel1.Left = (this.Width - panel1.Width) / 2;
         }
 
@@ -298,6 +277,7 @@ namespace 过雨烟云
         {
             if (MessageBox.Show("确认关闭窗口？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                DataMoify.dt.Rows.Clear();
                 e.Cancel = false;
             }
             else
@@ -324,9 +304,49 @@ namespace 过雨烟云
             dataGridView1.Rows.Add();
         }
 
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        #region 删除DGV一行
+        /// <summary>
+        /// 删除一行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripButton2_Click(object sender, EventArgs e)
         {
+            if (this.Text == "新增")
+            {
+                dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
+                return;
+            }
 
+            if (this.Text == "修改")
+            {
+                dataGridView1.Rows[dataGridView1.CurrentRow.Index].Visible = false;
+                dataGridView1["flag", dataGridView1.CurrentRow.Index].Value = "1";
+                return;
+            }
         }
+        #endregion
+
+        #region 生成一个TextBox内置的Button按钮
+        private void CreateButton(Control ctl)
+        {
+            Button btn = new Button();
+            btn.Text = "...";
+            btn.TextAlign = ContentAlignment.MiddleCenter;
+            btn.Font = new Font("微软雅黑", 9);
+            ctl.Controls.Add(btn);
+            btn.BackColor = Color.LightGray;
+            btn.TabStop = false;
+            btn.Width = 30;
+            btn.Height = ctl.Height - 4;
+            btn.Top = 2;
+            btn.Left = ctl.Width - 32;
+            btn.Cursor = DefaultCursor;
+
+            btn.Click += new EventHandler(DisplayListView);
+        }
+        #endregion
+
+        //private void 
     }
 }

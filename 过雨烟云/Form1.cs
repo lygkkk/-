@@ -202,11 +202,13 @@ namespace 过雨烟云
 
                     break;
                 case "InvoiceInfo":
-                    if (DataMoify.dt.Columns.Count == 0) DataMoify.InvoiceDataMoify();
+                    //if (DataMoify.dt.Columns.Count == 0) DataMoify.InvoiceDataMoify();
                     dgvIndex = InvoiceInfo.dgv.CurrentRow.Index;
                     InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
                     DataTable dt = invoiceInfoBll.GetProductDetail(InvoiceInfo.dgv["invoicenumber", dgvIndex].Value.ToString());
-                    
+
+                    DataMoify.dt = dt;
+                    MessageBox.Show(dt.Rows[0].RowState.ToString());
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         DataMoify.dt.Rows.Add();
@@ -231,7 +233,7 @@ namespace 过雨烟云
                     DataMoify.dt.Rows[0]["totalamount"] = InvoiceInfo.dgv["totalamount", 0].Value;
                     DataMoify.dt.Rows[0]["totaltaxamount"] = InvoiceInfo.dgv["totaltaxamount", 0].Value;
                     DataMoify.dt.Rows[0]["moneyupper"] = InvoiceInfo.dgv["moneyupper", 0].Value;
-                    DataMoify.dt.Rows[0]["moneylower"] = InvoiceInfo.dgv["moneylow", 0].Value;
+                    DataMoify.dt.Rows[0]["moneylow"] = InvoiceInfo.dgv["moneylow", 0].Value;
                     DataMoify.dt.Rows[0]["sellersid"] = InvoiceInfo.dgv["sellersid", 0].Value;
                     DataMoify.dt.Rows[0]["sellersname"] = InvoiceInfo.dgv["sellerscommpanyname", 0].Value;
                     DataMoify.dt.Rows[0]["sellerstaxnumber"] = InvoiceInfo.dgv["sellerstaxnumber", 0].Value;
