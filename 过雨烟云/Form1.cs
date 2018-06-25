@@ -202,34 +202,53 @@ namespace 过雨烟云
 
                     break;
                 case "InvoiceInfo":
+                    if (DataMoify.dt.Columns.Count == 0) DataMoify.InvoiceDataMoify();
+                    dgvIndex = InvoiceInfo.dgv.CurrentRow.Index;
+                    InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
+                    DataTable dt = invoiceInfoBll.GetProductDetail(InvoiceInfo.dgv["invoicenumber", dgvIndex].Value.ToString());
                     
-                    DataRow dr = DataMoify.dt.NewRow();
-                    DataRow dr1 = DataMoify.dt.NewRow();
-                    DataMoify.InvoiceDataMoify();
-                    dr["invicecode"] = "dadadada";
-                    dr[1] = "lyg";
-                    dr[2] = "lyg1";
-                    dr1[1] = "zj";
-                    DataMoify.dt.Rows.Add(dr);
-                    DataMoify.dt.Rows.Add(dr1);
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        DataMoify.dt.Rows.Add();
+                        DataMoify.dt.Rows[i]["id"] = dt.Rows[i]["id"];
+                        DataMoify.dt.Rows[i]["productname"] = dt.Rows[i]["productname"];
+                        DataMoify.dt.Rows[i]["productnumber"] = dt.Rows[i]["productnumber"];
+                        DataMoify.dt.Rows[i]["unitprice"] = dt.Rows[i]["unitprice"];
+                        DataMoify.dt.Rows[i]["money"] = dt.Rows[i]["money"];
+                        DataMoify.dt.Rows[i]["taxrate"] = dt.Rows[i]["taxrate"];
+                        DataMoify.dt.Rows[i]["taxamount"] = dt.Rows[i]["taxamount"];
+                    }
+
+                    
+                    DataMoify.dt.Rows[0]["invoicecode"] = InvoiceInfo.dgv["invoicecode", 0].Value;
+                    DataMoify.dt.Rows[0]["invoicenumber"] = InvoiceInfo.dgv["invoicenumber", 0].Value;
+                    DataMoify.dt.Rows[0]["date"] = InvoiceInfo.dgv["date", 0].Value;
+                    DataMoify.dt.Rows[0]["buyersid"] = InvoiceInfo.dgv["buyersid", 0].Value;
+                    DataMoify.dt.Rows[0]["buyersname"] = InvoiceInfo.dgv["buyerscommpanyname", 0].Value;
+                    DataMoify.dt.Rows[0]["buyerstaxnumber"] = InvoiceInfo.dgv["buyerstaxnumber", 0].Value;
+                    DataMoify.dt.Rows[0]["buyersaddress"] = InvoiceInfo.dgv["buyersaddress", 0].Value;
+                    DataMoify.dt.Rows[0]["buyersbank"] = InvoiceInfo.dgv["buyersbank", 0].Value;
+                    DataMoify.dt.Rows[0]["totalamount"] = InvoiceInfo.dgv["totalamount", 0].Value;
+                    DataMoify.dt.Rows[0]["totaltaxamount"] = InvoiceInfo.dgv["totaltaxamount", 0].Value;
+                    DataMoify.dt.Rows[0]["moneyupper"] = InvoiceInfo.dgv["moneyupper", 0].Value;
+                    DataMoify.dt.Rows[0]["moneylower"] = InvoiceInfo.dgv["moneylow", 0].Value;
+                    DataMoify.dt.Rows[0]["sellersid"] = InvoiceInfo.dgv["sellersid", 0].Value;
+                    DataMoify.dt.Rows[0]["sellersname"] = InvoiceInfo.dgv["sellerscommpanyname", 0].Value;
+                    DataMoify.dt.Rows[0]["sellerstaxnumber"] = InvoiceInfo.dgv["sellerstaxnumber", 0].Value;
+                    DataMoify.dt.Rows[0]["sellersaddress"] = InvoiceInfo.dgv["sellersaddress", 0].Value;
+                    DataMoify.dt.Rows[0]["sellersbank"] = InvoiceInfo.dgv["sellersbank", 0].Value;
+                    DataMoify.dt.Rows[0]["comment"] = InvoiceInfo.dgv["comment", 0].Value;
+                    DataMoify.dt.Rows[0]["payee"] = InvoiceInfo.dgv["payee", 0].Value;
+                    DataMoify.dt.Rows[0]["check"] = InvoiceInfo.dgv["check", 0].Value;
+                    DataMoify.dt.Rows[0]["drawer"] = InvoiceInfo.dgv["drawer", 0].Value;
+                    DataMoify.dt.Rows[0]["invoicestatus"] = InvoiceInfo.dgv["invoicestate", 0].Value;
+                    DataMoify.dt.Rows[0]["returnmoney"] = InvoiceInfo.dgv["returnmoney", 0].Value;
 
 
-                    //DataGridViewRow dgvRow = InvoiceInfo.dgv.CurrentRow;
+
                     FormInVoiceEntry = new Form_InVoiceEntry();
+                    FormInVoiceEntry.Text = "发票修改";
                     FormInVoiceEntry.ShowDialog();
-
-                    // dgvIndex = InvoiceInfo.dgv.CurrentRow.Index;
-                    //dgvColumnCount = InvoiceInfo.dgv.ColumnCount;
-
-                    //str = new string[dgvColumnCount + 1];
-                    //str[0] = (dgvIndex + 1).ToString();
-                    //for (int i = 1; i < str.Length; i++)
-                    //{
-                    //    str[i] = CommpanyInfo.dgv.Rows[dgvIndex].Cells[i - 1].Value.ToString();
-                    //}
-                    //if (CommpanyInfoModify == null || CommpanyInfoModify.IsDisposed == true) CommpanyInfoModify = new CommpanyInfoModify(CommpanyInfo);
-                    //CommpanyInfoModify.TextBoxAssignment(str);
-                    //CommpanyInfoModify.ShowDialog();
                     break;
             }
         }

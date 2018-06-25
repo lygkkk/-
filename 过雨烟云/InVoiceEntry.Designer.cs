@@ -63,6 +63,13 @@
             this.tb_returnMoney = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.型号规格 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.单位 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.taxrate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.taxamount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -250,6 +257,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -261,6 +269,14 @@
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
+            this.productname,
+            this.型号规格,
+            this.单位,
+            this.productnumber,
+            this.taxrate,
+            this.taxamount});
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveBorder;
             this.dataGridView1.Location = new System.Drawing.Point(255, 309);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -431,6 +447,47 @@
             this.pictureBox1.TabIndex = 66;
             this.pictureBox1.TabStop = false;
             // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "序号";
+            this.id.Name = "id";
+            this.id.Visible = false;
+            // 
+            // productname
+            // 
+            this.productname.DataPropertyName = "productname";
+            this.productname.HeaderText = "货物名称";
+            this.productname.Name = "productname";
+            // 
+            // 型号规格
+            // 
+            this.型号规格.HeaderText = "型号规格";
+            this.型号规格.Name = "型号规格";
+            // 
+            // 单位
+            // 
+            this.单位.HeaderText = "单位";
+            this.单位.Name = "单位";
+            // 
+            // productnumber
+            // 
+            this.productnumber.DataPropertyName = "productnumber";
+            this.productnumber.HeaderText = "数量";
+            this.productnumber.Name = "productnumber";
+            // 
+            // taxrate
+            // 
+            this.taxrate.DataPropertyName = "taxrate";
+            this.taxrate.HeaderText = "税率";
+            this.taxrate.Name = "taxrate";
+            // 
+            // taxamount
+            // 
+            this.taxamount.DataPropertyName = "taxamount";
+            this.taxamount.HeaderText = "税额";
+            this.taxamount.Name = "taxamount";
+            // 
             // Form_InVoiceEntry
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -493,5 +550,12 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label sellersId;
         private System.Windows.Forms.Label buyersId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 型号规格;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 单位;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productnumber;
+        private System.Windows.Forms.DataGridViewTextBoxColumn taxrate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn taxamount;
     }
 }

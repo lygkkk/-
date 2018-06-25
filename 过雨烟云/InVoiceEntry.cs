@@ -114,25 +114,6 @@ namespace 过雨烟云
         //窗体启动初始化datagridview
         private void Form_InVoiceEntry_Load(object sender, EventArgs e)
         {
-            DataGridViewColumn dgvcolumn = new DataGridViewColumn();
-            dataGridView1.ColumnCount = 8;
-            dataGridView1.Columns[0].Width = 183;
-            dataGridView1.ColumnHeadersVisible = true;
-            dataGridView1.Columns[0].Name = "货物或应税劳务、服务名称";
-            dataGridView1.Columns[1].Name = "规格型号";
-            dataGridView1.Columns[1].Width = 100;
-            dataGridView1.Columns[2].Name = "单位";
-            dataGridView1.Columns[2].Width = 80;
-            dataGridView1.Columns[3].Name = "数量";
-            dataGridView1.Columns[3].Width = 90;
-            dataGridView1.Columns[4].Name = "单价(含税)";
-            dataGridView1.Columns[4].Width = 100;
-            dataGridView1.Columns[5].Name = "金额(含税)";
-            dataGridView1.Columns[5].Width = 100;
-            dataGridView1.Columns[6].Name = "税率";
-            dataGridView1.Columns[6].Width = 80;
-            dataGridView1.Columns[7].Name = "税额";
-            dataGridView1.Columns[7].Width = 80;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.AllowUserToAddRows = false;
 
@@ -140,7 +121,39 @@ namespace 过雨烟云
             panel1.Size = new Size(1200,768);
             this.AutoScroll = true;
 
-            tb_invoicecode.DataBindings.Add("Text", DataMoify.dt, "invicecode", false, DataSourceUpdateMode.OnPropertyChanged);
+            if (this.Text == "发票修改")
+            {
+                tb_sellersname.TextChanged -= new EventHandler(tb_sellersname_TextChanged);
+                tb_buyersname.TextChanged -= new EventHandler(tb_buyersname_TextChanged);
+
+                tb_invoicecode.DataBindings.Add("Text", DataMoify.dt, "invoicecode", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_invoicenumber.DataBindings.Add("Text", DataMoify.dt, "invoicenumber", false, DataSourceUpdateMode.OnPropertyChanged);
+                dtp_date.DataBindings.Add("Text", DataMoify.dt, "date", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_buyersname.DataBindings.Add("Text", DataMoify.dt, "buyersname", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_buyerstaxnumber.DataBindings.Add("Text", DataMoify.dt, "buyerstaxnumber", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_buyersaddress.DataBindings.Add("Text", DataMoify.dt, "buyersaddress", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_buyersbank.DataBindings.Add("Text", DataMoify.dt, "buyersbank", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_totalamount.DataBindings.Add("Text", DataMoify.dt, "totalamount", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_totaltaxamount.DataBindings.Add("Text", DataMoify.dt, "totaltaxamount", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_moneyupper.DataBindings.Add("Text", DataMoify.dt, "moneyupper", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_moneylow.DataBindings.Add("Text", DataMoify.dt, "moneylower", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_sellersname.DataBindings.Add("Text", DataMoify.dt, "sellersname", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_sellerstaxnumber.DataBindings.Add("Text", DataMoify.dt, "sellerstaxnumber", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_sellersaddress.DataBindings.Add("Text", DataMoify.dt, "sellersaddress", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_sellersbank.DataBindings.Add("Text", DataMoify.dt, "sellersbank", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_payee.DataBindings.Add("Text", DataMoify.dt, "payee", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_check.DataBindings.Add("Text", DataMoify.dt, "check", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_drawer.DataBindings.Add("Text", DataMoify.dt, "drawer", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_comment.DataBindings.Add("Text", DataMoify.dt, "comment", false, DataSourceUpdateMode.OnPropertyChanged);
+                tb_returnMoney.DataBindings.Add("Text", DataMoify.dt, "returnmoney", false, DataSourceUpdateMode.OnPropertyChanged);
+                cbb_invoiceStatus.DataBindings.Add("Text", DataMoify.dt, "invoicestatus", false, DataSourceUpdateMode.OnPropertyChanged);
+
+                dataGridView1.DataSource = DataMoify.dt;
+
+                tb_sellersname.TextChanged += new EventHandler(tb_sellersname_TextChanged);
+                tb_buyersname.TextChanged += new EventHandler(tb_buyersname_TextChanged);
+                tsbtn_submit.Text = "修改";
+            }
         }
 
         #region 点击按钮 插入或修改数据
@@ -151,57 +164,68 @@ namespace 过雨烟云
 
             if (CheckIsEmpty() == false) return;
 
-            int rowCount = dataGridView1.RowCount;
-            int columnCount = dataGridView1.ColumnCount;
-            List<Model.InvoiceInfo> list = new List<Model.InvoiceInfo>();
-            for (int i = 0; i < rowCount; i++)
+            if (tsbtn_submit.Text == "修改")
             {
-                Model.InvoiceInfo invoiceInfo = new Model.InvoiceInfo();
 
-                invoiceInfo.Invoicecode = tb_invoicecode.Text;
-                invoiceInfo.Invoicenumber = tb_invoicenumber.Text;
-                invoiceInfo.Date = dtp_date.Text;
-                invoiceInfo.Buyersid = Convert.ToInt32(buyersId.Text);
-
-                invoiceInfo.Productname = dataGridView1.Rows[i].Cells[0].Value.ToString();
-                invoiceInfo.Productnumber = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value);
-                invoiceInfo.Unitprice = dataGridView1.Rows[i].Cells[4].Value.ToString();
-                invoiceInfo.Money = dataGridView1.Rows[i].Cells[5].Value.ToString();
-                invoiceInfo.Taxrate = dataGridView1.Rows[i].Cells[6].Value.ToString();
-                invoiceInfo.Taxamount = dataGridView1.Rows[i].Cells[7].Value.ToString();
-
-                invoiceInfo.Totalamount = tb_totalamount.Text;
-                invoiceInfo.Totaltaxamount = tb_totaltaxamount.Text;
-                invoiceInfo.Moneyupper = tb_moneyupper.Text;
-                invoiceInfo.Moneylow = tb_moneylow.Text;
-                invoiceInfo.Sellersid = Convert.ToInt32(sellersId.Text);
-                invoiceInfo.Comment = tb_comment.Text;
-                invoiceInfo.Payee = tb_payee.Text;
-                invoiceInfo.Check = tb_check.Text;
-                invoiceInfo.Drawer = tb_drawer.Text;
-                invoiceInfo.Invoicestate = cbb_invoiceStatus.Text;
-                invoiceInfo.Returnmoney = tb_returnMoney.Text;
-                invoiceInfo.Flag = "0";  //删除标记 0 没有删除 1 已经删除
-                list.Add(invoiceInfo);
+                return;
             }
 
-            InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
-            MessageBox.Show(invoiceInfoBll.SaveInvoiceInfo(ActiveForm.Text, list));
-
-            tb_buyersname.TextChanged -= new EventHandler(tb_buyersname_TextChanged);
-            tb_sellersname.TextChanged -= new EventHandler(tb_sellersname_TextChanged);
-            foreach (Control tb in panel1.Controls)
+            if (tsbtn_submit.Text == "新增")
             {
-                if (tb.GetType().ToString().Contains("TextBox")) tb.Text = "";
+                int rowCount = dataGridView1.RowCount;
+                int columnCount = dataGridView1.ColumnCount;
+                List<Model.InvoiceInfo> list = new List<Model.InvoiceInfo>();
+                for (int i = 0; i < rowCount; i++)
+                {
+                    Model.InvoiceInfo invoiceInfo = new Model.InvoiceInfo();
+
+                    invoiceInfo.Invoicecode = tb_invoicecode.Text;
+                    invoiceInfo.Invoicenumber = tb_invoicenumber.Text;
+                    invoiceInfo.Date = dtp_date.Text;
+                    invoiceInfo.Buyersid = Convert.ToInt32(buyersId.Text);
+
+                    invoiceInfo.Productname = dataGridView1.Rows[i].Cells[0].Value.ToString();
+                    invoiceInfo.Productnumber = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value);
+                    invoiceInfo.Unitprice = dataGridView1.Rows[i].Cells[4].Value.ToString();
+                    invoiceInfo.Money = dataGridView1.Rows[i].Cells[5].Value.ToString();
+                    invoiceInfo.Taxrate = dataGridView1.Rows[i].Cells[6].Value.ToString();
+                    invoiceInfo.Taxamount = dataGridView1.Rows[i].Cells[7].Value.ToString();
+
+                    invoiceInfo.Totalamount = tb_totalamount.Text;
+                    invoiceInfo.Totaltaxamount = tb_totaltaxamount.Text;
+                    invoiceInfo.Moneyupper = tb_moneyupper.Text;
+                    invoiceInfo.Moneylow = tb_moneylow.Text;
+                    invoiceInfo.Sellersid = Convert.ToInt32(sellersId.Text);
+                    invoiceInfo.Comment = tb_comment.Text;
+                    invoiceInfo.Payee = tb_payee.Text;
+                    invoiceInfo.Check = tb_check.Text;
+                    invoiceInfo.Drawer = tb_drawer.Text;
+                    invoiceInfo.Invoicestate = cbb_invoiceStatus.Text;
+                    invoiceInfo.Returnmoney = tb_returnMoney.Text;
+                    invoiceInfo.Flag = "0";  //删除标记 0 没有删除 1 已经删除
+                    list.Add(invoiceInfo);
+                }
+
+                InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
+                MessageBox.Show(invoiceInfoBll.SaveInvoiceInfo(ActiveForm.Text, list));
+
+                tb_buyersname.TextChanged -= new EventHandler(tb_buyersname_TextChanged);
+                tb_sellersname.TextChanged -= new EventHandler(tb_sellersname_TextChanged);
+                foreach (Control tb in panel1.Controls)
+                {
+                    if (tb.GetType().ToString().Contains("TextBox")) tb.Text = "";
+                }
+
+                while (dataGridView1.Rows.Count != 0)
+                {
+                    dataGridView1.Rows.RemoveAt(0);
+                }
+
+                tb_buyersname.TextChanged += new EventHandler(tb_buyersname_TextChanged);
+                tb_sellersname.TextChanged += new EventHandler(tb_sellersname_TextChanged);
             }
 
-            while (dataGridView1.Rows.Count != 0)
-            {
-                dataGridView1.Rows.RemoveAt(0);
-            }
 
-            tb_buyersname.TextChanged += new EventHandler(tb_buyersname_TextChanged);
-            tb_sellersname.TextChanged += new EventHandler(tb_sellersname_TextChanged);
         }
 
         #endregion

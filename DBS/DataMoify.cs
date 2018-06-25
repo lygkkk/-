@@ -18,8 +18,8 @@ namespace DBS
 
             dt.Columns.AddRange(dcArray);
 
-            dt.Columns.Add(new DataColumn("invicecode"));
-            dt.Columns.Add(new DataColumn("invicenumber"));
+            dt.Columns.Add(new DataColumn("invoicecode"));
+            dt.Columns.Add(new DataColumn("invoicenumber"));
             dt.Columns.Add(new DataColumn("date"));
             dt.Columns.Add(new DataColumn("buyersid"));
             dt.Columns.Add(new DataColumn("buyersname"));
@@ -27,7 +27,7 @@ namespace DBS
             dt.Columns.Add(new DataColumn("buyersaddress"));
             dt.Columns.Add(new DataColumn("buyersbank"));
             dt.Columns.Add(new DataColumn("totalamount"));
-            dt.Columns.Add(new DataColumn("totaleaxamount"));
+            dt.Columns.Add(new DataColumn("totaltaxamount"));
             dt.Columns.Add(new DataColumn("moneyupper"));
             dt.Columns.Add(new DataColumn("moneylower"));
             dt.Columns.Add(new DataColumn("sellersid"));
@@ -39,9 +39,18 @@ namespace DBS
             dt.Columns.Add(new DataColumn("payee"));
             dt.Columns.Add(new DataColumn("check"));
             dt.Columns.Add(new DataColumn("drawer"));
-            dt.Columns.Add(new DataColumn("invoiceStatus"));
-            dt.Columns.Add(new DataColumn("returnMoney"));
+            dt.Columns.Add(new DataColumn("invoicestatus"));
+            dt.Columns.Add(new DataColumn("returnmoney"));
+
+            dt.Columns.Add(new DataColumn("id"));
+            dt.Columns.Add(new DataColumn("productname"));
+            dt.Columns.Add(new DataColumn("productnumber"));
+            dt.Columns.Add(new DataColumn("unitprice"));
+            dt.Columns.Add(new DataColumn("money"));
+            dt.Columns.Add(new DataColumn("taxrate"));
+            dt.Columns.Add(new DataColumn("taxamount"));
             
+
 
             //dcArray[0].ColumnName = "invicecode";
             //dcArray[1].ColumnName = "invicenumber";

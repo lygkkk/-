@@ -20,12 +20,13 @@ namespace DAL
             //             "taxamount, totalamount, totaltaxamount, moneyupper, moneylow, sellersid, comment, payee, \"check\", drawer, invoicestate, returnmoney " +
             //             "FROM invoiceinfo WHERE flag = '0' GROUP BY invoicenumber";
 
-            string sql = "SELECT a.id, a.invoicecode, a.invoicenumber, a.date, a.buyersid, b.commpanyname, b.taxnumber, b.address, b.bank, " +
-            "a.productname, a.productnumber, a.unitprice, a.money, a.taxrate, a.taxamount, a.totalamount, a.totaltaxamount, " +
-            "a.moneyupper, a.moneylow, a.sellersid, c.commpanyname AS 销售方名称, c.taxnumber AS 销售方税号, c.address AS 销售方地址及电话, " +
+            string sql =
+                "SELECT a.id, a.invoicecode, a.invoicenumber, a.date, a.buyersid, b.commpanyname, b.taxnumber, b.address, b.bank, " +
+                "a.productname, a.productnumber, a.unitprice, a.money, a.taxrate, a.taxamount, a.totalamount, a.totaltaxamount, " +
+                "a.moneyupper, a.moneylow, a.sellersid, c.commpanyname AS 销售方名称, c.taxnumber AS 销售方税号, c.address AS 销售方地址及电话, " +
                 "c.bank AS 销售方开户行及帐号, a.comment, a.payee, a.\"check\", a.drawer, a.invoicestate, a.returnmoney FROM invoiceinfo AS a " +
                 "LEFT OUTER JOIN commpanyinfo AS b ON a.buyersid = b.id LEFT OUTER JOIN commpanyinfo AS c ON a.sellersid = c.id WHERE flag = '0' " +
-            "GROUP BY invoicenumber";
+                "GROUP BY invoicenumber";
 
             DataTable dataTable = SqliteConn.ExecuteTable(sql);
             //List<InvoiceInfo> list = new List<InvoiceInfo>();
@@ -42,6 +43,7 @@ namespace DAL
         #endregion
 
         #region 双击发票信息某行 查看详细开票信息
+
         /// <summary>
         /// 双击发票信息某行 查看详细开票信息
         /// </summary>
@@ -49,22 +51,40 @@ namespace DAL
         /// <returns>返回一个Datatable</returns>
         public DataTable GetInvoiceNumberDetail(string invoiceNumber)
         {
-            string sql = "SELECT a.id, a.invoicecode, a.invoicenumber, a.date, a.buyersid, b.commpanyname, b.taxnumber, b.address, b.bank, " +
-                         "a.productname, a.productnumber, a.unitprice, a.money, a.taxrate, a.taxamount, a.totalamount, a.totaltaxamount, " +
-                         "a.moneyupper, a.moneylow, a.sellersid, c.commpanyname AS 销售方名称, c.taxnumber AS 销售方税号, c.address AS 销售方地址及电话, " +
-                         "c.bank AS 销售方开户行及帐号, a.comment, a.payee, a.\"check\", a.drawer, a.invoicestate, a.returnmoney FROM invoiceinfo AS a " +
-                         "LEFT OUTER JOIN commpanyinfo AS b ON a.buyersid = b.id LEFT OUTER JOIN commpanyinfo AS c ON a.sellersid = c.id WHERE flag = '0' " +
-                         "AND invoicenumber = '" + invoiceNumber + "'";
+            string sql =
+                "SELECT a.id, a.invoicecode, a.invoicenumber, a.date, a.buyersid, b.commpanyname, b.taxnumber, b.address, b.bank, " +
+                "a.productname, a.productnumber, a.unitprice, a.money, a.taxrate, a.taxamount, a.totalamount, a.totaltaxamount, " +
+                "a.moneyupper, a.moneylow, a.sellersid, c.commpanyname AS 销售方名称, c.taxnumber AS 销售方税号, c.address AS 销售方地址及电话, " +
+                "c.bank AS 销售方开户行及帐号, a.comment, a.payee, a.\"check\", a.drawer, a.invoicestate, a.returnmoney FROM invoiceinfo AS a " +
+                "LEFT OUTER JOIN commpanyinfo AS b ON a.buyersid = b.id LEFT OUTER JOIN commpanyinfo AS c ON a.sellersid = c.id WHERE flag = '0' " +
+                "AND invoicenumber = '" + invoiceNumber + "'";
             DataTable dt = SqliteConn.ExecuteTable(sql);
             return dt;
         }
 
         #endregion
 
+        #region 获取发票货物明细
+        /// <summary>
+        /// 获取发票货物明细
+        /// </summary>
+        /// <param name="str">发票号码</param>
+        /// <returns>返回DataTable</returns>
+        public DataTable GetProductDetail(string str)
+        {
+            string sql =
+            "SELECT id, productname, productnumber, unitprice, money, taxrate, taxamount FROM invoiceinfo " +
+            "WHERE invoicenumber = '" + str + "'";
+
+            DataTable dt = SqliteConn.ExecuteTable(sql);
+            return dt;
+        }
+
+        #endregion
 
         #region 新增或修改一条数据 语句配置
 
-        public int AddInvoiceInfo(InvoiceInfo invoiceInfo)
+    public int AddInvoiceInfo(InvoiceInfo invoiceInfo)
         {
             String sql = "INSERT INTO invoiceinfo VALUES(@invoicecode, @invoicenumber, @date, @buyersid, @productname,@productnumber, @unitprice, @money, " +
                          "@taxrate, @taxamount, @totalamount, @totaltaxamount, @moneyupper, @moneylow, @sellersid, @comment, @payee, @check, @drawer, " +

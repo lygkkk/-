@@ -22,7 +22,6 @@ namespace BLL
         }
         #endregion
 
-
         #region 双击发票信息某行 查看详细开票信息
         /// <summary>
         /// 双击发票信息某行 查看详细开票信息
@@ -36,7 +35,18 @@ namespace BLL
 
         #endregion
 
+        #region 获取发票货物明细
+        /// <summary>
+        /// 获取发票货物明细
+        /// </summary>
+        /// <param name="str">发票号码</param>
+        /// <returns>返回DataTable</returns>
+        public DataTable GetProductDetail(string str)
+        {
+            return invoiceInfo.GetProductDetail(str);
+        }
 
+        #endregion
 
         public string SaveInvoiceInfo(string addOrUpdate, List<InvoiceInfo> list)
         {
@@ -58,9 +68,6 @@ namespace BLL
             }
             return msg;
         }
-
-
-        
 
 
         public bool SaveInvoiceInfo(InvoiceInfo invoiceInfo, int tmp)
