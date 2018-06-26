@@ -54,7 +54,7 @@ namespace 过雨烟云
         {
             _commpanyInfor(listView1.SelectedItems[0].Text, listView1.SelectedItems[0].SubItems[1].Text, 
                             listView1.SelectedItems[0].SubItems[2].Text, listView1.SelectedItems[0].SubItems[3].Text, listView1.SelectedItems[0].SubItems[4].Text);
-
+            
             this.Dispose();
         }
 

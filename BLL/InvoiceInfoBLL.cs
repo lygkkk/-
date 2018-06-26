@@ -48,7 +48,16 @@ namespace BLL
 
         #endregion
 
-        public string SaveInvoiceInfo(string addOrUpdate, List<InvoiceInfo> list)
+        #region 发票修改
+
+        public int ModifyData(string tableName)
+        {
+            return invoiceInfo.ModifyData("invoiceinfo");
+        }
+
+        #endregion
+
+            public string SaveInvoiceInfo(string addOrUpdate, List<InvoiceInfo> list)
         {
             int yxhs = 0;
             string msg = "";

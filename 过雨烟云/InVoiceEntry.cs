@@ -68,8 +68,11 @@ namespace 过雨烟云
                 tb_sellerstaxnumber.Text = taxNumber;
                 tb_sellersaddress.Text = address;
                 tb_sellersbank.Text = bank;
+                
                 return;
             }
+
+            
         }
         #endregion
 
@@ -133,6 +136,9 @@ namespace 过雨烟云
                         ctl.DataBindings.Add("Text", DataMoify.dt, ctl.Name.Substring(ctl.Name.IndexOf("_") + 1), false, DataSourceUpdateMode.OnPropertyChanged);
                     }  
                 }
+
+                buyersId.DataBindings.Add("Text", DataMoify.dt, "buyersid", false, DataSourceUpdateMode.OnPropertyChanged);
+                sellersId.DataBindings.Add("Text", DataMoify.dt, "sellersid", false, DataSourceUpdateMode.OnPropertyChanged);
                 dataGridView1.DataSource = DataMoify.dt;
                 tsbtn_submit.Text = "修改";
             }
@@ -143,17 +149,23 @@ namespace 过雨烟云
         //保存数据
         private void tsbtn_submit_Click(object sender, EventArgs e)
         {
-
             if (CheckIsEmpty() == false) return;
 
             if (tsbtn_submit.Text == "修改")
             {
 
+
+                DataMoify.dt.Rows.Add();
+                //dataGridView1.Rows[DataMoify.dt.Rows.Count - 1].se
+                DataMoify.dt.Rows.RemoveAt(DataMoify.dt.Rows.Count -1); 
+                MessageBox.Show(DataMoify.dt.Rows[0].RowState.ToString()) ;
                 return;
             }
 
             if (tsbtn_submit.Text == "新增")
             {
+                
+
                 int rowCount = dataGridView1.RowCount;
                 int columnCount = dataGridView1.ColumnCount;
                 List<Model.InvoiceInfo> list = new List<Model.InvoiceInfo>();
@@ -163,7 +175,7 @@ namespace 过雨烟云
 
                     invoiceInfo.Invoicecode = tb_invoicecode.Text;
                     invoiceInfo.Invoicenumber = tb_invoicenumber.Text;
-                    invoiceInfo.Date = dtp_date.Text;
+                    invoiceInfo.Date = dtp_date.Value.ToString("yyyy-MM-dd");
                     invoiceInfo.Buyersid = Convert.ToInt32(buyersId.Text);
 
                     invoiceInfo.Productname = dataGridView1.Rows[i].Cells[0].Value.ToString();
@@ -182,7 +194,7 @@ namespace 过雨烟云
                     invoiceInfo.Payee = tb_payee.Text;
                     invoiceInfo.Check = tb_check.Text;
                     invoiceInfo.Drawer = tb_drawer.Text;
-                    invoiceInfo.Invoicestate = cbb_invoiceStatus.Text;
+                    invoiceInfo.Invoicestate = cbb_invoicestate.Text;
                     invoiceInfo.Returnmoney = tb_returnMoney.Text;
                     invoiceInfo.Flag = "0";  //删除标记 0 没有删除 1 已经删除
                     list.Add(invoiceInfo);
@@ -245,10 +257,10 @@ namespace 过雨烟云
                 return false;
             }
 
-            if (string.IsNullOrEmpty(cbb_invoiceStatus.Text.Trim()))
+            if (string.IsNullOrEmpty(cbb_invoicestate.Text.Trim()))
             {
                 MessageBox.Show("发票状态不得为空！");
-                cbb_invoiceStatus.Focus();
+                cbb_invoicestate.Focus();
                 return false;
             }
 
@@ -301,7 +313,16 @@ namespace 过雨烟云
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Add();
+            if (tsbtn_submit.Text == "新增")
+            {
+                dataGridView1.Rows.Add();
+            }
+            else if (tsbtn_submit.Text == "修改")
+            {
+                DataMoify.dt.Rows.Add();
+                dataGridView1.Rows[dataGridView1.RowCount - 1].Selected = true;
+            }
+
         }
 
         #region 删除DGV一行
@@ -312,16 +333,15 @@ namespace 过雨烟云
         /// <param name="e"></param>
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            if (this.Text == "新增")
+            if (this.tsbtn_submit.Text == "新增")
             {
                 dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
                 return;
             }
 
-            if (this.Text == "修改")
+            if (this.tsbtn_submit.Text == "修改")
             {
-                dataGridView1.Rows[dataGridView1.CurrentRow.Index].Visible = false;
-                dataGridView1["flag", dataGridView1.CurrentRow.Index].Value = "1";
+                DataMoify.dt.Rows[dataGridView1.CurrentRow.Index].Delete();
                 return;
             }
         }

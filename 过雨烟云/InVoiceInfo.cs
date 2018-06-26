@@ -27,11 +27,6 @@ namespace 过雨烟云
             InitializeComponent();
         }
 
-        private void InVoiceInfo_Load(object sender, EventArgs e)
-        {
-           
-        }
-
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
 using Model;
+using DBS;
 namespace DAL
 {
     public class InvoiceInfoDAL
@@ -21,7 +22,7 @@ namespace DAL
             //             "FROM invoiceinfo WHERE flag = '0' GROUP BY invoicenumber";
 
             string sql =
-                "SELECT a.id, a.invoicecode, a.invoicenumber, a.date, a.buyersid, b.commpanyname, b.taxnumber, b.address, b.bank, " +
+                "SELECT MIN(a.id), a.invoicecode, a.invoicenumber, a.date, a.buyersid, b.commpanyname, b.taxnumber, b.address, b.bank, " +
                 "a.productname, a.productnumber, a.unitprice, a.money, a.taxrate, a.taxamount, a.totalamount, a.totaltaxamount, " +
                 "a.moneyupper, a.moneylow, a.sellersid, c.commpanyname AS 销售方名称, c.taxnumber AS 销售方税号, c.address AS 销售方地址及电话, " +
                 "c.bank AS 销售方开户行及帐号, a.comment, a.payee, a.\"check\", a.drawer, a.invoicestate, a.returnmoney FROM invoiceinfo AS a " +
@@ -72,9 +73,17 @@ namespace DAL
         /// <returns>返回DataTable</returns>
         public DataTable GetProductDetail(string str)
         {
+            //string sql =
+            //"SELECT id, productname, productnumber, unitprice, money, taxrate, taxamount FROM invoiceinfo " +
+            //"WHERE invoicenumber = '" + str + "'";
+
             string sql =
-            "SELECT id, productname, productnumber, unitprice, money, taxrate, taxamount FROM invoiceinfo " +
-            "WHERE invoicenumber = '" + str + "'";
+                "SELECT a.id, a.invoicecode, a.invoicenumber, a.date, a.buyersid, b.commpanyname AS buyersname , b.taxnumber AS buyerstaxnumber, b.address AS buyersaddress, b.bank AS buyersbank, " +
+                "a.productname, a.productnumber, a.unitprice, a.money, a.taxrate, a.taxamount, a.totalamount, a.totaltaxamount, " +
+                "a.moneyupper, a.moneylow, a.sellersid, c.commpanyname AS sellersname, c.taxnumber AS sellerstaxnumber, c.address AS sellersaddress, " +
+                "c.bank AS sellersbank, a.comment, a.payee, a.\"check\", a.drawer, a.invoicestate, a.returnmoney FROM invoiceinfo AS a " +
+                "LEFT OUTER JOIN commpanyinfo AS b ON a.buyersid = b.id LEFT OUTER JOIN commpanyinfo AS c ON a.sellersid = c.id " +
+                "WHERE flag = '0' AND invoicenumber = '" + str + "'";
 
             DataTable dt = SqliteConn.ExecuteTable(sql);
             return dt;
@@ -216,13 +225,90 @@ namespace DAL
 
         #endregion
 
-        #region 修改数据
+        #region 修改数据 针对发票修改
 
-        //public int ModifyData()
-        //{
-        //    string sql = "UPDATE";
-        //}
+        /// <summary>
+        /// 发票修改 
+        /// </summary>
+        /// <param name="tableName">数据库表名</param>
+        /// <returns>返回影响行数</returns>
+        public int ModifyData(string tableName)
+        {
+            List<string> sqlList = new List<string>();
+            List<List<SQLiteParameter>> paramList = new List<List<SQLiteParameter>>();
+            
+            for (int i = 0; i < DataMoify.dt.Rows.Count; i++)
+            {
+                if (DataMoify.dt.Rows[i].RowState == DataRowState.Modified)
+                {
+                    string sql = "UPDATE " + tableName + " SET invoicecode = @invoice, invoicenumber = @invoicenumber, date = @date, " +
+                                 "buyersid = @buyersid, productname = @productname, productnumber = @productnumber, unitprice = @unitprice, " +
+                                 "money = @money, taxrate = @taxrate, taxamount = @taxamount, totalamount = @totalamount, " +
+                                 "totaltaxamount = @totaltaxamount, moneyupper = @moneyupper, moneylow = @moneylow, sellersid = @sellersid, " +
+                                 "comment = @comment, payee = @payee, check = @check, drawer = @drawer, invoicestate = @invoicestate, " +
+                                 "returnmoney = @returnmoney WHERE id = @id";
+                    sqlList.Add(sql);
+                    paramList.Add(parametersesSet(i));
+                }
+                else if(DataMoify.dt.Rows[i].RowState == DataRowState.Deleted)
+                {
+                    string sql = "UPDATE " + tableName + " SET flag = '1' WHERE id = " + DataMoify.dt.Rows[i]["id"];
+                    sqlList.Add(sql);
+                    paramList.Add(null);
+                }
+                else if (DataMoify.dt.Rows[i].RowState == DataRowState.Added)
+                {
+                    string sql = "INSERT INTO " + tableName + " VALUES(null, invoicecode = @invoice, invoicenumber = @invoicenumber, date = @date, " +
+                                 "buyersid = @buyersid, productname = @productname, productnumber = @productnumber, unitprice = @unitprice, " +
+                                 "money = @money, taxrate = @taxrate, taxamount = @taxamount, totalamount = @totalamount, " +
+                                 "totaltaxamount = @totaltaxamount, moneyupper = @moneyupper, moneylow = @moneylow, sellersid = @sellersid, " +
+                                 "comment = @comment, payee = @payee, check = @check, drawer = @drawer, invoicestate = @invoicestate, " +
+                                 "returnmoney = @returnmoney flag = '0'";
+                    sqlList.Add(sql);
+                    paramList.Add(parametersesSet(i));
+                }
+            }
+           return SqliteConn.ExeCuteNonQueryMulit(sqlList, paramList);
+        }
         #endregion
+
+        #region 修改数据对应的参数配置
+
+        private List<SQLiteParameter> parametersesSet(int rowIndex)
+        {
+            SQLiteParameter[] sp =
+            {
+                new SQLiteParameter("@invoicecode", DataMoify.dt.Rows[rowIndex]["invoicecode"]),
+                new SQLiteParameter("@invoicenumber", DataMoify.dt.Rows[rowIndex]["invoicenumber"]),
+                new SQLiteParameter("@date", DataMoify.dt.Rows[rowIndex]["date"]),
+                new SQLiteParameter("@buyersid", DataMoify.dt.Rows[rowIndex]["buyersid"]),
+                new SQLiteParameter("@productname", DataMoify.dt.Rows[rowIndex]["productname"]),
+                new SQLiteParameter("@productnumber", DataMoify.dt.Rows[rowIndex]["productnumber"]),
+                new SQLiteParameter("@unitprice", DataMoify.dt.Rows[rowIndex]["unitprice"]),
+                new SQLiteParameter("@money", DataMoify.dt.Rows[rowIndex]["money"]),
+                new SQLiteParameter("@taxrate", DataMoify.dt.Rows[rowIndex]["taxrate"]),
+                new SQLiteParameter("@taxamount", DataMoify.dt.Rows[rowIndex]["taxamount"]),
+                new SQLiteParameter("@totalamount", DataMoify.dt.Rows[rowIndex]["totalamount"]),
+                new SQLiteParameter("@totaltaxamount", DataMoify.dt.Rows[rowIndex]["totaltaxamount"]),
+                new SQLiteParameter("@moneyupper", DataMoify.dt.Rows[rowIndex]["moneyupper"]),
+                new SQLiteParameter("@moneylow", DataMoify.dt.Rows[rowIndex]["moneylow"]),
+                new SQLiteParameter("@sellersid", DataMoify.dt.Rows[rowIndex]["sellersid"]),
+                new SQLiteParameter("@comment", DataMoify.dt.Rows[rowIndex]["comment"]),
+                new SQLiteParameter("@payee", DataMoify.dt.Rows[rowIndex]["payee"]),
+                new SQLiteParameter("@check", DataMoify.dt.Rows[rowIndex]["check"]),
+                new SQLiteParameter("@drawer", DataMoify.dt.Rows[rowIndex]["drawer"]),
+                new SQLiteParameter("@invoicestate", DataMoify.dt.Rows[rowIndex]["invoicestate"]),
+                new SQLiteParameter("@returnmoney", DataMoify.dt.Rows[rowIndex]["returnmoney"]),
+                //new SQLiteParameter("@flag", DataMoify.dt.Rows[rowIndex]["invoicecode"]),
+            };
+            List<SQLiteParameter> list  = new List<SQLiteParameter>(sp);
+            return list;
+        }
+
+
+        #endregion
+
+
 
         #region DataTable 行转发票信息类
 

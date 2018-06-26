@@ -208,43 +208,46 @@ namespace 过雨烟云
                     DataTable dt = invoiceInfoBll.GetProductDetail(InvoiceInfo.dgv["invoicenumber", dgvIndex].Value.ToString());
 
                     DataMoify.dt = dt;
-                    MessageBox.Show(dt.Rows[0].RowState.ToString());
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        DataMoify.dt.Rows.Add();
-                        DataMoify.dt.Rows[i]["id"] = dt.Rows[i]["id"];
-                        DataMoify.dt.Rows[i]["productname"] = dt.Rows[i]["productname"];
-                        DataMoify.dt.Rows[i]["productnumber"] = dt.Rows[i]["productnumber"];
-                        DataMoify.dt.Rows[i]["unitprice"] = dt.Rows[i]["unitprice"];
-                        DataMoify.dt.Rows[i]["money"] = dt.Rows[i]["money"];
-                        DataMoify.dt.Rows[i]["taxrate"] = dt.Rows[i]["taxrate"];
-                        DataMoify.dt.Rows[i]["taxamount"] = dt.Rows[i]["taxamount"];
-                    }
+
+
+
+                    //MessageBox.Show(dt.Rows[0].RowState.ToString());
+                    //for (int i = 0; i < dt.Rows.Count; i++)
+                    //{
+                    //    DataMoify.dt.Rows.Add();
+                    //    DataMoify.dt.Rows[i]["id"] = dt.Rows[i]["id"];
+                    //    DataMoify.dt.Rows[i]["productname"] = dt.Rows[i]["productname"];
+                    //    DataMoify.dt.Rows[i]["productnumber"] = dt.Rows[i]["productnumber"];
+                    //    DataMoify.dt.Rows[i]["unitprice"] = dt.Rows[i]["unitprice"];
+                    //    DataMoify.dt.Rows[i]["money"] = dt.Rows[i]["money"];
+                    //    DataMoify.dt.Rows[i]["taxrate"] = dt.Rows[i]["taxrate"];
+                    //    DataMoify.dt.Rows[i]["taxamount"] = dt.Rows[i]["taxamount"];
+                    //}
 
                     
-                    DataMoify.dt.Rows[0]["invoicecode"] = InvoiceInfo.dgv["invoicecode", 0].Value;
-                    DataMoify.dt.Rows[0]["invoicenumber"] = InvoiceInfo.dgv["invoicenumber", 0].Value;
-                    DataMoify.dt.Rows[0]["date"] = InvoiceInfo.dgv["date", 0].Value;
-                    DataMoify.dt.Rows[0]["buyersid"] = InvoiceInfo.dgv["buyersid", 0].Value;
-                    DataMoify.dt.Rows[0]["buyersname"] = InvoiceInfo.dgv["buyerscommpanyname", 0].Value;
-                    DataMoify.dt.Rows[0]["buyerstaxnumber"] = InvoiceInfo.dgv["buyerstaxnumber", 0].Value;
-                    DataMoify.dt.Rows[0]["buyersaddress"] = InvoiceInfo.dgv["buyersaddress", 0].Value;
-                    DataMoify.dt.Rows[0]["buyersbank"] = InvoiceInfo.dgv["buyersbank", 0].Value;
-                    DataMoify.dt.Rows[0]["totalamount"] = InvoiceInfo.dgv["totalamount", 0].Value;
-                    DataMoify.dt.Rows[0]["totaltaxamount"] = InvoiceInfo.dgv["totaltaxamount", 0].Value;
-                    DataMoify.dt.Rows[0]["moneyupper"] = InvoiceInfo.dgv["moneyupper", 0].Value;
-                    DataMoify.dt.Rows[0]["moneylow"] = InvoiceInfo.dgv["moneylow", 0].Value;
-                    DataMoify.dt.Rows[0]["sellersid"] = InvoiceInfo.dgv["sellersid", 0].Value;
-                    DataMoify.dt.Rows[0]["sellersname"] = InvoiceInfo.dgv["sellerscommpanyname", 0].Value;
-                    DataMoify.dt.Rows[0]["sellerstaxnumber"] = InvoiceInfo.dgv["sellerstaxnumber", 0].Value;
-                    DataMoify.dt.Rows[0]["sellersaddress"] = InvoiceInfo.dgv["sellersaddress", 0].Value;
-                    DataMoify.dt.Rows[0]["sellersbank"] = InvoiceInfo.dgv["sellersbank", 0].Value;
-                    DataMoify.dt.Rows[0]["comment"] = InvoiceInfo.dgv["comment", 0].Value;
-                    DataMoify.dt.Rows[0]["payee"] = InvoiceInfo.dgv["payee", 0].Value;
-                    DataMoify.dt.Rows[0]["check"] = InvoiceInfo.dgv["check", 0].Value;
-                    DataMoify.dt.Rows[0]["drawer"] = InvoiceInfo.dgv["drawer", 0].Value;
-                    DataMoify.dt.Rows[0]["invoicestatus"] = InvoiceInfo.dgv["invoicestate", 0].Value;
-                    DataMoify.dt.Rows[0]["returnmoney"] = InvoiceInfo.dgv["returnmoney", 0].Value;
+                    //DataMoify.dt.Rows[0]["invoicecode"] = InvoiceInfo.dgv["invoicecode", 0].Value;
+                    //DataMoify.dt.Rows[0]["invoicenumber"] = InvoiceInfo.dgv["invoicenumber", 0].Value;
+                    //DataMoify.dt.Rows[0]["date"] = InvoiceInfo.dgv["date", 0].Value;
+                    //DataMoify.dt.Rows[0]["buyersid"] = InvoiceInfo.dgv["buyersid", 0].Value;
+                    //DataMoify.dt.Rows[0]["buyersname"] = InvoiceInfo.dgv["buyerscommpanyname", 0].Value;
+                    //DataMoify.dt.Rows[0]["buyerstaxnumber"] = InvoiceInfo.dgv["buyerstaxnumber", 0].Value;
+                    //DataMoify.dt.Rows[0]["buyersaddress"] = InvoiceInfo.dgv["buyersaddress", 0].Value;
+                    //DataMoify.dt.Rows[0]["buyersbank"] = InvoiceInfo.dgv["buyersbank", 0].Value;
+                    //DataMoify.dt.Rows[0]["totalamount"] = InvoiceInfo.dgv["totalamount", 0].Value;
+                    //DataMoify.dt.Rows[0]["totaltaxamount"] = InvoiceInfo.dgv["totaltaxamount", 0].Value;
+                    //DataMoify.dt.Rows[0]["moneyupper"] = InvoiceInfo.dgv["moneyupper", 0].Value;
+                    //DataMoify.dt.Rows[0]["moneylow"] = InvoiceInfo.dgv["moneylow", 0].Value;
+                    //DataMoify.dt.Rows[0]["sellersid"] = InvoiceInfo.dgv["sellersid", 0].Value;
+                    //DataMoify.dt.Rows[0]["sellersname"] = InvoiceInfo.dgv["sellerscommpanyname", 0].Value;
+                    //DataMoify.dt.Rows[0]["sellerstaxnumber"] = InvoiceInfo.dgv["sellerstaxnumber", 0].Value;
+                    //DataMoify.dt.Rows[0]["sellersaddress"] = InvoiceInfo.dgv["sellersaddress", 0].Value;
+                    //DataMoify.dt.Rows[0]["sellersbank"] = InvoiceInfo.dgv["sellersbank", 0].Value;
+                    //DataMoify.dt.Rows[0]["comment"] = InvoiceInfo.dgv["comment", 0].Value;
+                    //DataMoify.dt.Rows[0]["payee"] = InvoiceInfo.dgv["payee", 0].Value;
+                    //DataMoify.dt.Rows[0]["check"] = InvoiceInfo.dgv["check", 0].Value;
+                    //DataMoify.dt.Rows[0]["drawer"] = InvoiceInfo.dgv["drawer", 0].Value;
+                    //DataMoify.dt.Rows[0]["invoicestatus"] = InvoiceInfo.dgv["invoicestate", 0].Value;
+                    //DataMoify.dt.Rows[0]["returnmoney"] = InvoiceInfo.dgv["returnmoney", 0].Value;
 
 
 
