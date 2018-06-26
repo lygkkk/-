@@ -48,11 +48,17 @@ namespace BLL
 
         #endregion
 
-        #region 发票修改
+        #region 更新发票修改信息到数据库
 
-        public int ModifyData(string tableName)
+        /// <summary>
+        /// 更新发票修改信息到数据库
+        /// </summary>
+        /// <param name="dt">DataTable 要修改的信息</param>
+        /// <returns></returns>
+
+        public int ModifyData(DataTable dt)
         {
-            return invoiceInfo.ModifyData("invoiceinfo");
+            return invoiceInfo.ModifyData("invoiceinfo", dt);
         }
 
         #endregion

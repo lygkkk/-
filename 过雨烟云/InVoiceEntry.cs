@@ -10,19 +10,17 @@ using System.Windows.Forms;
 using DB;
 using Model;
 using BLL;
-using DBS;
 namespace 过雨烟云
 {
     public partial class Form_InVoiceEntry : Form
     {
         StepPrompt _stepPrompt = null;
-        
+        public DataTable dt = null;
         private string keyWord;
         Bitmap bm;
         Point point;
         public Form_InVoiceEntry()
         {
-            
             InitializeComponent();
         }
 
@@ -54,7 +52,7 @@ namespace 过雨烟云
         {
             if (ActiveControl.Parent.Name == "tb_buyersname")
             {
-                buyersId.Text = id;
+                lb_buyersId.Text = id;
                 tb_buyersname.Text = commpanyName;
                 tb_buyerstaxnumber.Text = taxNumber;
                 tb_buyersaddress.Text = address;
@@ -63,16 +61,16 @@ namespace 过雨烟云
             }
             if (ActiveControl.Parent.Name == "tb_sellersname")
             {
-                sellersId.Text = id;
+                lb_sellersId.Text = id;
                 tb_sellersname.Text = commpanyName;
                 tb_sellerstaxnumber.Text = taxNumber;
                 tb_sellersaddress.Text = address;
                 tb_sellersbank.Text = bank;
-                
+
                 return;
             }
 
-            
+
         }
         #endregion
 
@@ -91,7 +89,7 @@ namespace 过雨烟云
             else
             {
                 keyWord = "";
-            } 
+            }
             FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
             string[] sqlCommand = new[] { "SELECT id,commpanyname, taxnumber, address, bank FROM commpanyinfo WHERE commpanyname LIKE '%" + keyWord + "%'" };
             Query query = new Query(FileDir, DB.DbType.Sqlite);
@@ -124,25 +122,65 @@ namespace 过雨烟云
             dataGridView1.AllowUserToAddRows = false;
 
             panel1.Left = (this.Width - panel1.Width) / 2;
-            panel1.Size = new Size(1200,768);
+            panel1.Size = new Size(1200, 768);
             this.AutoScroll = true;
+
+
 
             if (this.Text == "发票修改")
             {
+                int charIndexOf = -1;
                 foreach (Control ctl in panel1.Controls)
                 {
-                    if (ctl.GetType().Name == "TextBox" || ctl.GetType().Name == "DateTimePicker" || ctl.GetType().Name == "ComboBox")
+                    charIndexOf = ctl.Name.IndexOf("_") + 1;
+                    if (charIndexOf != 0)
                     {
-                        ctl.DataBindings.Add("Text", DataMoify.dt, ctl.Name.Substring(ctl.Name.IndexOf("_") + 1), false, DataSourceUpdateMode.OnPropertyChanged);
-                    }  
+                        ctl.DataBindings.Add("Text", dt, ctl.Name.Substring(ctl.Name.IndexOf("_") + 1), false, DataSourceUpdateMode.OnPropertyChanged);
+                    }
                 }
 
-                buyersId.DataBindings.Add("Text", DataMoify.dt, "buyersid", false, DataSourceUpdateMode.OnPropertyChanged);
-                sellersId.DataBindings.Add("Text", DataMoify.dt, "sellersid", false, DataSourceUpdateMode.OnPropertyChanged);
-                dataGridView1.DataSource = DataMoify.dt;
+                //buyersId.DataBindings.Add("Text", dt, "buyersid", false, DataSourceUpdateMode.OnPropertyChanged);
+                //sellersId.DataBindings.Add("Text", dt, "sellersid", false, DataSourceUpdateMode.OnPropertyChanged);
+                dataGridView1.DataSource = dt;
                 tsbtn_submit.Text = "修改";
             }
+
+
         }
+
+
+        #region 初始化发票信息
+
+        /// <summary>
+        /// 点击修改按钮后 初始化发票修改的明细
+        /// </summary>
+        /// <param name="dt">DataTable 发票信息内容</param>
+        public void InitInvoiceModifyInfo()
+        {
+            int charIndexOf = -1;
+
+            foreach (Control ctl in panel1.Controls)
+            {
+                charIndexOf = ctl.Name.IndexOf("_") + 1;
+                if (charIndexOf != 0)
+                {
+                    ctl.Text = dt.Rows[0][ctl.Name.Substring(charIndexOf)].ToString();
+                }
+            }
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                dataGridView1.Rows.Add();
+                for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                {
+                    if (j == 2 || j == 3) continue;
+                    dataGridView1[j, i].Value = dt.Rows[i][dataGridView1.Columns[j].Name];
+                }
+            }
+             tsbtn_submit.Text = "修改";
+        }
+
+        #endregion
 
         #region 点击按钮 插入或修改数据
 
@@ -151,14 +189,37 @@ namespace 过雨烟云
         {
             if (CheckIsEmpty() == false) return;
 
+            dt.AcceptChanges();
+            
+            dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
             if (tsbtn_submit.Text == "修改")
             {
+                //int charIndexOf = -1;
+                //int rowCount = dataGridView1.RowCount;
+                
+                //if (rowCount > dt.Rows.Count) dt.Rows.Add(rowCount - dt.Rows.Count);
 
+                //for (int i = 0; i < rowCount; i++)
+                //{
+                //    foreach (Control ctl in panel1.Controls)
+                //    {
+                //        charIndexOf = ctl.Name.IndexOf("_") + 1;
+                //        if (charIndexOf != 0 && (!ctl.Name.Contains("tb_sellers") || !ctl.Name.Contains("tb_buyers")))
+                //        {
+                //            dt.Rows[i][ctl.Name.Substring(charIndexOf)] = ctl.Text;
+                //            dt.Rows[i]["date"] = dtp_date.Value.ToString("yyyy-MM-dd");
+                //        }
+                //    }
 
-                DataMoify.dt.Rows.Add();
-                //dataGridView1.Rows[DataMoify.dt.Rows.Count - 1].se
-                DataMoify.dt.Rows.RemoveAt(DataMoify.dt.Rows.Count -1); 
-                MessageBox.Show(DataMoify.dt.Rows[0].RowState.ToString()) ;
+                //    for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                //    {
+                //        if (j == 2 || j == 3) continue;
+                //        dt.Rows[i][dataGridView1.Columns[j].Name] = dataGridView1[j, i].Value;
+                //    }
+                //}
+                InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
+                invoiceInfoBll.ModifyData(dt);
+
                 return;
             }
 
@@ -176,7 +237,7 @@ namespace 过雨烟云
                     invoiceInfo.Invoicecode = tb_invoicecode.Text;
                     invoiceInfo.Invoicenumber = tb_invoicenumber.Text;
                     invoiceInfo.Date = dtp_date.Value.ToString("yyyy-MM-dd");
-                    invoiceInfo.Buyersid = Convert.ToInt32(buyersId.Text);
+                    invoiceInfo.Buyersid = Convert.ToInt32(lb_buyersId.Text);
 
                     invoiceInfo.Productname = dataGridView1.Rows[i].Cells[0].Value.ToString();
                     invoiceInfo.Productnumber = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value);
@@ -189,7 +250,7 @@ namespace 过雨烟云
                     invoiceInfo.Totaltaxamount = tb_totaltaxamount.Text;
                     invoiceInfo.Moneyupper = tb_moneyupper.Text;
                     invoiceInfo.Moneylow = tb_moneylow.Text;
-                    invoiceInfo.Sellersid = Convert.ToInt32(sellersId.Text);
+                    invoiceInfo.Sellersid = Convert.ToInt32(lb_sellersId.Text);
                     invoiceInfo.Comment = tb_comment.Text;
                     invoiceInfo.Payee = tb_payee.Text;
                     invoiceInfo.Check = tb_check.Text;
@@ -289,7 +350,7 @@ namespace 过雨烟云
         {
             if (MessageBox.Show("确认关闭窗口？", "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                DataMoify.dt.Rows.Clear();
+                //DataMoify.dt.Rows.Clear();
                 e.Cancel = false;
             }
             else
@@ -313,16 +374,10 @@ namespace 过雨烟云
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            if (tsbtn_submit.Text == "新增")
-            {
-                dataGridView1.Rows.Add();
-            }
-            else if (tsbtn_submit.Text == "修改")
-            {
-                DataMoify.dt.Rows.Add();
-                dataGridView1.Rows[dataGridView1.RowCount - 1].Selected = true;
-            }
-
+            //dataGridView1.Rows.Add();
+            //dataGridView1["id", dataGridView1.RowCount - 1].Value = 0;
+            //dataGridView1["flag", dataGridView1.RowCount - 1].Value = "2";
+            dt.Rows.Add();
         }
 
         #region 删除DGV一行
@@ -341,7 +396,9 @@ namespace 过雨烟云
 
             if (this.tsbtn_submit.Text == "修改")
             {
-                DataMoify.dt.Rows[dataGridView1.CurrentRow.Index].Delete();
+                //dataGridView1["flag", dataGridView1.CurrentRow.Index].Value = "1";
+                //dataGridView1.Rows[dataGridView1.CurrentRow.Index].Visible = false;
+                dt.Rows[dataGridView1.CurrentRow.Index].Delete();
                 return;
             }
         }
@@ -362,7 +419,7 @@ namespace 过雨烟云
             btn.Top = 2;
             btn.Left = ctl.Width - 32;
             btn.Cursor = DefaultCursor;
-
+            
             btn.Click += new EventHandler(DisplayListView);
         }
         #endregion

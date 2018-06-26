@@ -38,9 +38,5 @@ namespace 过雨烟云
             MessageBox.Show(dataGridView1.CurrentRow.Index.ToString());
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }
