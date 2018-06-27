@@ -237,33 +237,34 @@ namespace DAL
             List<string> sqlList = new List<string>();
             List<List<SQLiteParameter>> paramList = new List<List<SQLiteParameter>>();
             
-            for (int i = 0; i < DataMoify.dt.Rows.Count; i++)
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                if (dt.Rows[i]["flag"].ToString() == "0")
+                if (dt.Rows[i].RowState == DataRowState.Modified)
                 {
-                    string sql = "UPDATE " + tableName + " SET invoicecode = @invoice, invoicenumber = @invoicenumber, date = @date, " +
+                    string sql = "UPDATE " + tableName + " SET invoicecode = @invoicecode, invoicenumber = @invoicenumber, date = @date, " +
                                  "buyersid = @buyersid, productname = @productname, productnumber = @productnumber, unitprice = @unitprice, " +
                                  "money = @money, taxrate = @taxrate, taxamount = @taxamount, totalamount = @totalamount, " +
                                  "totaltaxamount = @totaltaxamount, moneyupper = @moneyupper, moneylow = @moneylow, sellersid = @sellersid, " +
-                                 "comment = @comment, payee = @payee, check = @check, drawer = @drawer, invoicestate = @invoicestate, " +
-                                 "returnmoney = @returnmoney WHERE id = @id";
+                                 "comment = @comment, payee = @payee, \"check\" = @check, drawer = @drawer, invoicestate = @invoicestate, " +
+                                 "returnmoney = @returnmoney WHERE id = " + dt.Rows[i]["id"];
                     sqlList.Add(sql);
                     paramList.Add(parametersesSet(i, dt));
                 }
-                else if(dt.Rows[i]["flag"].ToString() == "1")
+                else if(dt.Rows[i].RowState == DataRowState.Deleted)
                 {
-                    string sql = "UPDATE " + tableName + " SET flag = '1' WHERE id = " + dt.Rows[i]["id"];
+
+                    string sql = "UPDATE " + tableName + " SET flag = '1' WHERE id = " + dt.Rows[0]["id", DataRowVersion.Original].ToString();
                     sqlList.Add(sql);
                     paramList.Add(null);
                 }
-                else if (dt.Rows[i]["flag"].ToString() == "2")
+                else if (dt.Rows[i].RowState == DataRowState.Added)
                 {
-                    string sql = "INSERT INTO " + tableName + " VALUES(null, invoicecode = @invoice, invoicenumber = @invoicenumber, date = @date, " +
+                    string sql = "INSERT INTO " + tableName + " VALUES(id = 1, invoicecode = @invoicecode, invoicenumber = @invoicenumber, date = @date, " +
                                  "buyersid = @buyersid, productname = @productname, productnumber = @productnumber, unitprice = @unitprice, " +
                                  "money = @money, taxrate = @taxrate, taxamount = @taxamount, totalamount = @totalamount, " +
                                  "totaltaxamount = @totaltaxamount, moneyupper = @moneyupper, moneylow = @moneylow, sellersid = @sellersid, " +
-                                 "comment = @comment, payee = @payee, check = @check, drawer = @drawer, invoicestate = @invoicestate, " +
-                                 "returnmoney = @returnmoney flag = '0'";
+                                 "comment = @comment, payee = @payee, \"check\" = @check, drawer = @drawer, invoicestate = @invoicestate, " +
+                                 "returnmoney = @returnmoney, flag = '0')";
                     sqlList.Add(sql);
                     paramList.Add(parametersesSet(i, dt));
                 }
@@ -278,6 +279,7 @@ namespace DAL
         {
             SQLiteParameter[] sp =
             {
+
                 new SQLiteParameter("@invoicecode", dt.Rows[rowIndex]["invoicecode"]),
                 new SQLiteParameter("@invoicenumber", dt.Rows[rowIndex]["invoicenumber"]),
                 new SQLiteParameter("@date", dt.Rows[rowIndex]["date"]),
@@ -299,7 +301,7 @@ namespace DAL
                 new SQLiteParameter("@drawer", dt.Rows[rowIndex]["drawer"]),
                 new SQLiteParameter("@invoicestate", dt.Rows[rowIndex]["invoicestate"]),
                 new SQLiteParameter("@returnmoney", dt.Rows[rowIndex]["returnmoney"]),
-                //new SQLiteParameter("@flag", DataMoify.dt.Rows[rowIndex]["invoicecode"]),
+                //new SQLiteParameter("@flag", "0"),
             };
             List<SQLiteParameter> list  = new List<SQLiteParameter>(sp);
             return list;

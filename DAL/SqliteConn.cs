@@ -28,10 +28,12 @@ namespace DAL
                     using (SQLiteCommand sqLiteCommand = new SQLiteCommand(sqLiteConnection))
                     {
                         sqLiteCommand.Transaction = sqLiteTransaction;
+
+
                         for (int i = 0; i < sqlList.Count; i++)
                         {
                             sqLiteCommand.CommandText = sqlList[i];
-                            sqLiteCommand.Parameters.AddRange(paramList[i].ToArray());
+                            if(paramList[i] != null) sqLiteCommand.Parameters.AddRange(paramList[i].ToArray());
                             yyhs = yyhs + sqLiteCommand.ExecuteNonQuery();
                         }
                         sqLiteTransaction.Commit();

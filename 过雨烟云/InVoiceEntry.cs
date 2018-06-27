@@ -50,30 +50,55 @@ namespace 过雨烟云
         //判断购买方或销售方 把公司信息自动填充到单元格
         private void CommpanyInfo(string id, string commpanyName, string taxNumber, string address, string bank)
         {
-            if (ActiveControl.Parent.Name == "tb_buyersname")
+            if (tsbtn_submit.Text == "新增")
             {
-                lb_buyersId.Text = id;
-                tb_buyersname.Text = commpanyName;
-                tb_buyerstaxnumber.Text = taxNumber;
-                tb_buyersaddress.Text = address;
-                tb_buyersbank.Text = bank;
-                return;
+                if (ActiveControl.Parent.Name == "tb_buyersname")
+                {
+                    lb_buyersid.Text = id;
+                    tb_buyersname.Text = commpanyName;
+                    tb_buyerstaxnumber.Text = taxNumber;
+                    tb_buyersaddress.Text = address;
+                    tb_buyersbank.Text = bank;
+                }
+                else if (ActiveControl.Parent.Name == "tb_sellersname")
+                {
+                    lb_sellersid.Text = id;
+                    tb_sellersname.Text = commpanyName;
+                    tb_sellerstaxnumber.Text = taxNumber;
+                    tb_sellersaddress.Text = address;
+                    tb_sellersbank.Text = bank;
+                }
             }
-            if (ActiveControl.Parent.Name == "tb_sellersname")
+            else if (tsbtn_submit.Text == "修改")
             {
-                lb_sellersId.Text = id;
-                tb_sellersname.Text = commpanyName;
-                tb_sellerstaxnumber.Text = taxNumber;
-                tb_sellersaddress.Text = address;
-                tb_sellersbank.Text = bank;
+                if (ActiveControl.Parent.Name == "tb_buyersname")
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        if(dt.Rows[i].RowState == DataRowState.Deleted) continue;
 
-                return;
+                        dt.Rows[i]["buyersid"] = id;
+                        dt.Rows[i]["buyersname"] = commpanyName;
+                        dt.Rows[i]["buyerstaxnumber"] = taxNumber;
+                        dt.Rows[i]["buyersaddress"] = address;
+                        dt.Rows[i]["buyersbank"] = bank;
+                    }
+                }
+                else if(ActiveControl.Parent.Name == "tb_sellersname")
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        if (dt.Rows[i].RowState == DataRowState.Deleted) continue;
+                        dt.Rows[i]["sellersid"] = id;
+                        dt.Rows[i]["sellersname"] = commpanyName;
+                        dt.Rows[i]["sellerstaxnumber"] = taxNumber;
+                        dt.Rows[i]["sellersaddress"] = address;
+                        dt.Rows[i]["sellersbank"] = bank;
+                    }
+                }
             }
-
-
         }
         #endregion
-
 
         #region 显示逐步提示窗体
         //显示逐步提示
@@ -139,84 +164,23 @@ namespace 过雨烟云
                     }
                 }
 
-                //buyersId.DataBindings.Add("Text", dt, "buyersid", false, DataSourceUpdateMode.OnPropertyChanged);
-                //sellersId.DataBindings.Add("Text", dt, "sellersid", false, DataSourceUpdateMode.OnPropertyChanged);
                 dataGridView1.DataSource = dt;
                 tsbtn_submit.Text = "修改";
             }
 
-
         }
 
 
-        #region 初始化发票信息
-
-        /// <summary>
-        /// 点击修改按钮后 初始化发票修改的明细
-        /// </summary>
-        /// <param name="dt">DataTable 发票信息内容</param>
-        public void InitInvoiceModifyInfo()
-        {
-            int charIndexOf = -1;
-
-            foreach (Control ctl in panel1.Controls)
-            {
-                charIndexOf = ctl.Name.IndexOf("_") + 1;
-                if (charIndexOf != 0)
-                {
-                    ctl.Text = dt.Rows[0][ctl.Name.Substring(charIndexOf)].ToString();
-                }
-            }
-
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                dataGridView1.Rows.Add();
-                for (int j = 0; j < dataGridView1.Columns.Count; j++)
-                {
-                    if (j == 2 || j == 3) continue;
-                    dataGridView1[j, i].Value = dt.Rows[i][dataGridView1.Columns[j].Name];
-                }
-            }
-             tsbtn_submit.Text = "修改";
-        }
-
-        #endregion
-
-        #region 点击按钮 插入或修改数据
+        #region 点击按钮 新增或修改数据
 
         //保存数据
         private void tsbtn_submit_Click(object sender, EventArgs e)
         {
             if (CheckIsEmpty() == false) return;
 
-            dt.AcceptChanges();
-            
             dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
             if (tsbtn_submit.Text == "修改")
             {
-                //int charIndexOf = -1;
-                //int rowCount = dataGridView1.RowCount;
-                
-                //if (rowCount > dt.Rows.Count) dt.Rows.Add(rowCount - dt.Rows.Count);
-
-                //for (int i = 0; i < rowCount; i++)
-                //{
-                //    foreach (Control ctl in panel1.Controls)
-                //    {
-                //        charIndexOf = ctl.Name.IndexOf("_") + 1;
-                //        if (charIndexOf != 0 && (!ctl.Name.Contains("tb_sellers") || !ctl.Name.Contains("tb_buyers")))
-                //        {
-                //            dt.Rows[i][ctl.Name.Substring(charIndexOf)] = ctl.Text;
-                //            dt.Rows[i]["date"] = dtp_date.Value.ToString("yyyy-MM-dd");
-                //        }
-                //    }
-
-                //    for (int j = 0; j < dataGridView1.Columns.Count; j++)
-                //    {
-                //        if (j == 2 || j == 3) continue;
-                //        dt.Rows[i][dataGridView1.Columns[j].Name] = dataGridView1[j, i].Value;
-                //    }
-                //}
                 InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
                 invoiceInfoBll.ModifyData(dt);
 
@@ -237,7 +201,7 @@ namespace 过雨烟云
                     invoiceInfo.Invoicecode = tb_invoicecode.Text;
                     invoiceInfo.Invoicenumber = tb_invoicenumber.Text;
                     invoiceInfo.Date = dtp_date.Value.ToString("yyyy-MM-dd");
-                    invoiceInfo.Buyersid = Convert.ToInt32(lb_buyersId.Text);
+                    invoiceInfo.Buyersid = Convert.ToInt32(lb_buyersid.Text);
 
                     invoiceInfo.Productname = dataGridView1.Rows[i].Cells[0].Value.ToString();
                     invoiceInfo.Productnumber = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value);
@@ -250,7 +214,7 @@ namespace 过雨烟云
                     invoiceInfo.Totaltaxamount = tb_totaltaxamount.Text;
                     invoiceInfo.Moneyupper = tb_moneyupper.Text;
                     invoiceInfo.Moneylow = tb_moneylow.Text;
-                    invoiceInfo.Sellersid = Convert.ToInt32(lb_sellersId.Text);
+                    invoiceInfo.Sellersid = Convert.ToInt32(lb_sellersid.Text);
                     invoiceInfo.Comment = tb_comment.Text;
                     invoiceInfo.Payee = tb_payee.Text;
                     invoiceInfo.Check = tb_check.Text;
@@ -374,10 +338,47 @@ namespace 过雨烟云
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            //dataGridView1.Rows.Add();
-            //dataGridView1["id", dataGridView1.RowCount - 1].Value = 0;
-            //dataGridView1["flag", dataGridView1.RowCount - 1].Value = "2";
-            dt.Rows.Add();
+            if (tsbtn_submit.Text == "新增")
+            {
+                dataGridView1.Rows.Add();
+                return;
+            }
+
+            if (tsbtn_submit.Text == "修改")
+            {
+                dt.Rows.Add();
+
+                dt.Rows[dt.Rows.Count - 1]["id"] = dt.Rows[0]["id"];
+                dt.Rows[dt.Rows.Count - 1]["invoicecode"] = dt.Rows[0]["invoicecode"];
+                dt.Rows[dt.Rows.Count - 1]["invoicenumber"] = dt.Rows[0]["invoicenumber"];
+                dt.Rows[dt.Rows.Count - 1]["date"] = dt.Rows[0]["date"];
+                dt.Rows[dt.Rows.Count - 1]["totalamount"] = dt.Rows[0]["totalamount"];
+                dt.Rows[dt.Rows.Count - 1]["totaltaxamount"] = dt.Rows[0]["totaltaxamount"];
+                dt.Rows[dt.Rows.Count - 1]["moneyupper"] = dt.Rows[0]["moneyupper"];
+                dt.Rows[dt.Rows.Count - 1]["moneylow"] = dt.Rows[0]["moneylow"];
+                dt.Rows[dt.Rows.Count - 1]["comment"] = dt.Rows[0]["comment"];
+                dt.Rows[dt.Rows.Count - 1]["payee"] = dt.Rows[0]["payee"];
+                dt.Rows[dt.Rows.Count - 1]["check"] = dt.Rows[0]["check"];
+                dt.Rows[dt.Rows.Count - 1]["drawer"] = dt.Rows[0]["drawer"];
+                dt.Rows[dt.Rows.Count - 1]["invoicestate"] = dt.Rows[0]["invoicestate"];
+                dt.Rows[dt.Rows.Count - 1]["returnmoney"] = dt.Rows[0]["returnmoney"];
+
+
+
+                dt.Rows[dt.Rows.Count - 1]["buyersid"] = dt.Rows[0]["buyersid"];
+                dt.Rows[dt.Rows.Count - 1]["buyersname"] = dt.Rows[0]["buyersname"];
+                dt.Rows[dt.Rows.Count - 1]["buyerstaxnumber"] = dt.Rows[0]["buyerstaxnumber"];
+                dt.Rows[dt.Rows.Count - 1]["buyersaddress"] = dt.Rows[0]["buyersaddress"];
+                dt.Rows[dt.Rows.Count - 1]["buyersbank"] = dt.Rows[0]["buyersbank"];
+
+                dt.Rows[dt.Rows.Count - 1]["sellersid"] = dt.Rows[0]["sellersid"];
+                dt.Rows[dt.Rows.Count - 1]["sellersname"] = dt.Rows[0]["sellersname"];
+                dt.Rows[dt.Rows.Count - 1]["sellerstaxnumber"] = dt.Rows[0]["sellerstaxnumber"];
+                dt.Rows[dt.Rows.Count - 1]["sellersaddress"] = dt.Rows[0]["sellersaddress"];
+                dt.Rows[dt.Rows.Count - 1]["sellersbank"] = dt.Rows[0]["sellersbank"];
+
+                return;
+            }
         }
 
         #region 删除DGV一行
@@ -396,9 +397,10 @@ namespace 过雨烟云
 
             if (this.tsbtn_submit.Text == "修改")
             {
-                //dataGridView1["flag", dataGridView1.CurrentRow.Index].Value = "1";
-                //dataGridView1.Rows[dataGridView1.CurrentRow.Index].Visible = false;
-                dt.Rows[dataGridView1.CurrentRow.Index].Delete();
+                if (dt.Rows.Count > 1)
+                {
+                    dt.Rows[dataGridView1.CurrentRow.Index].Delete();
+                }
                 return;
             }
         }
