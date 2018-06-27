@@ -28,11 +28,6 @@ namespace 过雨烟云
 
         private void commpanyInfo_load(object sender, EventArgs e)
         {
-            //CommpanyInfoBLL commpanyInfoBll = new CommpanyInfoBLL();
-            ////dataGridView1.AutoGenerateColumns = false;
-            //dataGridView1.DataSource = commpanyInfoBll.GetAllCommpanyInfos();
-
-            //从数据库获取数据
             DataTable dataTable = new DataTable();
 
             string FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
@@ -47,12 +42,14 @@ namespace 过雨烟云
             {
                 dataGridView1.Rows[i].HeaderCell.Value = (i + 1).ToString();
                 dataGridView1.RowHeadersWidth = 60;
-                for (int j = 1; j < dataTable.Columns.Count; j++)
+                for (int j = 0; j < dataTable.Columns.Count - 1; j++)
                 {
-                    dataGridView1.Rows[i].Cells[j - 1].Value = dataTable.Rows[i][j];
+                    dataGridView1.Rows[i].Cells[j].Value = dataTable.Rows[i][j];
                 }
             }
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.ReadOnly = true;
+            dataGridView1.AllowUserToAddRows = false;
         }
     }
 }

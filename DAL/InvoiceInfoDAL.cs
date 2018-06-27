@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.SQLite;
 using Model;
 using DBS;
+using System.Windows.Forms;
+
 namespace DAL
 {
     public class InvoiceInfoDAL
@@ -26,7 +28,7 @@ namespace DAL
                 "a.productname, a.productnumber, a.unitprice, a.money, a.taxrate, a.taxamount, a.totalamount, a.totaltaxamount, " +
                 "a.moneyupper, a.moneylow, a.sellersid, c.commpanyname AS 销售方名称, c.taxnumber AS 销售方税号, c.address AS 销售方地址及电话, " +
                 "c.bank AS 销售方开户行及帐号, a.comment, a.payee, a.\"check\", a.drawer, a.invoicestate, a.returnmoney FROM invoiceinfo AS a " +
-                "LEFT OUTER JOIN commpanyinfo AS b ON a.buyersid = b.id LEFT OUTER JOIN commpanyinfo AS c ON a.sellersid = c.id WHERE flag = '0' " +
+                "LEFT OUTER JOIN commpanyinfo AS b ON a.buyersid = b.id LEFT OUTER JOIN commpanyinfo AS c ON a.sellersid = c.id WHERE a.flag = '0' " +
                 "GROUP BY invoicenumber";
 
             DataTable dataTable = SqliteConn.ExecuteTable(sql);
@@ -83,7 +85,7 @@ namespace DAL
                 "a.moneyupper, a.moneylow, a.sellersid, c.commpanyname AS sellersname, c.taxnumber AS sellerstaxnumber, c.address AS sellersaddress, " +
                 "c.bank AS sellersbank, a.comment, a.payee, a.\"check\", a.drawer, a.invoicestate, a.returnmoney, a.flag FROM invoiceinfo AS a " +
                 "LEFT OUTER JOIN commpanyinfo AS b ON a.buyersid = b.id LEFT OUTER JOIN commpanyinfo AS c ON a.sellersid = c.id " +
-                "WHERE flag = '0' AND invoicenumber = '" + str + "'";
+                "WHERE a.flag = '0' AND invoicenumber = '" + str + "'";
 
             DataTable dt = SqliteConn.ExecuteTable(sql);
             return dt;
@@ -231,15 +233,35 @@ namespace DAL
         /// 发票修改 
         /// </summary>
         /// <param name="tableName">数据库表名</param>
+        /// <param name="dt">DataTable 存放发票明细信息的表</param>
+        /// <param name="dt1">DataTable 存放发票明细基本信息的表</param>
         /// <returns>返回影响行数</returns>
-        public int ModifyData(string tableName, DataTable dt)
+        public int ModifyData(string tableName, DataTable dt, DataTable dt1)
         {
             List<string> sqlList = new List<string>();
             List<List<SQLiteParameter>> paramList = new List<List<SQLiteParameter>>();
             
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                if (dt.Rows[i].RowState == DataRowState.Modified)
+                if (dt.Rows[i].RowState == DataRowState.Added)
+                {
+                    string sql = "INSERT INTO " + tableName + " VALUES(NULL, @invoicecode, @invoicenumber, @date, " +
+                                 "@buyersid, @productname, @productnumber, @unitprice, " +
+                                 "@money, @taxrate, @taxamount, @totalamount, " +
+                                 "@totaltaxamount, @moneyupper, @moneylow, @sellersid, " +
+                                 "@comment, @payee, @check, @drawer, @invoicestate, " +
+                                 "@returnmoney, '0')";
+                    sqlList.Add(sql);
+                    paramList.Add(parametersesSet(i, dt, dt1)); 
+                }
+                else if(dt.Rows[i].RowState == DataRowState.Deleted)
+                {
+    
+                    string sql = "UPDATE " + tableName + " SET flag = '1' WHERE id = " + dt.Rows[0]["id", DataRowVersion.Original].ToString();
+                    sqlList.Add(sql);
+                    paramList.Add(null);
+                }
+                else
                 {
                     string sql = "UPDATE " + tableName + " SET invoicecode = @invoicecode, invoicenumber = @invoicenumber, date = @date, " +
                                  "buyersid = @buyersid, productname = @productname, productnumber = @productnumber, unitprice = @unitprice, " +
@@ -248,25 +270,7 @@ namespace DAL
                                  "comment = @comment, payee = @payee, \"check\" = @check, drawer = @drawer, invoicestate = @invoicestate, " +
                                  "returnmoney = @returnmoney WHERE id = " + dt.Rows[i]["id"];
                     sqlList.Add(sql);
-                    paramList.Add(parametersesSet(i, dt));
-                }
-                else if(dt.Rows[i].RowState == DataRowState.Deleted)
-                {
-
-                    string sql = "UPDATE " + tableName + " SET flag = '1' WHERE id = " + dt.Rows[0]["id", DataRowVersion.Original].ToString();
-                    sqlList.Add(sql);
-                    paramList.Add(null);
-                }
-                else if (dt.Rows[i].RowState == DataRowState.Added)
-                {
-                    string sql = "INSERT INTO " + tableName + " VALUES(id = 1, invoicecode = @invoicecode, invoicenumber = @invoicenumber, date = @date, " +
-                                 "buyersid = @buyersid, productname = @productname, productnumber = @productnumber, unitprice = @unitprice, " +
-                                 "money = @money, taxrate = @taxrate, taxamount = @taxamount, totalamount = @totalamount, " +
-                                 "totaltaxamount = @totaltaxamount, moneyupper = @moneyupper, moneylow = @moneylow, sellersid = @sellersid, " +
-                                 "comment = @comment, payee = @payee, \"check\" = @check, drawer = @drawer, invoicestate = @invoicestate, " +
-                                 "returnmoney = @returnmoney, flag = '0')";
-                    sqlList.Add(sql);
-                    paramList.Add(parametersesSet(i, dt));
+                    paramList.Add(parametersesSet(i, dt, dt1));
                 }
             }
            return SqliteConn.ExeCuteNonQueryMulit(sqlList, paramList);
@@ -275,32 +279,32 @@ namespace DAL
 
         #region 修改数据对应的参数配置
 
-        private List<SQLiteParameter> parametersesSet(int rowIndex, DataTable dt)
+        private List<SQLiteParameter> parametersesSet(int rowIndex, DataTable dt, DataTable dt1)
         {
             SQLiteParameter[] sp =
             {
 
-                new SQLiteParameter("@invoicecode", dt.Rows[rowIndex]["invoicecode"]),
-                new SQLiteParameter("@invoicenumber", dt.Rows[rowIndex]["invoicenumber"]),
-                new SQLiteParameter("@date", dt.Rows[rowIndex]["date"]),
-                new SQLiteParameter("@buyersid", dt.Rows[rowIndex]["buyersid"]),
+                new SQLiteParameter("@invoicecode", dt1.Rows[0]["invoicecode"]),
+                new SQLiteParameter("@invoicenumber", dt1.Rows[0]["invoicenumber"]),
+                new SQLiteParameter("@date", dt1.Rows[0]["date"]),
+                new SQLiteParameter("@buyersid", dt1.Rows[0]["buyersid"]),
                 new SQLiteParameter("@productname", dt.Rows[rowIndex]["productname"]),
                 new SQLiteParameter("@productnumber", dt.Rows[rowIndex]["productnumber"]),
                 new SQLiteParameter("@unitprice", dt.Rows[rowIndex]["unitprice"]),
                 new SQLiteParameter("@money", dt.Rows[rowIndex]["money"]),
                 new SQLiteParameter("@taxrate", dt.Rows[rowIndex]["taxrate"]),
                 new SQLiteParameter("@taxamount", dt.Rows[rowIndex]["taxamount"]),
-                new SQLiteParameter("@totalamount", dt.Rows[rowIndex]["totalamount"]),
-                new SQLiteParameter("@totaltaxamount", dt.Rows[rowIndex]["totaltaxamount"]),
-                new SQLiteParameter("@moneyupper", dt.Rows[rowIndex]["moneyupper"]),
-                new SQLiteParameter("@moneylow", dt.Rows[rowIndex]["moneylow"]),
-                new SQLiteParameter("@sellersid", dt.Rows[rowIndex]["sellersid"]),
-                new SQLiteParameter("@comment", dt.Rows[rowIndex]["comment"]),
-                new SQLiteParameter("@payee", dt.Rows[rowIndex]["payee"]),
-                new SQLiteParameter("@check", dt.Rows[rowIndex]["check"]),
-                new SQLiteParameter("@drawer", dt.Rows[rowIndex]["drawer"]),
-                new SQLiteParameter("@invoicestate", dt.Rows[rowIndex]["invoicestate"]),
-                new SQLiteParameter("@returnmoney", dt.Rows[rowIndex]["returnmoney"]),
+                new SQLiteParameter("@totalamount", dt1.Rows[0]["totalamount"]),
+                new SQLiteParameter("@totaltaxamount", dt1.Rows[0]["totaltaxamount"]),
+                new SQLiteParameter("@moneyupper", dt1.Rows[0]["moneyupper"]),
+                new SQLiteParameter("@moneylow", dt1.Rows[0]["moneylow"]),
+                new SQLiteParameter("@sellersid", dt1.Rows[0]["sellersid"]),
+                new SQLiteParameter("@comment", dt1.Rows[0]["comment"]),
+                new SQLiteParameter("@payee", dt1.Rows[0]["payee"]),
+                new SQLiteParameter("@check", dt1.Rows[0]["check"]),
+                new SQLiteParameter("@drawer", dt1.Rows[0]["drawer"]),
+                new SQLiteParameter("@invoicestate", dt1.Rows[0]["invoicestate"]),
+                new SQLiteParameter("@returnmoney", dt1.Rows[0]["returnmoney"]),
                 //new SQLiteParameter("@flag", "0"),
             };
             List<SQLiteParameter> list  = new List<SQLiteParameter>(sp);
@@ -310,7 +314,20 @@ namespace DAL
 
         #endregion
 
+        #region 删除一条信息
+        /// <summary>
+        /// 删除一条发票信息
+        /// </summary>
+        /// <param name="tableName">数据库表名</param>
+        /// <param name="dgvRow">DataGridViewRow</param>
+        /// <returns>返回影响行数 </returns>
+        public int DeleteSingleInfo(string tableName, DataGridViewRow dgvRow)
+        {
+            string sql = "UPDATE " + tableName + " SET flag = '1' WHERE invoicenumber = '" + dgvRow.Cells["invoicenumber"].Value.ToString() + "'";
 
+            return SqliteConn.ExecuteNonQuery(sql);
+        }
+        #endregion
 
         #region DataTable 行转发票信息类
 

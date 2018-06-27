@@ -86,7 +86,7 @@
             this.tb_buyersname.Location = new System.Drawing.Point(386, 214);
             this.tb_buyersname.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_buyersname.Name = "tb_buyersname";
-            this.tb_buyersname.Size = new System.Drawing.Size(357, 25);
+            this.tb_buyersname.Size = new System.Drawing.Size(357, 21);
             this.tb_buyersname.TabIndex = 1;
             // 
             // tb_buyerstaxnumber
@@ -96,7 +96,7 @@
             this.tb_buyerstaxnumber.Location = new System.Drawing.Point(386, 238);
             this.tb_buyerstaxnumber.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_buyerstaxnumber.Name = "tb_buyerstaxnumber";
-            this.tb_buyerstaxnumber.Size = new System.Drawing.Size(357, 25);
+            this.tb_buyerstaxnumber.Size = new System.Drawing.Size(357, 21);
             this.tb_buyerstaxnumber.TabIndex = 2;
             // 
             // tb_buyersaddress
@@ -106,7 +106,7 @@
             this.tb_buyersaddress.Location = new System.Drawing.Point(386, 261);
             this.tb_buyersaddress.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_buyersaddress.Name = "tb_buyersaddress";
-            this.tb_buyersaddress.Size = new System.Drawing.Size(357, 25);
+            this.tb_buyersaddress.Size = new System.Drawing.Size(357, 21);
             this.tb_buyersaddress.TabIndex = 3;
             // 
             // tb_buyersbank
@@ -116,7 +116,7 @@
             this.tb_buyersbank.Location = new System.Drawing.Point(386, 284);
             this.tb_buyersbank.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_buyersbank.Name = "tb_buyersbank";
-            this.tb_buyersbank.Size = new System.Drawing.Size(357, 25);
+            this.tb_buyersbank.Size = new System.Drawing.Size(357, 21);
             this.tb_buyersbank.TabIndex = 4;
             // 
             // tb_invoicenumber
@@ -125,7 +125,7 @@
             this.tb_invoicenumber.Location = new System.Drawing.Point(895, 130);
             this.tb_invoicenumber.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_invoicenumber.Name = "tb_invoicenumber";
-            this.tb_invoicenumber.Size = new System.Drawing.Size(244, 25);
+            this.tb_invoicenumber.Size = new System.Drawing.Size(244, 21);
             this.tb_invoicenumber.TabIndex = 6;
             // 
             // tb_totalamount
@@ -134,7 +134,7 @@
             this.tb_totalamount.Location = new System.Drawing.Point(809, 472);
             this.tb_totalamount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_totalamount.Name = "tb_totalamount";
-            this.tb_totalamount.Size = new System.Drawing.Size(132, 25);
+            this.tb_totalamount.Size = new System.Drawing.Size(132, 21);
             this.tb_totalamount.TabIndex = 47;
             // 
             // tb_totaltaxamount
@@ -143,7 +143,7 @@
             this.tb_totaltaxamount.Location = new System.Drawing.Point(977, 472);
             this.tb_totaltaxamount.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_totaltaxamount.Name = "tb_totaltaxamount";
-            this.tb_totaltaxamount.Size = new System.Drawing.Size(135, 25);
+            this.tb_totaltaxamount.Size = new System.Drawing.Size(135, 21);
             this.tb_totaltaxamount.TabIndex = 48;
             // 
             // tb_moneyupper
@@ -152,7 +152,7 @@
             this.tb_moneyupper.Location = new System.Drawing.Point(515, 501);
             this.tb_moneyupper.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_moneyupper.Name = "tb_moneyupper";
-            this.tb_moneyupper.Size = new System.Drawing.Size(360, 25);
+            this.tb_moneyupper.Size = new System.Drawing.Size(360, 21);
             this.tb_moneyupper.TabIndex = 49;
             // 
             // tb_moneylow
@@ -161,7 +161,7 @@
             this.tb_moneylow.Location = new System.Drawing.Point(922, 501);
             this.tb_moneylow.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_moneylow.Name = "tb_moneylow";
-            this.tb_moneylow.Size = new System.Drawing.Size(190, 25);
+            this.tb_moneylow.Size = new System.Drawing.Size(190, 21);
             this.tb_moneylow.TabIndex = 50;
             // 
             // tb_sellersbank
@@ -171,7 +171,7 @@
             this.tb_sellersbank.Location = new System.Drawing.Point(386, 590);
             this.tb_sellersbank.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_sellersbank.Name = "tb_sellersbank";
-            this.tb_sellersbank.Size = new System.Drawing.Size(357, 25);
+            this.tb_sellersbank.Size = new System.Drawing.Size(357, 21);
             this.tb_sellersbank.TabIndex = 54;
             // 
             // tb_sellersaddress
@@ -181,7 +181,7 @@
             this.tb_sellersaddress.Location = new System.Drawing.Point(386, 569);
             this.tb_sellersaddress.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_sellersaddress.Name = "tb_sellersaddress";
-            this.tb_sellersaddress.Size = new System.Drawing.Size(357, 25);
+            this.tb_sellersaddress.Size = new System.Drawing.Size(357, 21);
             this.tb_sellersaddress.TabIndex = 53;
             // 
             // tb_sellerstaxnumber
@@ -191,7 +191,7 @@
             this.tb_sellerstaxnumber.Location = new System.Drawing.Point(386, 548);
             this.tb_sellerstaxnumber.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_sellerstaxnumber.Name = "tb_sellerstaxnumber";
-            this.tb_sellerstaxnumber.Size = new System.Drawing.Size(357, 25);
+            this.tb_sellerstaxnumber.Size = new System.Drawing.Size(357, 21);
             this.tb_sellerstaxnumber.TabIndex = 52;
             // 
             // tb_sellersname
@@ -200,7 +200,7 @@
             this.tb_sellersname.Location = new System.Drawing.Point(386, 527);
             this.tb_sellersname.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_sellersname.Name = "tb_sellersname";
-            this.tb_sellersname.Size = new System.Drawing.Size(357, 25);
+            this.tb_sellersname.Size = new System.Drawing.Size(357, 21);
             this.tb_sellersname.TabIndex = 51;
             // 
             // tb_payee
@@ -209,7 +209,7 @@
             this.tb_payee.Location = new System.Drawing.Point(318, 617);
             this.tb_payee.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_payee.Name = "tb_payee";
-            this.tb_payee.Size = new System.Drawing.Size(172, 25);
+            this.tb_payee.Size = new System.Drawing.Size(172, 21);
             this.tb_payee.TabIndex = 55;
             // 
             // tb_check
@@ -218,7 +218,7 @@
             this.tb_check.Location = new System.Drawing.Point(552, 617);
             this.tb_check.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_check.Name = "tb_check";
-            this.tb_check.Size = new System.Drawing.Size(140, 25);
+            this.tb_check.Size = new System.Drawing.Size(140, 21);
             this.tb_check.TabIndex = 56;
             // 
             // tb_drawer
@@ -227,7 +227,7 @@
             this.tb_drawer.Location = new System.Drawing.Point(739, 617);
             this.tb_drawer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_drawer.Name = "tb_drawer";
-            this.tb_drawer.Size = new System.Drawing.Size(136, 25);
+            this.tb_drawer.Size = new System.Drawing.Size(136, 21);
             this.tb_drawer.TabIndex = 57;
             // 
             // tb_invoicecode
@@ -236,7 +236,7 @@
             this.tb_invoicecode.Location = new System.Drawing.Point(255, 130);
             this.tb_invoicecode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_invoicecode.Name = "tb_invoicecode";
-            this.tb_invoicecode.Size = new System.Drawing.Size(273, 25);
+            this.tb_invoicecode.Size = new System.Drawing.Size(273, 21);
             this.tb_invoicecode.TabIndex = 58;
             // 
             // tb_comment
@@ -254,7 +254,7 @@
             this.dtp_date.Location = new System.Drawing.Point(964, 178);
             this.dtp_date.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dtp_date.Name = "dtp_date";
-            this.dtp_date.Size = new System.Drawing.Size(175, 25);
+            this.dtp_date.Size = new System.Drawing.Size(175, 21);
             this.dtp_date.TabIndex = 60;
             this.dtp_date.Value = new System.DateTime(2018, 6, 26, 16, 57, 23, 0);
             // 
@@ -373,7 +373,7 @@
             this.tsbtn_exit.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_exit.Image")));
             this.tsbtn_exit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtn_exit.Name = "tsbtn_exit";
-            this.tsbtn_exit.Size = new System.Drawing.Size(63, 42);
+            this.tsbtn_exit.Size = new System.Drawing.Size(56, 42);
             this.tsbtn_exit.Text = "退出";
             this.tsbtn_exit.Click += new System.EventHandler(this.tsbtn_exit_Click);
             // 
@@ -391,7 +391,7 @@
             this.tsbtn_submit.Image = ((System.Drawing.Image)(resources.GetObject("tsbtn_submit.Image")));
             this.tsbtn_submit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbtn_submit.Name = "tsbtn_submit";
-            this.tsbtn_submit.Size = new System.Drawing.Size(63, 42);
+            this.tsbtn_submit.Size = new System.Drawing.Size(56, 42);
             this.tsbtn_submit.Text = "新增";
             this.tsbtn_submit.ToolTipText = "保存数据";
             this.tsbtn_submit.Click += new System.EventHandler(this.tsbtn_submit_Click);
@@ -402,7 +402,7 @@
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(73, 42);
+            this.toolStripButton2.Size = new System.Drawing.Size(60, 42);
             this.toolStripButton2.Text = "删除一行";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
@@ -412,7 +412,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(73, 42);
+            this.toolStripButton1.Size = new System.Drawing.Size(60, 42);
             this.toolStripButton1.Text = "添加一行";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
@@ -457,7 +457,7 @@
             this.lb_sellersid.AutoSize = true;
             this.lb_sellersid.Location = new System.Drawing.Point(237, 531);
             this.lb_sellersid.Name = "lb_sellersid";
-            this.lb_sellersid.Size = new System.Drawing.Size(0, 15);
+            this.lb_sellersid.Size = new System.Drawing.Size(0, 12);
             this.lb_sellersid.TabIndex = 72;
             // 
             // lb_buyersid
@@ -465,7 +465,7 @@
             this.lb_buyersid.AutoSize = true;
             this.lb_buyersid.Location = new System.Drawing.Point(255, 186);
             this.lb_buyersid.Name = "lb_buyersid";
-            this.lb_buyersid.Size = new System.Drawing.Size(0, 15);
+            this.lb_buyersid.Size = new System.Drawing.Size(0, 12);
             this.lb_buyersid.TabIndex = 71;
             // 
             // cbb_invoicestate
@@ -477,7 +477,7 @@
             "红字"});
             this.cbb_invoicestate.Location = new System.Drawing.Point(1043, 91);
             this.cbb_invoicestate.Name = "cbb_invoicestate";
-            this.cbb_invoicestate.Size = new System.Drawing.Size(96, 23);
+            this.cbb_invoicestate.Size = new System.Drawing.Size(96, 20);
             this.cbb_invoicestate.TabIndex = 70;
             // 
             // label2
@@ -487,7 +487,7 @@
             this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(974, 97);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 15);
+            this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 69;
             this.label2.Text = "发票状态";
             // 
@@ -497,8 +497,9 @@
             this.tb_returnMoney.Location = new System.Drawing.Point(895, 92);
             this.tb_returnMoney.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tb_returnMoney.Name = "tb_returnMoney";
-            this.tb_returnMoney.Size = new System.Drawing.Size(79, 25);
+            this.tb_returnMoney.Size = new System.Drawing.Size(79, 21);
             this.tb_returnMoney.TabIndex = 68;
+            this.tb_returnMoney.TextChanged += new System.EventHandler(this.tb_returnMoney_TextChanged);
             // 
             // label1
             // 
@@ -507,7 +508,7 @@
             this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(852, 97);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 15);
+            this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 67;
             this.label1.Text = "回款";
             // 

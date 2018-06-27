@@ -39,6 +39,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbtn_close = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tsb_delete = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -76,6 +77,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbtn_add,
             this.tsbtn_modify,
+            this.tsb_delete,
             this.tsbtn_query,
             this.toolStripSeparator1,
             this.tsbtn_close});
@@ -137,6 +139,15 @@
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // tsb_delete
+            // 
+            this.tsb_delete.Image = ((System.Drawing.Image)(resources.GetObject("tsb_delete.Image")));
+            this.tsb_delete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsb_delete.Name = "tsb_delete";
+            this.tsb_delete.Size = new System.Drawing.Size(56, 24);
+            this.tsb_delete.Text = "删除";
+            this.tsb_delete.Click += new System.EventHandler(this.tsb_delete_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -146,7 +157,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "发票系统";
@@ -172,6 +183,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton tsbtn_close;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripButton tsb_delete;
     }
 }
 

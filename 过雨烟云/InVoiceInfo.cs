@@ -29,13 +29,13 @@ namespace 过雨烟云
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
-            Form_InVoiceEntry inVoiceEntry = new Form_InVoiceEntry();
-            DataTable dt = invoiceInfoBll.GetInvoiceNumberDetail(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[2].Value.ToString());
-            inVoiceEntry.ShowDialog();
+            //InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
+            //Form_InVoiceEntry inVoiceEntry = new Form_InVoiceEntry();
+            //DataTable dt = invoiceInfoBll.GetInvoiceNumberDetail(dataGridView1.Rows[dataGridView1.CurrentRow.Index].Cells[2].Value.ToString());
+            //inVoiceEntry.ShowDialog();
 
 
-            MessageBox.Show(dataGridView1.CurrentRow.Index.ToString());
+            //MessageBox.Show(dataGridView1.CurrentRow.Index.ToString());
         }
 
     }

@@ -48,9 +48,7 @@ namespace 过雨烟云
 
             string FileDir = "Data Source = " + Environment.CurrentDirectory + @"\gyyy.db";
             string[] sqlCommand = new[] { "INSERT INTO commpanyinfo VALUES(NULL,'" + str[0] + "','" + str[1] + "','" + str[2]+ "','" 
-                                          + str[3] + "','" + str[4] + "','" + str[5] + "')" };
-
-
+                                          + str[3] + "','" + str[4] + "','" + str[5] + "', '0')" };
 
             Query query = new Query(FileDir, DB.DbType.Sqlite);
             query.Execute(sqlCommand);
@@ -62,13 +60,15 @@ namespace 过雨烟云
             textBox5.Text = "";
             textBox6.Text = "";
 
-            int dgvRowIndex = CommpanyInfo.dgv.RowCount - 1;
+            int dgvRowIndex = CommpanyInfo.dgv.RowCount;
             CommpanyInfo.dgv.Rows.Add();
             CommpanyInfo.dgv.Rows[dgvRowIndex].HeaderCell.Value = dgvRowIndex + 1;
             for (int i = 0; i < str.Length; i++)
             {
-                CommpanyInfo.dgv.Rows[dgvRowIndex].Cells[i].Value = str[i];
+                CommpanyInfo.dgv.Rows[dgvRowIndex].Cells[i + 1].Value = str[i];
             }
+
+            //MessageBox.Show("新增成功");
         }
 
         private void button3_Click(object sender, EventArgs e)

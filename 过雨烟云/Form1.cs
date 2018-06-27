@@ -189,14 +189,15 @@ namespace 过雨烟云
                     dgvIndex = CommpanyInfo.dgv.CurrentRow.Index;
                     dgvColumnCount = CommpanyInfo.dgv.ColumnCount;
 
-                    str = new string[dgvColumnCount + 1];
+                    str = new string[dgvColumnCount];
                     str[0] = (dgvIndex + 1).ToString();
                     for (int i = 1; i < str.Length; i++)
                     {
-                        str[i] = CommpanyInfo.dgv.Rows[dgvIndex].Cells[i - 1].Value.ToString();
+                        str[i] = CommpanyInfo.dgv.Rows[dgvIndex].Cells[i].Value.ToString();
                     }
                     if (CommpanyInfoModify == null || CommpanyInfoModify.IsDisposed == true) CommpanyInfoModify = new CommpanyInfoModify(CommpanyInfo);
                     CommpanyInfoModify.TextBoxAssignment(str);
+                    CommpanyInfoModify.StartPosition = FormStartPosition.CenterScreen;
                     CommpanyInfoModify.ShowDialog();
 
                     break;
@@ -323,6 +324,28 @@ namespace 过雨烟云
             //MessageBox.Show(statusStrip1.Items[0].CanSelect.ToString());
         }
 
+        #endregion
+
+
+        #region 删除基础信息
+        private void tsb_delete_Click(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild.Text == "单位信息")
+            {
+                DataGridViewRow dgvRow = CommpanyInfo.dgv.CurrentRow;
+                InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
+                MessageBox.Show(invoiceInfoBll.DeleteSingleInfo("commpanyinfo", dgvRow));
+                InvoiceInfo.dgv.Rows.Remove(InvoiceInfo.dgv.CurrentRow);
+            }
+            else if (ActiveMdiChild.Text == "发票信息")
+            {
+                DataGridViewRow dgvRow = InvoiceInfo.dgv.CurrentRow;
+                InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
+                MessageBox.Show(invoiceInfoBll.DeleteSingleInfo("invoiceinfo", dgvRow));
+                InvoiceInfo.dgv.Rows.Remove(InvoiceInfo.dgv.CurrentRow);
+
+            }
+        }
         #endregion
 
     }

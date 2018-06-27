@@ -15,7 +15,8 @@ namespace 过雨烟云
     public partial class Form_InVoiceEntry : Form
     {
         StepPrompt _stepPrompt = null;
-        public DataTable dt = null;
+        public DataTable dt = null;         //存放发票明细的所有字段信息
+        public DataTable dt1 = null;        //存放发票明细的基本信息 不包含DGV的内容
         private string keyWord;
         Bitmap bm;
         Point point;
@@ -28,6 +29,8 @@ namespace 过雨烟云
 
         public string FileDir { get => _fileDir; set => _fileDir = value; }
 
+
+        #region 不知道啥玩意
         private void btn_submit_Click(object sender, EventArgs e)
         {
 
@@ -44,7 +47,7 @@ namespace 过雨烟云
             //inVoiceInfo.in
             //List<>
         }
-
+        #endregion
 
         #region 逐步提示 判断购买方或销售方 把公司信息自动填充到单元格
         //判断购买方或销售方 把公司信息自动填充到单元格
@@ -73,28 +76,41 @@ namespace 过雨烟云
             {
                 if (ActiveControl.Parent.Name == "tb_buyersname")
                 {
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        if(dt.Rows[i].RowState == DataRowState.Deleted) continue;
 
-                        dt.Rows[i]["buyersid"] = id;
-                        dt.Rows[i]["buyersname"] = commpanyName;
-                        dt.Rows[i]["buyerstaxnumber"] = taxNumber;
-                        dt.Rows[i]["buyersaddress"] = address;
-                        dt.Rows[i]["buyersbank"] = bank;
-                    }
+                    dt1.Rows[0]["buyersid"] = id;
+                    dt1.Rows[0]["buyersname"] = commpanyName;
+                    dt1.Rows[0]["buyerstaxnumber"] = taxNumber;
+                    dt1.Rows[0]["buyersaddress"] = address;
+                    dt1.Rows[0]["buyersbank"] = bank;
+
+
+                    //for (int i = 0; i < dt.Rows.Count; i++)
+                    //{
+                    //    if(dt.Rows[i].RowState == DataRowState.Deleted) continue;
+
+                    //    dt.Rows[i]["buyersid"] = id;
+                    //    dt.Rows[i]["buyersname"] = commpanyName;
+                    //    dt.Rows[i]["buyerstaxnumber"] = taxNumber;
+                    //    dt.Rows[i]["buyersaddress"] = address;
+                    //    dt.Rows[i]["buyersbank"] = bank;
+                    //}
                 }
                 else if(ActiveControl.Parent.Name == "tb_sellersname")
                 {
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        if (dt.Rows[i].RowState == DataRowState.Deleted) continue;
-                        dt.Rows[i]["sellersid"] = id;
-                        dt.Rows[i]["sellersname"] = commpanyName;
-                        dt.Rows[i]["sellerstaxnumber"] = taxNumber;
-                        dt.Rows[i]["sellersaddress"] = address;
-                        dt.Rows[i]["sellersbank"] = bank;
-                    }
+                    dt1.Rows[0]["sellersid"] = id;
+                    dt1.Rows[0]["sellersname"] = commpanyName;
+                    dt1.Rows[0]["sellerstaxnumber"] = taxNumber;
+                    dt1.Rows[0]["sellersaddress"] = address;
+                    dt1.Rows[0]["sellersbank"] = bank;
+                    //for (int i = 0; i < dt.Rows.Count; i++)
+                    //{
+                    //    if (dt.Rows[i].RowState == DataRowState.Deleted) continue;
+                    //    dt.Rows[i]["sellersid"] = id;
+                    //    dt.Rows[i]["sellersname"] = commpanyName;
+                    //    dt.Rows[i]["sellerstaxnumber"] = taxNumber;
+                    //    dt.Rows[i]["sellersaddress"] = address;
+                    //    dt.Rows[i]["sellersbank"] = bank;
+                    //}
                 }
             }
         }
@@ -136,7 +152,7 @@ namespace 过雨烟云
         }
         #endregion
 
-
+        #region 窗体加载
         //窗体启动初始化datagridview
         private void Form_InVoiceEntry_Load(object sender, EventArgs e)
         {
@@ -150,7 +166,14 @@ namespace 过雨烟云
             panel1.Size = new Size(1200, 768);
             this.AutoScroll = true;
 
-
+            dt1 = dt.Copy();
+            if (dt1.Rows.Count > 1)
+            {
+                for (int i = 1; i < dt1.Rows.Count; i++)
+                {
+                    dt1.Rows[i].Delete();
+                }
+            }
 
             if (this.Text == "发票修改")
             {
@@ -160,7 +183,7 @@ namespace 过雨烟云
                     charIndexOf = ctl.Name.IndexOf("_") + 1;
                     if (charIndexOf != 0)
                     {
-                        ctl.DataBindings.Add("Text", dt, ctl.Name.Substring(ctl.Name.IndexOf("_") + 1), false, DataSourceUpdateMode.OnPropertyChanged);
+                        ctl.DataBindings.Add("Text", dt1, ctl.Name.Substring(ctl.Name.IndexOf("_") + 1), false, DataSourceUpdateMode.OnPropertyChanged);
                     }
                 }
 
@@ -169,7 +192,7 @@ namespace 过雨烟云
             }
 
         }
-
+        #endregion
 
         #region 点击按钮 新增或修改数据
 
@@ -182,7 +205,7 @@ namespace 过雨烟云
             if (tsbtn_submit.Text == "修改")
             {
                 InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
-                invoiceInfoBll.ModifyData(dt);
+                MessageBox.Show(invoiceInfoBll.ModifyData(dt, dt1));
 
                 return;
             }
@@ -202,7 +225,7 @@ namespace 过雨烟云
                     invoiceInfo.Invoicenumber = tb_invoicenumber.Text;
                     invoiceInfo.Date = dtp_date.Value.ToString("yyyy-MM-dd");
                     invoiceInfo.Buyersid = Convert.ToInt32(lb_buyersid.Text);
-
+                    
                     invoiceInfo.Productname = dataGridView1.Rows[i].Cells[0].Value.ToString();
                     invoiceInfo.Productnumber = Convert.ToInt32(dataGridView1.Rows[i].Cells[3].Value);
                     invoiceInfo.Unitprice = dataGridView1.Rows[i].Cells[4].Value.ToString();
@@ -226,14 +249,15 @@ namespace 过雨烟云
                 }
 
                 InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
-                MessageBox.Show(invoiceInfoBll.SaveInvoiceInfo(ActiveForm.Text, list));
+                MessageBox.Show(invoiceInfoBll.SaveInvoiceInfo("发票新增", list));
 
-
+                //清空所有控件的内容
                 foreach (Control tb in panel1.Controls)
                 {
                     if (tb.GetType().ToString().Contains("TextBox")) tb.Text = "";
                 }
 
+                //新增提交后 清空DGV行
                 while (dataGridView1.Rows.Count != 0)
                 {
                     dataGridView1.Rows.RemoveAt(0);
@@ -244,7 +268,6 @@ namespace 过雨烟云
         }
 
         #endregion
-
 
         #region 检查是否有必填项为空
 
@@ -300,12 +323,12 @@ namespace 过雨烟云
 
         #endregion
 
-
+        #region 窗体尺寸事件
         private void Form_InVoiceEntry_Resize(object sender, EventArgs e)
         {
-            
             panel1.Left = (this.Width - panel1.Width) / 2;
         }
+        #endregion
 
         #region 点击窗体右上角X提示
 
@@ -335,18 +358,29 @@ namespace 过雨烟云
 
         #endregion
 
-
+        #region 点击提交按钮 用于新增或者修改信息
+        /// <summary>
+        /// 点击提交按钮 用于新增或者修改信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
+            int rowNum = 0;
             if (tsbtn_submit.Text == "新增")
             {
                 dataGridView1.Rows.Add();
+                rowNum = dataGridView1.RowCount - 1;
+                dataGridView1["id", rowNum].Value = "1";
+                dataGridView1.Rows[rowNum].Selected = true;
+                dataGridView1.FirstDisplayedScrollingRowIndex = rowNum;
                 return;
             }
 
             if (tsbtn_submit.Text == "修改")
             {
                 dt.Rows.Add();
+               
 
                 dt.Rows[dt.Rows.Count - 1]["id"] = dt.Rows[0]["id"];
                 dt.Rows[dt.Rows.Count - 1]["invoicecode"] = dt.Rows[0]["invoicecode"];
@@ -380,6 +414,7 @@ namespace 过雨烟云
                 return;
             }
         }
+        #endregion
 
         #region 删除DGV一行
         /// <summary>
@@ -426,6 +461,24 @@ namespace 过雨烟云
         }
         #endregion
 
-        //private void 
+
+        #region 值改变的事件触发
+        /// <summary>
+        /// 内容修改后修改数据源方法
+        /// </summary>
+        /// <param name="ctlText">控件Text的名称</param>
+        /// <param name="val">控件的值</param>
+        private void ValueChange(string ctlText, string val)
+        {
+            //int rowCount;
+            //rowCount = dataGridView1.RowCount;
+            //dt.Rows[]
+        }
+        #endregion
+
+        private void tb_returnMoney_TextChanged(object sender, EventArgs e)
+        {
+            //ValueChange("returnmoney", tb_returnMoney.Text);
+        }
     }
 }

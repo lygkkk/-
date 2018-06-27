@@ -3,6 +3,8 @@ using System.Data;
 using System.Runtime.Remoting.Messaging;
 using Model;
 using DAL;
+using System.Windows.Forms;
+
 namespace BLL
 {
     public class InvoiceInfoBLL
@@ -51,19 +53,54 @@ namespace BLL
         #region 更新发票修改信息到数据库
 
         /// <summary>
-        /// 更新发票修改信息到数据库
+        /// 发票修改 
         /// </summary>
-        /// <param name="dt">DataTable 要修改的信息</param>
-        /// <returns></returns>
+        /// <param name="dt">DataTable 存放发票明细信息的表</param>
+        /// <param name="dt1">DataTable 存放发票明细基本信息的表</param>
+        /// <returns>返回影响行数</returns>
 
-        public int ModifyData(DataTable dt)
+        public string ModifyData(DataTable dt, DataTable dt1)
         {
-            return invoiceInfo.ModifyData("invoiceinfo", dt);
+            int yxhs = 0;
+            string msg = "";
+            yxhs = invoiceInfo.ModifyData("invoiceinfo", dt, dt1);
+            if (yxhs > 0)
+            {
+                msg = "修改成功！";
+            }
+            else
+            {
+                msg = "修改失败！";
+            }
+            return msg;
         }
 
         #endregion
 
-            public string SaveInvoiceInfo(string addOrUpdate, List<InvoiceInfo> list)
+        #region 删除一条信息
+        /// <summary>
+        /// 删除一条发票信息
+        /// </summary>
+        /// <param name="tableName">数据库表名</param>
+        /// <param name="dgvRow">DataGridViewRow</param>
+        /// <returns>返回成功或失败的信息 </returns>
+        public string DeleteSingleInfo(string tableName, DataGridViewRow dgvRow)
+        {
+            int rowCount = invoiceInfo.DeleteSingleInfo(tableName, dgvRow);
+            string msg = string.Empty;
+            if (rowCount > 0)
+            {
+                msg = "删除成功！";
+            }
+            else
+            {
+                msg = "删除失败！";
+            }
+            return msg;
+        }
+        #endregion
+
+        public string SaveInvoiceInfo(string addOrUpdate, List<InvoiceInfo> list)
         {
             int yxhs = 0;
             string msg = "";

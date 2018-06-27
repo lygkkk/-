@@ -64,12 +64,11 @@ namespace 过雨烟云
             Query query = new Query(FileDir, DB.DbType.Sqlite);
             query.Execute(sqlCommand);
 
-            for (int i = 0; i < tmp.Length; i++)
+            for (int i = 1; i < tmp.Length; i++)
             {
-                //MessageBox.Show(CommpanyInfo.dgv.RowCount.ToString());
-                CommpanyInfo.dgv.Rows[int.Parse(label7.Text) - 1].Cells[i].Value = tmp[i];
+                CommpanyInfo.dgv.Rows[int.Parse(label7.Text) - 1].Cells[i].Value = tmp[i - 1];
             }
-            //CommpanyInfo.dgv.ResetText();
+            MessageBox.Show("修改成功！");
         }
 
         private void button2_Click(object sender, EventArgs e)
