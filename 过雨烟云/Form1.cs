@@ -225,8 +225,21 @@ namespace 过雨烟云
         /// <param name="e"></param>
         private void tsbtn_query_Click(object sender, EventArgs e)
         {
-            CommpanyInfoQuery commpanyInfoQuery = new CommpanyInfoQuery(CommpanyInfo);
-            commpanyInfoQuery.ShowDialog();
+            if (ActiveMdiChild.Text.Equals("单位信息"))
+            {
+                CommpanyInfoQuery commpanyInfoQuery = new CommpanyInfoQuery(CommpanyInfo);
+                commpanyInfoQuery.ShowDialog();
+            }
+            else if (ActiveMdiChild.Text.Equals("发票信息"))
+            {   
+                //InvoiceInfoBLL invoiceInfoBll = new InvoiceInfoBLL();
+
+                //DataTable dt = invoiceInfoBll.GetAllInvoiceDetail();
+
+                InVoiceQuery inVoiceQuery = new InVoiceQuery();
+                inVoiceQuery.ShowDialog();
+            }
+
         }
 
         #endregion

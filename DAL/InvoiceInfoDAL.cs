@@ -11,6 +11,29 @@ namespace DAL
     public class InvoiceInfoDAL
     {
 
+        #region 自定义查询
+
+        //public DataTable CustomQuery(DataTable dt)
+        //{
+        //    string sql = "SELECT a.invoicecode, a.invoicenumber, a.date, b.commpanyname, b.taxnumber";
+        //}
+
+        #endregion
+
+        #region 获取所有的发票明细
+        /// <summary>
+        /// 获取所有的发票明细
+        /// </summary>
+        /// <returns>返回一个DataTable表</returns>
+        public DataTable GetAllInvoiceDetail()
+        {
+            string sql= "SELECT * FROM invoiceinfo WHERE flag = '0'";
+            DataTable dt = SqliteConn.ExecuteTable(sql);
+            return dt;
+        }
+
+        #endregion
+
         #region 获取所有发票信息的唯一项 不包含删除的
 
         /// <summary>

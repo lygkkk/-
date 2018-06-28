@@ -12,6 +12,19 @@ namespace BLL
         InvoiceInfoDAL invoiceInfo = new InvoiceInfoDAL();
 
 
+
+        #region 获取所有的发票明细
+        /// <summary>
+        /// 获取所有的发票明细
+        /// </summary>
+        /// <returns>返回一个DataTable表</returns>
+        public DataTable GetAllInvoiceDetail()
+        {
+            return invoiceInfo.GetAllInvoiceDetail();
+        }
+
+        #endregion
+
         #region 获取所有发票信息的唯一项 不包含删除的
 
         /// <summary>
