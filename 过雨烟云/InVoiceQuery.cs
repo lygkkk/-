@@ -18,14 +18,29 @@ namespace 过雨烟云
             InitializeComponent();
         }
 
+        private GroupBox _groupBox;
         List<Control> listBtn = new List<Control>();
-        private Point gbPoint;              //记录控件的位置
         private bool isMouseDown = false;   //鼠标左键是否按下
         private Point mouseOffset;          //记录鼠标指针的坐标
         private void InVoiceQuery_Load(object sender, EventArgs e)
         {
-            ControlSort();
+            //获取控件到list
+            foreach (Control ctl in groupBox2.Controls)
+            {
+                if (ctl.GetType().Name.Equals("Button")) listBtn.Add(ctl);
+            }
+            foreach (Control ctl in groupBox5.Controls)
+            {
+                if (ctl.GetType().Name.Equals("Button")) listBtn.Add(ctl);
+            }
+
+            //绑定鼠标和GroupBox事件
             MouseEventBind();
+            // 允许拖放控件到其他容器
+            groupBox3.AllowDrop = true;
+            groupBox2.AllowDrop = true;
+            groupBox4.AllowDrop = true;
+            groupBox5.AllowDrop = true;
         }
 
 
@@ -39,10 +54,9 @@ namespace 过雨烟云
         {
             if (e.Button == MouseButtons.Left)
             {
-                
-                mouseOffset.X = e.X;
-                mouseOffset.Y = e.Y;
-                isMouseDown = true;
+                Button btn = (Button)sender;
+                _groupBox = (GroupBox)btn.Parent;
+                btn.DoDragDrop(btn, DragDropEffects.Move);
             }
         }
 
@@ -56,12 +70,12 @@ namespace 过雨烟云
         /// <param name="e"></param>
         private void MouseMove(object sender, MouseEventArgs e)
         {
-            if (isMouseDown)
-            {
-                int left = ActiveControl.Left + e.X - mouseOffset.X;
-                int top = ActiveControl.Top + e.Y - mouseOffset.Y;
-                ActiveControl.Location = new Point(left, top);
-            }
+            //if (isMouseDown)
+            //{
+            //    int left = ActiveControl.Left + e.X - mouseOffset.X;
+            //    int top = ActiveControl.Top + e.Y - mouseOffset.Y;
+            //    ActiveControl.Location = new Point(left, top);
+            //}
         }
 
         #endregion
@@ -74,10 +88,10 @@ namespace 过雨烟云
         /// <param name="e"></param>
         private void MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                isMouseDown = false;
-            }
+            //if (e.Button == MouseButtons.Left)
+            //{
+            //    isMouseDown = false;
+            //}
         }
 
 
@@ -85,23 +99,20 @@ namespace 过雨烟云
 
         #region 按钮控件排序
 
-        private void ControlSort()
+        private void ControlSort(GroupBox groupBox)
         {
-            if (listBtn.Count == 0)
-            {
-                foreach (Control ctl in groupBox2.Controls)
-                {
-                    if (ctl.GetType().Name.Equals("Button")) listBtn.Add(ctl);
-                }
-            }
-            gbPoint.X = groupBox2.Left + 10;
-            gbPoint.Y = (groupBox2.Height - listBtn[0].Height) / 2 + 5;
+            Point gbPoint = new Point();              //记录控件的位置
+            int ctlCount = groupBox.Controls.Count;
+            if (ctlCount == 0) return;
 
-            for (int i = 0; i < listBtn.Count; i++)
+            gbPoint.X = groupBox.Left + 10;
+            gbPoint.Y = (groupBox.Height - groupBox.Controls[0].Height) / 2 + 5;
+
+            for (int i = 0; i < ctlCount; i++)
             {
-                listBtn[i].Left = gbPoint.X;
-                listBtn[i].Top = gbPoint.Y;
-                gbPoint.X = listBtn[i].Right + 3;
+                groupBox.Controls[i].Left = gbPoint.X;
+                groupBox.Controls[i].Top = gbPoint.Y;
+                gbPoint.X = groupBox.Controls[i].Right + 3;
             }
         }
 
@@ -119,16 +130,97 @@ namespace 过雨烟云
                 listBtn[i].MouseMove += new MouseEventHandler(MouseMove);
                 listBtn[i].MouseUp += new MouseEventHandler(MouseUp);
             }
+            // 拖动对象进入控件边界时触发
             groupBox3.DragEnter += new DragEventHandler(DragEnter);
+            groupBox2.DragEnter += new DragEventHandler(DragEnter);
+            groupBox4.DragEnter += new DragEventHandler(DragEnter);
+            groupBox5.DragEnter += new DragEventHandler(DragEnter);
+            // 完成拖动时触发
+            groupBox3.DragDrop += new DragEventHandler(DragDrop);
+            groupBox2.DragDrop += new DragEventHandler(DragDrop);
+            groupBox4.DragDrop += new DragEventHandler(DragDrop);
+            groupBox5.DragDrop += new DragEventHandler(DragDrop);
+
         }
 
         #endregion
 
+
+        #region 取消所有事件
+
+        private void CancelEventBind()
+        {
+            for (int i = 0; i < listBtn.Count; i++)
+            {
+                listBtn[i].MouseDown -= new MouseEventHandler(MouseDown);
+                listBtn[i].MouseMove -= new MouseEventHandler(MouseMove);
+                listBtn[i].MouseUp -= new MouseEventHandler(MouseUp);
+            }
+            // 拖动对象进入控件边界时触发
+            groupBox3.DragEnter -= new DragEventHandler(DragEnter);
+            groupBox2.DragEnter -= new DragEventHandler(DragEnter);
+            groupBox4.DragEnter -= new DragEventHandler(DragEnter);
+            groupBox5.DragEnter -= new DragEventHandler(DragEnter);
+            // 完成拖动时触发
+            groupBox3.DragDrop -= new DragEventHandler(DragDrop);
+            groupBox2.DragDrop -= new DragEventHandler(DragDrop);
+            groupBox4.DragDrop -= new DragEventHandler(DragDrop);
+            groupBox5.DragDrop -= new DragEventHandler(DragDrop);
+
+        }
+
+
+        #endregion
+
+
+        #region 放下控件
+
+        private void DragDrop(object sender, DragEventArgs e)
+        {
+            if (isMouseDown == false) return;
+           
+                GroupBox groupBox = (GroupBox)sender;
+            if (_groupBox.Name == "groupBox2")
+            {
+                ActiveControl.Parent = groupBox3;
+            }
+            else if (_groupBox.Name == "groupBox3")
+            {
+                ActiveControl.Parent = groupBox2;
+
+            }
+            else if (_groupBox.Name == "groupBox4")
+            {
+                ActiveControl.Parent = groupBox5;
+            }
+            else
+            {
+                ActiveControl.Parent = groupBox4;
+            }
+
+            //CancelEventBind();
+            ControlSort(groupBox);
+            ControlSort(_groupBox);
+            isMouseDown = false;
+            //MouseEventBind();
+            // 从事件参数 DragEventArgs 中获取被拖动的元素
+            //Button btn = (Button)e.Data.GetData(typeof(Button));
+            //GroupBox grp = (GroupBox)btn.Parent;
+            //grp.Controls.Remove(btn);
+            //((GroupBox)sender).Controls.Add(btn);
+            //RefreshControls(new Control[] { grp, (GroupBox)sender });
+            //isMouseDown = false;
+        }
+
+        #endregion
+
+
         #region 鼠标进入控件事件
 
-        private void DragEnter(object sender, EventArgs e)
+        private void DragEnter(object sender, DragEventArgs e)
         {
-            MessageBox.Show("");
+            e.Effect = DragDropEffects.Move;
+            isMouseDown = true;
         }
 
         #endregion
