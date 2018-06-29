@@ -455,7 +455,7 @@ namespace 过雨烟云
             btn.TextAlign = ContentAlignment.MiddleCenter;
             btn.Font = new Font("微软雅黑", 9);
             ctl.Controls.Add(btn);
-            btn.BackColor = Color.LightGray;
+            btn.BackColor = Color.Blue;
             btn.TabStop = false;
             btn.Width = 30;
             btn.Height = ctl.Height - 4;
@@ -479,7 +479,7 @@ namespace 过雨烟云
 
             for (int i = 0; i < dataGridView1.RowCount; i++)
             {
-                if(dataGridView1.Rows[i].st)
+                //if(dataGridView1.Rows[i].st)
                 totalMoney = totalMoney + Convert.ToDouble(dataGridView1.Rows[i].Cells[6].Value);
                 totalTaxAmount = totalTaxAmount + Convert.ToDouble(dataGridView1.Rows[i].Cells[8].Value);
             }

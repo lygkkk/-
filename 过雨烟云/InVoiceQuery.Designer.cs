@@ -605,7 +605,7 @@ namespace 过雨烟云
             // 
             // groupBox4
             // 
-            this.groupBox4.Location = new System.Drawing.Point(651, 169);
+            this.groupBox4.Location = new System.Drawing.Point(646, 169);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
@@ -621,7 +621,7 @@ namespace 过雨烟云
             this.groupBox5.Controls.Add(this.btn_money);
             this.groupBox5.Controls.Add(this.btn_returnMoney);
             this.groupBox5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox5.Location = new System.Drawing.Point(651, 126);
+            this.groupBox5.Location = new System.Drawing.Point(647, 126);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
@@ -636,11 +636,11 @@ namespace 过雨烟云
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(990, 406);
             this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "InVoiceQuery";
             this.Text = "InVoiceQuery";
