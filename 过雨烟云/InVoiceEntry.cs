@@ -25,6 +25,7 @@ namespace 过雨烟云
             InitializeComponent();
         }
 
+        
         private string _fileDir;
 
         public string FileDir { get => _fileDir; set => _fileDir = value; }
@@ -166,17 +167,20 @@ namespace 过雨烟云
             panel1.Size = new Size(1200, 768);
             this.AutoScroll = true;
 
-            dt1 = dt.Copy();
-            if (dt1.Rows.Count > 1)
-            {
-                for (int i = 1; i < dt1.Rows.Count; i++)
-                {
-                    dt1.Rows[i].Delete();
-                }
-            }
+            
 
             if (this.Text == "发票修改")
             {
+                dt1 = dt.Copy();
+                if (dt1.Rows.Count > 1)
+                {
+                    for (int i = 1; i < dt1.Rows.Count; i++)
+                    {
+                        dt1.Rows[i].Delete();
+                    }
+                }
+
+
                 int charIndexOf = -1;
                 foreach (Control ctl in panel1.Controls)
                 {
@@ -190,7 +194,7 @@ namespace 过雨烟云
                 dataGridView1.DataSource = dt;
                 tsbtn_submit.Text = "修改";
             }
-
+            dataGridView1.CellLeave += new DataGridViewCellEventHandler(CellsLeave);
         }
         #endregion
 
@@ -427,6 +431,7 @@ namespace 过雨烟云
             if (this.tsbtn_submit.Text == "新增")
             {
                 dataGridView1.Rows.Remove(dataGridView1.CurrentRow);
+                Culcal();
                 return;
             }
 
@@ -435,6 +440,7 @@ namespace 过雨烟云
                 if (dt.Rows.Count > 1)
                 {
                     dt.Rows[dataGridView1.CurrentRow.Index].Delete();
+                    //Culcal();
                 }
                 return;
             }
@@ -466,19 +472,57 @@ namespace 过雨烟云
         /// <summary>
         /// 内容修改后修改数据源方法
         /// </summary>
-        /// <param name="ctlText">控件Text的名称</param>
-        /// <param name="val">控件的值</param>
-        private void ValueChange(string ctlText, string val)
+        private void Culcal()
         {
-            //int rowCount;
-            //rowCount = dataGridView1.RowCount;
-            //dt.Rows[]
+            double totalMoney = 0.00;
+            double totalTaxAmount = 0.00;
+
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                if(dataGridView1.Rows[i].st)
+                totalMoney = totalMoney + Convert.ToDouble(dataGridView1.Rows[i].Cells[6].Value);
+                totalTaxAmount = totalTaxAmount + Convert.ToDouble(dataGridView1.Rows[i].Cells[8].Value);
+            }
+
+            tb_totalamount.Text = "￥" + totalMoney.ToString("F2");
+            tb_totaltaxamount.Text = "￥" + totalTaxAmount.ToString("F2");
+            tb_moneylow.Text = "￥" + (totalMoney + totalTaxAmount).ToString("F2");
+            MoneyToUpper(totalMoney + totalTaxAmount);
         }
         #endregion
 
-        private void tb_returnMoney_TextChanged(object sender, EventArgs e)
+
+        #region 人民币大写
+
+        private void MoneyToUpper(double dbl)
         {
-            //ValueChange("returnmoney", tb_returnMoney.Text);
+            string[] money = dbl.ToString().Split('.');
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (char str in money[1])
+            {
+                MessageBox.Show("");
+            }
+
         }
+
+        #endregion
+
+
+        #region 金额和税额修改后自动计算
+
+
+        private void CellsLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 8 || e.ColumnIndex == 6)
+            {
+                dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                Culcal();
+            }
+        }
+
+        #endregion
+
     }
 }
