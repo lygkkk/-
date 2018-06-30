@@ -467,7 +467,6 @@ namespace 过雨烟云
         }
         #endregion
 
-
         #region 值改变的事件触发
         /// <summary>
         /// 内容修改后修改数据源方法
@@ -491,7 +490,6 @@ namespace 过雨烟云
         }
         #endregion
 
-
         #region 人民币大写
 
         private void MoneyToUpper(double dbl)
@@ -508,7 +506,6 @@ namespace 过雨烟云
         }
 
         #endregion
-
 
         #region 金额和税额修改后自动计算
 

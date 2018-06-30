@@ -13,6 +13,16 @@ namespace BLL
 
 
 
+        #region 获取所有发票明细
+
+        public DataTable GetAllInvoiceDetail(DataTable dt)
+        {
+            return invoiceInfo.GetAllInvoiceDetail(dt);
+        }
+
+        #endregion
+
+
         #region 获取所有的发票明细
         /// <summary>
         /// 获取所有的发票明细

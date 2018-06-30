@@ -24,6 +24,8 @@ namespace 过雨烟云
         private Point mouseOffset;          //记录鼠标指针的坐标
         private void InVoiceQuery_Load(object sender, EventArgs e)
         {
+            ControlLayout();
+
             //获取控件到list
             foreach (Control ctl in groupBox2.Controls)
             {
@@ -173,7 +175,7 @@ namespace 过雨烟云
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MouseMove(object sender, MouseEventArgs e)
+        private new void MouseMove(object sender, MouseEventArgs e)
         {
             //if (isMouseDown)
             //{
@@ -191,7 +193,7 @@ namespace 过雨烟云
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void MouseUp(object sender, MouseEventArgs e)
+        private new void MouseUp(object sender, MouseEventArgs e)
         {
             //if (e.Button == MouseButtons.Left)
             //{
@@ -256,10 +258,30 @@ namespace 过雨烟云
 
         #endregion
 
+        #region 窗体的排版布局
 
-        
+        private void ControlLayout()
+        {
+
+            groupBox2.Width = groupBox2.Controls.Count * groupBox2.Controls[0].Width + 50;
+            tableLayoutPanel1.ColumnStyles[0].Width = groupBox2.Width + 20;
+            
+            //groupBox3.Top = groupBox2.Bottom;
+            //groupBox5.Left = groupBox2.Right;
+            //groupBox5.Top = groupBox1.Bottom;
+            //groupBox4.Left = groupBox3.Right;
+            //groupBox4.Top = groupBox5.Bottom;
+            
+            dataGridView1.Top = tableLayoutPanel1.Bottom;
+            dataGridView1.Dock = DockStyle.Fill;
+            //dataGridView1.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
+
+        }
 
 
-       
+
+
+        #endregion
+
     }
 }

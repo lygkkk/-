@@ -11,14 +11,50 @@ namespace DAL
     public class InvoiceInfoDAL
     {
 
-        #region 自定义查询
+        #region 获取所有发票明细
 
-        //public DataTable CustomQuery(DataTable dt)
-        //{
-        //    string sql = "SELECT a.invoicecode, a.invoicenumber, a.date, b.commpanyname, b.taxnumber";
-        //}
+        public DataTable GetAllInvoiceDetail(DataTable dt)
+        {
+            string sql =
+                "SELECT a.*, b.commpanyname, c.commpanyname FROM invoiceinfo AS a " +
+                "LEFT OUTER JOIN commpanyinfo AS b ON a.buyersid = b.id" +
+                "LEFT OUTER JOIN commpanyinfo AS c ON a.sellersid = c.id" +
+                "WHERE " +
+                "a.invoicecode LIKE '%@invoiceCode%' AND a.invoicenumbe LIKE '%@invoiceNumber%' AND a.date BETWEEN '%@startTime%' AND '@endTime' AND" +
+                "a.productname LIKE '%@productName%' AND a.taxrate LIKE '%@taxRate%' AND a.comment LIKE '%@comment%' AND a.payee LIKE '%@payee%' AND a.\"check\" LIKE '%@check%' AND" +
+                "a.drawer LIKE '%@drawer%' AND a.invoicestate LIKE '%@invoiceState%' AND a.flag = '0' AND b.commpanyname LIKE '%@buyersCommpany%' AND c.commpanyname LIKE '%@sellersCommpany%'";
+
+            return SqliteConn.ExecuteTable(sql, GetAllInvoiceDetailParameterSet(dt));
+        }
+        #endregion
+
+        #region 获取所有发票明细 参数
+
+        public SQLiteParameter[] GetAllInvoiceDetailParameterSet(DataTable dt)
+        {
+            SQLiteParameter[] sp =
+            {
+                new SQLiteParameter("@invoiceCode", dt.Rows[0]["invoiceCode"]),
+                new SQLiteParameter("@invoiceNumber", dt.Rows[0]["invoiceNumber"]),
+                new SQLiteParameter("@startDate", dt.Rows[0]["startDate"]),
+                new SQLiteParameter("@endDate", dt.Rows[0]["endDate"]),
+                new SQLiteParameter("@productName", dt.Rows[0]["productName"]),
+                new SQLiteParameter("@taxRate", dt.Rows[0]["taxRate"]),
+                new SQLiteParameter("@comment", dt.Rows[0]["comment"]),
+                new SQLiteParameter("@payee", dt.Rows[0]["payee"]),
+                new SQLiteParameter("@check", dt.Rows[0]["check"]),
+                new SQLiteParameter("@drawer", dt.Rows[0]["drawer"]),
+                new SQLiteParameter("@invoiceState", dt.Rows[0]["invoiceState"]),
+                new SQLiteParameter("@buyersCommpany", dt.Rows[0]["buyersCommpany"]),
+                new SQLiteParameter("@sellersCommpany", dt.Rows[0]["sellersCommpany"]),
+            };
+
+
+            return sp;
+        }
 
         #endregion
+
 
         #region 获取所有的发票明细
         /// <summary>
